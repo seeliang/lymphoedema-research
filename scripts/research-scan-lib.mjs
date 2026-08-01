@@ -4,6 +4,7 @@ export function normalisePubmedSummary(uid, raw = {}) {
   const articleIds = Array.isArray(raw.articleids) ? raw.articleids : []
   const doi = articleIds.find((item) => item?.idtype === "doi")?.value ?? null
   const publicationTypes = Array.isArray(raw.pubtype) ? raw.pubtype.map(String) : []
+  const languages = Array.isArray(raw.lang) ? raw.lang.map((value) => String(value).toLowerCase()) : []
 
   return {
     pmid: String(raw.uid ?? uid),
@@ -11,6 +12,7 @@ export function normalisePubmedSummary(uid, raw = {}) {
     journal: cleanText(raw.fulljournalname ?? raw.source ?? "Journal not listed"),
     publicationDate: String(raw.pubdate ?? raw.epubdate ?? "Date not listed"),
     publicationTypes,
+    languages,
     doi,
     url: `https://pubmed.ncbi.nlm.nih.gov/${raw.uid ?? uid}/`,
   }
@@ -61,6 +63,10 @@ export function formatDigest({
   newPublications,
   armPublications,
   trunkAbdomenPublications,
+  frenchPublications,
+  germanPublications,
+  chinesePublications,
+  japanesePublications,
   trackedWarnings,
   changedTrials,
   newTrials,
@@ -96,6 +102,23 @@ export function formatDigest({
   appendRecordList(lines, [...armPublications].sort((a, b) => publicationPriority(a) - publicationPriority(b)), "No new arm or upper-limb candidates were found in the overlap window.")
   lines.push("", "### Trunk, chest and abdomen", "")
   appendRecordList(lines, [...trunkAbdomenPublications].sort((a, b) => publicationPriority(a) - publicationPriority(b)), "No new trunk, chest, or abdominal-wall candidates were found in the overlap window.")
+
+  lines.push(
+    "",
+    "## Publication-language watchlists",
+    "",
+    "These are subsets of the new PubMed candidates, grouped by PubMed publication-language metadata. They improve visibility without creating separate evidence feeds or changing the editorial threshold.",
+    "",
+    "### French",
+    "",
+  )
+  appendRecordList(lines, [...frenchPublications].sort((a, b) => publicationPriority(a) - publicationPriority(b)), "No new PubMed-indexed French-language candidates were found in the overlap window.")
+  lines.push("", "### German", "")
+  appendRecordList(lines, [...germanPublications].sort((a, b) => publicationPriority(a) - publicationPriority(b)), "No new PubMed-indexed German-language candidates were found in the overlap window.")
+  lines.push("", "### Chinese", "")
+  appendRecordList(lines, [...chinesePublications].sort((a, b) => publicationPriority(a) - publicationPriority(b)), "No new PubMed-indexed Chinese-language candidates were found in the overlap window.")
+  lines.push("", "### Japanese", "")
+  appendRecordList(lines, [...japanesePublications].sort((a, b) => publicationPriority(a) - publicationPriority(b)), "No new PubMed-indexed Japanese-language candidates were found in the overlap window.")
 
   lines.push("", "## Tracked trial changes", "")
   appendTrialList(lines, changedTrials, "No tracked trial metadata changed.")

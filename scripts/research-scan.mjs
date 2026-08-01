@@ -41,6 +41,10 @@ const armPmidSet = new Set(armPmids)
 const trunkAbdomenPmidSet = new Set(trunkAbdomenPmids)
 const armPublications = newPublications.filter((record) => armPmidSet.has(record.pmid))
 const trunkAbdomenPublications = newPublications.filter((record) => trunkAbdomenPmidSet.has(record.pmid))
+const frenchPublications = newPublications.filter((record) => record.languages.includes("fre"))
+const germanPublications = newPublications.filter((record) => record.languages.includes("ger"))
+const chinesePublications = newPublications.filter((record) => record.languages.includes("chi"))
+const japanesePublications = newPublications.filter((record) => record.languages.includes("jpn"))
 
 const ctVersion = await fetchJson("https://clinicaltrials.gov/api/v2/version")
 const allTrials = await fetchClinicalTrials()
@@ -80,6 +84,10 @@ process.stdout.write(formatDigest({
   newPublications,
   armPublications,
   trunkAbdomenPublications,
+  frenchPublications,
+  germanPublications,
+  chinesePublications,
+  japanesePublications,
   trackedWarnings: retractionWarnings(trackedPublications),
   changedTrials,
   newTrials,
