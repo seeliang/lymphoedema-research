@@ -62,7 +62,8 @@ describe("Simplified Chinese translation coverage", () => {
   })
 
   it("uses research-first navigation and evidence-status language in the 8.5 Chinese UI", () => {
-    expect(zhCNUI.evidenceFirst.navigation.whatWorks).toBe("哪些方法有效")
+    expect(zhCNUI.evidenceFirst.navigation.whatWorks).toBe("有效方法")
+    expect(zhCNUI.evidenceFirst.heroButton).toBe("先看有效方法")
     expect(zhCNUI.evidenceFirst.navigation.medicines).toBe("药物")
     expect(zhCNUI.evidenceFirst.overview.references).toBe("直接查看依据")
     expect(zhCNUI.evidenceFirst.review.languageNotReviewed).toContain("未经独立人工语言审校")
@@ -71,7 +72,9 @@ describe("Simplified Chinese translation coverage", () => {
   it("uses patient-facing efficacy language for treatment outcomes in 8.5", () => {
     const translation = zhCNEditionTranslations["2026.08.5"]
 
-    expect(translation.translationRevision).toBe(1)
+    expect(translation.translationRevision).toBe(2)
+    expect(translation.evidence["compression-self-management"].title).toBe("更灵活的加压和指导方式，可能让日常护理更容易")
+    expect(translation.evidence["compression-self-management"].title).not.toContain("日常管理")
     expect(translation.evidence.microsurgery.title).toBe("显微手术可能减少蜂窝织炎，但不同疗效并不一致")
     expect(translation.evidence.microsurgery.title).not.toContain("结局")
     expect(translation.evidence["resistance-training"].takeaway).toContain("肢体状况也有所改善")

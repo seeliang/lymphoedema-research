@@ -65,7 +65,7 @@ describe("public edition structure", () => {
   it("publishes the 8.5 Chinese edition as AI-assisted and not independently reviewed", () => {
     const translation = zhCNEditionTranslations["2026.08.5"]
 
-    expect(translation.title).toBe("淋巴水肿研究：哪些方法有效，哪些问题仍不确定")
+    expect(translation.title).toBe("淋巴水肿研究：有效方法与有待确认的研究")
     expect(translation.translationStatus).toBe("ai-assisted")
     expect(translation.languageReview).toEqual({ status: "not-reviewed" })
     expect(Object.keys(translation.evidenceOverview ?? {})).toEqual([

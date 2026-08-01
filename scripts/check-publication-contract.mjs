@@ -65,7 +65,7 @@ if (edition.evidenceOverview) {
 
   for (const [label, html] of [["Chinese current", chineseCurrentHtml], ["Chinese archive", chineseHtml]]) {
     assertOrderedSections(html, ["what-works", "treatment", "medicines", "children", "understanding-diagnosis", "deferred"], label)
-    assertIncludes(html, "淋巴水肿研究：哪些方法有效，哪些问题仍不确定", `${label} evidence-first title`)
+    assertIncludes(html, "淋巴水肿研究：有效方法与有待确认的研究", `${label} evidence-first title`)
     assertExcludes(html, "近期淋巴水肿研究说了什么", `${label} legacy hero title`)
     assertIncludes(html, "现有研究支持什么", `${label} overview heading`)
     assertIncludes(html, "现有照护已有明确基础", `${label} established-care takeaway`)
@@ -83,8 +83,8 @@ if (edition.evidenceOverview) {
     assertExcludes(html, 'id="trials"', `${label} duplicate global trials section`)
     assertGroupNumbers(html, "treatment", "medicines", ["01", "02", "03"], label)
     assertGroupNumbers(html, "understanding-diagnosis", "deferred", ["01", "02"], label)
-    assertTextOrder(html, 'id="treatment"', "更灵活的加压和指导方式，可能让日常管理更容易", `${label} treatment section start`)
-    assertTextOrder(html, "更灵活的加压和指导方式，可能让日常管理更容易", "乳腺癌手术后，渐进式力量训练可能有助于降低淋巴水肿风险", `${label} compression before resistance training`)
+    assertTextOrder(html, 'id="treatment"', "更灵活的加压和指导方式，可能让日常护理更容易", `${label} treatment section start`)
+    assertTextOrder(html, "更灵活的加压和指导方式，可能让日常护理更容易", "乳腺癌手术后，渐进式力量训练可能有助于降低淋巴水肿风险", `${label} compression before resistance training`)
     assertTextOrder(html, "乳腺癌手术后，渐进式力量训练可能有助于降低淋巴水肿风险", "显微手术可能减少蜂窝织炎，但不同疗效并不一致", `${label} resistance training before microsurgery`)
     assertSectionIncludes(html, "treatment", "medicines", "NCT05890677", `${label} LYMPH trial in treatment`)
     assertSectionIncludes(html, "medicines", "children", "NCT07012642", `${label} GLP-1 trial in medicines`)

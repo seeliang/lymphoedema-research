@@ -332,7 +332,7 @@ export const zhCNUI = {
   },
   evidenceFirst: {
     navigation: {
-      whatWorks: "哪些方法有效",
+      whatWorks: "有效方法",
       treatment: "治疗",
       medicines: "药物",
       children: "儿童",
@@ -343,7 +343,7 @@ export const zhCNUI = {
       title: "草稿预览，尚未发布",
       body: "本候选版本只在本地预览模式中显示，不会进入公开构建。",
     },
-    heroButton: "先看哪些方法有效",
+    heroButton: "先看有效方法",
     heroEyebrow: (version: string, date: string) => `第 ${version} 版 · 英文资料核对于 ${date}`,
     overview: {
       eyebrow: "先看证据结论",
