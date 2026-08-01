@@ -38,7 +38,15 @@ describe("Simplified Chinese translation coverage", () => {
     expect(chineseCopy).not.toContain("英文原版状态")
   })
 
-  it("does not claim independent human review for the 2026.08.3 translation", () => {
-    expect(zhCNEditionTranslations["2026.08.3"].translationStatus).toBe("ai-assisted")
+  it("explains Milroy disease for non-clinical readers in 2026.08.3 revision 1", () => {
+    const translation = zhCNEditionTranslations["2026.08.3"]
+    const population = translation.evidence["primary-biology"].population
+
+    expect(translation.translationStatus).toBe("ai-assisted")
+    expect(translation.translationRevision).toBe(1)
+    expect(population).toContain("一些症状类似 Milroy 病的人")
+    expect(population).toContain("遗传性淋巴水肿")
+    expect(population).toContain("出生时或婴儿期")
+    expect(population).toContain("小腿和足部")
   })
 })

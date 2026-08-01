@@ -246,13 +246,20 @@ zhCNEditionTranslations["2026.08.2"] = {
 zhCNEditionTranslations["2026.08.3"] = {
   ...structuredClone(zhCNEditionTranslations["2026.08.2"]),
   translationStatus: "ai-assisted",
-  translationRevision: 0,
+  translationRevision: 1,
   translatedOn: "2026-08-01",
   changes: [
     "更正第 2026.08.2 版：现在公开页面会把儿童和青少年明确放在首要位置，而不只是在检索报告中说明。",
     "将内容未变的已审查摘要归入“其他现有证据”，并把原发性淋巴水肿机制研究排在乳腺癌相关运动研究之前。",
     "新增公开可见的“暂缓处理的证据”栏目，同时继续把尚未审查的候选资料与已发表研究结论分开。",
   ],
+  evidence: {
+    ...structuredClone(zhCNEditionTranslations["2026.08.2"].evidence),
+    "primary-biology": {
+      ...structuredClone(zhCNEditionTranslations["2026.08.2"].evidence["primary-biology"]),
+      population: "少量原发性淋巴水肿患者，包括一些症状类似 Milroy 病的人。Milroy 病是一种遗传性淋巴水肿，通常从出生时或婴儿期开始，主要影响小腿和足部。",
+    },
+  },
   childrenFocus: {
     summary: "最近一次覆盖 45 天的检索发现 5 篇涉及儿童或青少年的论文候选资料，以及 3 条近期更新的试验注册记录。这些资料尚未完成纳入患者证据摘要所需的原始来源审查。",
   },

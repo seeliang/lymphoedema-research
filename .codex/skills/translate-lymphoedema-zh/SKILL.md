@@ -1,6 +1,6 @@
 ---
 name: translate-lymphoedema-zh
-description: Translate, rewrite, or review this repository's Simplified Chinese (zh-CN) lymphoedema research brief. Use for new edition translations, stiff or literal Chinese, terminology consistency, Chinese UI copy, translation revisions, or English-Chinese evidence and source parity checks.
+description: Translate, rewrite, or review this repository's Simplified Chinese (zh-CN) lymphoedema research brief for patients and carers. Use for new edition translations, stiff or literal Chinese, unexplained medical jargon or eponyms such as Milroy disease, acronyms, genes, techniques, rare-disease labels, terminology consistency, Chinese UI copy, translation revisions, or English-Chinese evidence and source parity checks.
 ---
 
 # Translate the lymphoedema brief into Simplified Chinese
@@ -19,11 +19,12 @@ From the repository root, read:
 
 Treat `en-AU` as the sole evidence source. Do not add, remove, strengthen, or reinterpret a finding in Chinese. If the English evidence itself must change, stop the translation-only workflow and use the repository's human editorial process first.
 
-## Rewrite in three passes
+## Rewrite in four passes
 
 1. **Meaning:** Map each title, population, study design, finding, possible meaning, limitation, trial caution, and source label to its English counterpart. Preserve numbers, uncertainty, negation, comparison groups, and study/result distinctions.
 2. **Natural Chinese:** Rewrite meaning rather than English syntax. Prefer short sentences and ordinary patient-facing wording. Apply the terminology and anti-patterns in `CHINESE_TRANSLATION_GUIDE.md`.
-3. **Consistency:** Scan navigation, metadata, banners, archive pages, accessibility labels, evidence cards, trial cards, and footer text. Use the same term for the same concept unless the context genuinely requires a different expression.
+3. **Plain-language terms:** Find eponyms, rare-disease names, acronyms, genes, tests, procedures, and research-method terms that a non-clinician cannot infer. At first use, retain the searchable formal term and briefly explain what it is. For a disease label, explain only the type of condition and the onset or body area needed to understand the sentence. Preserve qualifiers such as “similar to”; never turn a phenotype into a diagnosis. Verify any added medical fact against an authoritative patient source when it is not already stated in the English summary.
+4. **Consistency:** Scan navigation, metadata, banners, archive pages, accessibility labels, evidence cards, trial cards, and footer text. Use the same term for the same concept unless the context genuinely requires a different expression.
 
 Do not copy journal abstracts. Do not add treatment advice. Do not translate a registered trial as an established finding.
 
@@ -46,5 +47,7 @@ node .codex/skills/translate-lymphoedema-zh/scripts/check-translation-parity.mjs
 ```
 
 Also search the Chinese source and built pages for obsolete literal phrases identified during the review. Inspect the rendered headings, notices, card labels, and version history—not only the translation data object.
+
+Read every evidence field as a patient would. A medically accurate transliteration alone is not sufficient when the term still leaves a non-clinical reader unable to understand the population, intervention, or limitation.
 
 Report the changed translation revision, parity result, test result, and whether independent human language review is still outstanding. Never describe an AI rewrite as completed human review or publish it without the repository's required approval.
