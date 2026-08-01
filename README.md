@@ -28,6 +28,8 @@ Chinese-language databases are also checked as a supplementary discovery channel
 
 Each translation records a translation status, date, and independent revision number. AI-assisted translations remain visibly labelled and `noindex` until an independent human language review is recorded. A translation-only correction increments `translationRevision`; a change to the underlying global evidence creates a new calendar or patch edition.
 
+Simplified Chinese should read as natural patient-facing Chinese rather than follow English syntax word for word. Terminology, tone, and the review checklist are documented in [CHINESE_TRANSLATION_GUIDE.md](./CHINESE_TRANSLATION_GUIDE.md).
+
 ## Local development
 
 ```sh

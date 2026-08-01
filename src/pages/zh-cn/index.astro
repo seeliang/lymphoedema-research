@@ -6,8 +6,8 @@ import { localizeEditionBundle } from "../../lib/i18n"
 
 const current = await getCurrentEdition()
 const bundle = localizeEditionBundle(await getEditionBundle(current.data.version), "zh-CN")
-const title = "淋巴水肿研究简报——全球证据摘要"
-const description = `面向患者与照护者的全球淋巴水肿研究、重要局限及正在进行的试验简体中文摘要。版本 ${current.data.version}。`
+const title = "淋巴水肿研究简报｜简体中文"
+const description = `为患者和照护者整理的全球淋巴水肿研究摘要，包含重要局限和仍在进行的试验。第 ${current.data.version} 版。`
 const needsHumanTranslationReview = bundle.translation?.status !== "human-reviewed"
 ---
 

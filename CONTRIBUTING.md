@@ -20,6 +20,7 @@ Content contributions are reviewed editorially before publication. A pull reques
 - Keep the population, design, finding, possible meaning, and limitation structurally aligned.
 - Mark AI-assisted text as unreviewed until a named human language-review step is completed.
 - Increment `translationRevision` for translation-only corrections. Use a new global edition when the underlying evidence meaning changes.
+- Follow `CHINESE_TRANSLATION_GUIDE.md` for natural patient-facing wording and the shared terminology list.
 - Run the translation coverage tests through `pnpm check`.
 
 Chinese-language research suggestions are welcome even when the publication is not indexed by PubMed. Provide the stable original record, database identifier, publication language, and enough method/result information for a human reviewer to assess it. The outstanding-finding and promotion rules in `SUPPLEMENTARY_CHINESE_DISCOVERY.md` apply.

@@ -116,8 +116,8 @@ const translationAvailable = hasZhCNTranslation(data.version)
           <div><dt>{copy.review.nextDue}</dt><dd>{formatDate(data.nextReviewDue)}</dd></div>
           <div><dt>{copy.review.itemCount}</dt><dd>{evidence.length}</dd></div>
           <div><dt>{copy.review.editorialStatus}</dt><dd>{copy.review.editorialValue}</dd></div>
-          {translation && <div><dt>中文翻译日期</dt><dd>{formatDate(translation.translatedOn)}</dd></div>}
-          {translation && <div><dt>中文翻译状态</dt><dd>修订 {translation.revision} · {translation.status === "human-reviewed" ? "已完成人工语言审校" : "AI 辅助翻译，尚未经独立人工审校"}</dd></div>}
+          {translation && <div><dt>{copy.review.translationUpdated}</dt><dd>{formatDate(translation.translatedOn)}</dd></div>}
+          {translation && <div><dt>{copy.review.translationStatus}</dt><dd>{copy.review.translationValue(translation.revision, translation.status)}</dd></div>}
         </dl>
       </aside>
     </div>
@@ -200,7 +200,7 @@ const translationAvailable = hasZhCNTranslation(data.version)
               <strong>{copy.evidence.limitation}</strong>
               <p>{entry.data.limitation}</p>
             </aside>
-            <div class="sources" aria-label="Sources">
+            <div class="sources" aria-label={copy.evidence.sources(entry.data.sources.length)}>
               <strong>{copy.evidence.sources(entry.data.sources.length)}</strong>
               <ul>
                 {entry.data.sources.map((source) => (

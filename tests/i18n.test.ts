@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest"
 import editions from "../src/data/editions.json"
 import { zhCNEditionTranslations } from "../src/i18n/zh-CN"
+import { zhCNUI } from "../src/i18n/ui"
 
 const evidencePaths = Object.keys(import.meta.glob("../src/data/evidence/**/*.md", { query: "?raw", import: "default" }))
 
@@ -23,7 +24,17 @@ describe("Simplified Chinese translation coverage", () => {
     })
   }
 
-  it("does not claim independent human review for the initial translation", () => {
+  it("records the rewritten translation as AI-assisted revision 1", () => {
     expect(zhCNEditionTranslations["2026.08.0"].translationStatus).toBe("ai-assisted")
+    expect(zhCNEditionTranslations["2026.08.0"].translationRevision).toBe(1)
+  })
+
+  it("uses patient-facing Chinese instead of known literal phrasing", () => {
+    const chineseCopy = JSON.stringify({ ui: zhCNUI, editions: zhCNEditionTranslations })
+
+    expect(zhCNUI.hero.title).toBe("近期淋巴水肿研究说了什么")
+    expect(chineseCopy).not.toContain("被分配进行")
+    expect(chineseCopy).not.toContain("更易管理")
+    expect(chineseCopy).not.toContain("英文原版状态")
   })
 })

@@ -9,12 +9,12 @@ const editions = (await getAllEditions()).filter((edition) => hasZhCNTranslation
 const formatDate = (date: string) => new Intl.DateTimeFormat("zh-CN", {
   day: "numeric", month: "long", year: "numeric", timeZone: "UTC",
 }).format(new Date(`${date}T00:00:00Z`))
-const statusLabels = { current: "当前版本", superseded: "已被取代", withdrawn: "已撤回" }
+const statusLabels = { current: "最新一期", superseded: "已有更新", withdrawn: "已撤回" }
 ---
 
 <BaseLayout
-  title="版本记录——淋巴水肿研究简报"
-  description="浏览淋巴水肿研究简报的简体中文翻译版本、日期和更正记录。"
+  title="历史版本｜淋巴水肿研究简报"
+  description="查看淋巴水肿研究简报的中文历史版本、翻译修订和更正记录。"
   canonicalPath="/zh-cn/versions/"
   lang="zh-CN"
   noindex
@@ -24,11 +24,11 @@ const statusLabels = { current: "当前版本", superseded: "已被取代", with
     <div class="shell header-inner">
       <a class="brand" href={withBase("/zh-cn/")}>
         <BrandMark />
-        <span><strong>淋巴水肿研究简报</strong><small>全球证据的简体中文摘要</small></span>
+        <span><strong>淋巴水肿研究简报</strong><small>为患者和照护者整理的研究摘要</small></span>
       </a>
       <div class="header-actions">
-        <nav aria-label="主导航"><a href={withBase("/zh-cn/")}>最新版本</a></nav>
-        <a class="language-switch" href={withBase("/versions/")} lang="en-AU" hreflang="en-AU" aria-label="Read the global version history in English">
+        <nav aria-label="主导航"><a href={withBase("/zh-cn/")}>最新一期</a></nav>
+        <a class="language-switch" href={withBase("/versions/")} lang="en-AU" hreflang="en-AU" aria-label="查看全球英文版的历史记录">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h10M9 3v2c0 4-2 7-5 9m3-5c1.5 2.5 3.5 4.4 6 5.6M15 10l4 11m2 0-4-11m-.8 7h3.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"></path></svg>
           English
         </a>
@@ -38,9 +38,9 @@ const statusLabels = { current: "当前版本", superseded: "已被取代", with
   <main id="main-content" class="versions-page">
     <section class="versions-hero">
       <div class="shell narrow-shell">
-        <p class="eyebrow">公开版本记录</p>
-        <h1>每个中文翻译版本均可追溯到全球英文原版</h1>
-        <p class="lede">中文使用与英文原版相同的日历版本号。研究选择、证据局限和来源链接不另行分叉；翻译状态单独标示。</p>
+        <p class="eyebrow">版本与修订记录</p>
+        <h1>每份中文稿都对应同一份全球英文版</h1>
+        <p class="lede">中英文使用相同的研究版本号，研究选择、局限和来源链接保持一致。中文翻译的修订和审校状态另行记录。</p>
       </div>
     </section>
     <section class="section">
@@ -51,14 +51,14 @@ const statusLabels = { current: "当前版本", superseded: "已被取代", with
             <article class="edition-row">
               <div>
                 <span class:list={["edition-status", `edition-status--${edition.data.status}`]}>{statusLabels[edition.data.status]}</span>
-                <h2>版本 {edition.data.version}</h2>
-                <p>英文原版审阅于 {formatDate(edition.data.reviewedOn)} · 内容架构 {edition.data.schemaVersion}</p>
-                <p class="translation-state">翻译于 {formatDate(translation.translatedOn)} · 中文修订 {translation.translationRevision} · {translation.translationStatus === "human-reviewed" ? "已完成人工语言审校" : "AI 辅助翻译，尚未经独立人工审校"}</p>
+                <h2>第 {edition.data.version} 版</h2>
+                <p>英文资料核对于 {formatDate(edition.data.reviewedOn)} · 内容格式版本 {edition.data.schemaVersion}</p>
+                <p class="translation-state">中文稿更新于 {formatDate(translation.translatedOn)} · 修订 {translation.translationRevision} · {translation.translationStatus === "human-reviewed" ? "已完成独立人工语言审校" : "AI 辅助译稿，待独立人工语言审校"}</p>
               </div>
               <ul>{translation.changes.map((change) => <li>{change}</li>)}</ul>
               <div class="edition-actions">
-                <a class="button button--primary" href={withBase(`/zh-cn/versions/${edition.data.version}/`)}>打开中文快照</a>
-                <a class="text-link" href={withBase(`/zh-cn/versions/${edition.data.version}/edition.json`)}>中文版本 JSON</a>
+                <a class="button button--primary" href={withBase(`/zh-cn/versions/${edition.data.version}/`)}>查看本期中文稿</a>
+                <a class="text-link" href={withBase(`/zh-cn/versions/${edition.data.version}/edition.json`)}>查看中文 JSON</a>
               </div>
             </article>
           )
