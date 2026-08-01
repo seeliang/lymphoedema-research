@@ -1,4 +1,4 @@
 interface:
   display_name: "Lymphoedema Chinese Translation"
-  short_description: "Natural, faithful zh-CN patient translation"
-  default_prompt: "Use $translate-lymphoedema-zh to revise the current Simplified Chinese edition for natural patient-facing language."
+  short_description: "Patient-facing medical zh-CN evidence translation"
+  default_prompt: "Use $translate-lymphoedema-zh to revise the current Simplified Chinese evidence by semantic role for natural patient-facing language."

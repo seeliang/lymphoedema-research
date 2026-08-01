@@ -314,7 +314,7 @@ zhCNEditionTranslations["2026.08.4"] = {
 zhCNEditionTranslations["2026.08.5"] = {
   ...structuredClone(zhCNEditionTranslations["2026.08.4"]),
   translationStatus: "ai-assisted",
-  translationRevision: 0,
+  translationRevision: 1,
   translatedOn: "2026-08-01",
   title: "淋巴水肿研究：哪些方法有效，哪些问题仍不确定",
   summary: "以研究为基础，说明已确立的照护方法、可能有帮助的新选择、仍无答案的问题，以及每项结论所依据的证据。",
@@ -384,6 +384,17 @@ zhCNEditionTranslations["2026.08.5"] = {
   },
   languageReview: {
     status: "not-reviewed",
+  },
+  evidence: {
+    ...structuredClone(zhCNEditionTranslations["2026.08.4"].evidence),
+    "resistance-training": {
+      ...structuredClone(zhCNEditionTranslations["2026.08.4"].evidence["resistance-training"]),
+      takeaway: "聚焦预防的综述发现，进行渐进式力量训练的人发生乳腺癌相关淋巴水肿的比例较低；证据确定性为中等。另一篇综述也报告了较低的发生率，肢体状况也有所改善。",
+    },
+    microsurgery: {
+      ...structuredClone(zhCNEditionTranslations["2026.08.4"].evidence.microsurgery),
+      title: "显微手术可能减少蜂窝织炎，但不同疗效并不一致",
+    },
   },
 }
 

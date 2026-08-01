@@ -85,7 +85,7 @@ if (edition.evidenceOverview) {
     assertGroupNumbers(html, "understanding-diagnosis", "deferred", ["01", "02"], label)
     assertTextOrder(html, 'id="treatment"', "更灵活的加压和指导方式，可能让日常管理更容易", `${label} treatment section start`)
     assertTextOrder(html, "更灵活的加压和指导方式，可能让日常管理更容易", "乳腺癌手术后，渐进式力量训练可能有助于降低淋巴水肿风险", `${label} compression before resistance training`)
-    assertTextOrder(html, "乳腺癌手术后，渐进式力量训练可能有助于降低淋巴水肿风险", "显微手术可能减少蜂窝织炎，但不同结局并不一致", `${label} resistance training before microsurgery`)
+    assertTextOrder(html, "乳腺癌手术后，渐进式力量训练可能有助于降低淋巴水肿风险", "显微手术可能减少蜂窝织炎，但不同疗效并不一致", `${label} resistance training before microsurgery`)
     assertSectionIncludes(html, "treatment", "medicines", "NCT05890677", `${label} LYMPH trial in treatment`)
     assertSectionIncludes(html, "medicines", "children", "NCT07012642", `${label} GLP-1 trial in medicines`)
     assertTextOrder(html, 'id="understanding-diagnosis"', "基因和组织研究正在帮助理解病因，但还没有带来新的治疗", `${label} diagnosis section start`)

@@ -1,11 +1,24 @@
 ---
 name: translate-lymphoedema-zh
-description: Translate, rewrite, or review this repository's Simplified Chinese (zh-CN) lymphoedema research brief for patients and carers. Use for new edition translations, stiff or literal Chinese, unexplained medical jargon or eponyms such as Milroy disease, acronyms, genes, techniques, rare-disease labels, terminology consistency, Chinese UI copy, translation revisions, or English-Chinese evidence and source parity checks.
+description: Translate, rewrite, or review this repository's Simplified Chinese (zh-CN) lymphoedema research brief for patients and carers. Use for new edition translations, stiff or literal Chinese, semantic-role errors such as outcome versus efficacy, unexplained medical jargon or eponyms such as Milroy disease, acronyms, genes, techniques, rare-disease labels, terminology consistency, Chinese UI copy, translation revisions, or English-Chinese evidence and source parity checks.
 ---
 
 # Translate the lymphoedema brief into Simplified Chinese
 
 Produce natural patient-facing Chinese without changing the global English evidence record or weakening medical qualifications.
+
+## Adopt the translation role
+
+Act as both a patient-facing medical translator and an evidence-preservation reviewer. Translate the meaning of the full sentence, not isolated English words. Do not act as a dictionary, invent a clinical interpretation, or silently edit the English evidence.
+
+Before selecting a Chinese term, identify the source phrase's semantic role:
+
+- describe a treatment's effect for patients with “疗效”“治疗效果” or the specific change observed;
+- describe reported study findings with “研究结果” or the specific finding;
+- reserve “结局指标” or “研究终点” for methodological references to what a study measured; and
+- rewrite the sentence when a technically possible literal term would sound abstract, ambiguous, or unnatural to a patient.
+
+For example, translate treatment-title `outcomes differ` as “不同疗效并不一致”, but translate methodological `outcome measures varied` as “各研究采用的结局指标不同”. Never apply one glossary term to every occurrence without checking its role in context.
 
 ## Load the source of truth
 
@@ -48,6 +61,8 @@ node .codex/skills/translate-lymphoedema-zh/scripts/check-translation-parity.mjs
 
 Also search the Chinese source and built pages for obsolete literal phrases identified during the review. Inspect the rendered headings, notices, card labels, and version history—not only the translation data object.
 
+For treatment evidence, search “结局”“结果”“效果”和“疗效” and compare every occurrence with the English sentence. Reject a mechanical `outcome` → “结局” mapping when the phrase is communicating efficacy or a concrete patient effect.
+
 Read every evidence field as a patient would. A medically accurate transliteration alone is not sufficient when the term still leaves a non-clinical reader unable to understand the population, intervention, or limitation.
 
-Report the changed translation revision, parity result, test result, and whether independent human language review is still outstanding. Never describe an AI rewrite as completed human review or publish it without the repository's required approval.
+Report the changed translation revision, parity result, test result, and whether independent human language review was performed. Never describe an AI rewrite as completed human review. Publish only with the repository's required AI-assisted, independent-review, and indexing disclosures.

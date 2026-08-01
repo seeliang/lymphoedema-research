@@ -68,6 +68,16 @@ describe("Simplified Chinese translation coverage", () => {
     expect(zhCNUI.evidenceFirst.review.languageNotReviewed).toContain("未经独立人工语言审校")
   })
 
+  it("uses patient-facing efficacy language for treatment outcomes in 8.5", () => {
+    const translation = zhCNEditionTranslations["2026.08.5"]
+
+    expect(translation.translationRevision).toBe(1)
+    expect(translation.evidence.microsurgery.title).toBe("显微手术可能减少蜂窝织炎，但不同疗效并不一致")
+    expect(translation.evidence.microsurgery.title).not.toContain("结局")
+    expect(translation.evidence["resistance-training"].takeaway).toContain("肢体状况也有所改善")
+    expect(translation.evidence["resistance-training"].takeaway).not.toContain("肢体结局")
+  })
+
   it("keeps the responsibility notice qualified in both languages", () => {
     expect(zhCNUI.disclaimer.responsibilityBody).toContain("在法律允许的范围内")
     expect(zhCNUI.disclaimer.responsibilityBody).toContain("不能排除的权利或责任")
