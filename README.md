@@ -47,7 +47,7 @@ pnpm check
 
 ## Monthly research review
 
-On the first day of each month, a scheduled workflow searches a 45-day overlap in PubMed and ClinicalTrials.gov, rechecks tracked identifiers, and opens a review issue. Automation discovers candidates only; it never writes or publishes medical summaries.
+On the first day of each month, a scheduled workflow searches a 45-day overlap in PubMed and ClinicalTrials.gov, rechecks tracked identifiers, and opens a review issue. The PubMed report includes dedicated watchlists for arm/upper-limb and trunk/chest/abdominal-wall research so evidence in less consistently named body areas is easier to find. Automation discovers candidates only; it never writes or publishes medical summaries.
 
 To run the scanner locally:
 

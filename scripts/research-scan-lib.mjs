@@ -59,6 +59,8 @@ export function formatDigest({
   currentVersion,
   nextReviewDue,
   newPublications,
+  armPublications,
+  trunkAbdomenPublications,
   trackedWarnings,
   changedTrials,
   newTrials,
@@ -81,6 +83,19 @@ export function formatDigest({
   appendRecordList(lines, trackedWarnings, "No retraction-style publication-type flags were returned for tracked PMIDs.")
   lines.push("", "## New PubMed candidates", "")
   appendRecordList(lines, [...newPublications].sort((a, b) => publicationPriority(a) - publicationPriority(b)), "No new PubMed candidates were found in the overlap window.")
+
+  lines.push(
+    "",
+    "## Body-area watchlists",
+    "",
+    "These are focused subsets of the new PubMed candidates. They make location-specific evidence easier to find but do not replace full editorial assessment.",
+    "",
+    "### Arm and upper limb",
+    "",
+  )
+  appendRecordList(lines, [...armPublications].sort((a, b) => publicationPriority(a) - publicationPriority(b)), "No new arm or upper-limb candidates were found in the overlap window.")
+  lines.push("", "### Trunk, chest and abdomen", "")
+  appendRecordList(lines, [...trunkAbdomenPublications].sort((a, b) => publicationPriority(a) - publicationPriority(b)), "No new trunk, chest, or abdominal-wall candidates were found in the overlap window.")
 
   lines.push("", "## Tracked trial changes", "")
   appendTrialList(lines, changedTrials, "No tracked trial metadata changed.")
@@ -107,6 +122,7 @@ export function formatDigest({
     "- [ ] Confirm each candidate is about lymphoedema rather than a similarly named condition.",
     "- [ ] Read the full paper when available; verify population, design, outcomes, harms, funding, and conflicts.",
     "- [ ] Decide whether the result is patient-relevant and stronger than evidence already summarised.",
+    "- [ ] For ‘stomach-area’ requests, confirm that the source concerns external truncal or abdominal-wall lymphoedema—not ascites, an internal-organ condition, or a lymphatic malformation.",
     "- [ ] Keep trials without results separate from published findings.",
     "- [ ] Update every affected takeaway and limitation together.",
     "- [ ] Record exclusions or a reviewed ‘no changes’ decision in this issue.",
