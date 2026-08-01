@@ -22,7 +22,9 @@ The current edition appears at the site root. Immutable snapshots remain browsab
 
 The global English edition (`en-AU`) is the primary research record. It selects evidence from international journals, consensus documents, PubMed, and ClinicalTrials.gov without limiting discovery to one country or language.
 
-Simplified Chinese (`zh-CN`) is a secondary translation layer under `/zh-cn/`. It must translate the same edition, evidence items, trial records, limitations, and global source links one-to-one; it cannot maintain a separate research selection or replace a primary source with a Chinese-language commentary. Chinese terminology references may guide wording but are not evidence sources.
+Simplified Chinese (`zh-CN`) is a secondary translation layer under `/zh-cn/`. It must translate the same edition, evidence items, trial records, limitations, and source links one-to-one; it cannot maintain a separate public research selection.
+
+Chinese-language databases are also checked as a supplementary discovery channel. An outstanding finding that is missing from the automated global scan must pass the same evidence threshold and be promoted into the global English record first, with the original Chinese source cited directly. The Chinese page then translates that same global entry. See [SUPPLEMENTARY_CHINESE_DISCOVERY.md](./SUPPLEMENTARY_CHINESE_DISCOVERY.md) for sources, thresholds, and the audit trail.
 
 Each translation records a translation status, date, and independent revision number. AI-assisted translations remain visibly labelled and `noindex` until an independent human language review is recorded. A translation-only correction increments `translationRevision`; a change to the underlying global evidence creates a new calendar or patch edition.
 

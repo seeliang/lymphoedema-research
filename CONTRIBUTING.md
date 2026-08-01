@@ -22,6 +22,8 @@ Content contributions are reviewed editorially before publication. A pull reques
 - Increment `translationRevision` for translation-only corrections. Use a new global edition when the underlying evidence meaning changes.
 - Run the translation coverage tests through `pnpm check`.
 
+Chinese-language research suggestions are welcome even when the publication is not indexed by PubMed. Provide the stable original record, database identifier, publication language, and enough method/result information for a human reviewer to assess it. The outstanding-finding and promotion rules in `SUPPLEMENTARY_CHINESE_DISCOVERY.md` apply.
+
 ## Code changes
 
 Keep the generated site static and accessible. Avoid analytics, trackers, unnecessary client JavaScript, and dependencies without a clear maintenance benefit.

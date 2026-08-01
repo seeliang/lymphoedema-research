@@ -6,7 +6,7 @@ Read `EDITORIAL_POLICY.md`, `CORRECTIONS.md`, `CONTRIBUTING.md`, and `README.md`
 
 Automation and AI may discover, organise, compare, and draft. They may not claim that content was source-reviewed, advance `reviewedOn` or `nextReviewDue`, merge a content pull request, publish an edition, or create a release. A human editor must do those steps after checking every changed statement against its cited source.
 
-The global `en-AU` edition is the primary evidence record. Simplified Chinese is a secondary, one-to-one translation and must not introduce a separate evidence feed, omit a limitation, change a trial into a finding, or replace a global primary-source link with local commentary. Translation terminology references are wording aids only. AI-assisted Chinese remains labelled and unindexed until independent human language review.
+The global `en-AU` edition is the primary evidence record. Simplified Chinese is a secondary, one-to-one translation and must not introduce a separate public evidence feed, omit a limitation, or change a trial into a finding. An exceptional Chinese-language publication may be considered only through `SUPPLEMENTARY_CHINESE_DISCOVERY.md`; it must enter the global English record first with the original source link, then be translated one-to-one. AI-assisted Chinese remains labelled and unindexed until independent human language review.
 
 For evidence changes:
 

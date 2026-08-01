@@ -12,7 +12,7 @@ body:
     id: source
     attributes:
       label: Source link
-      description: Prefer a PubMed, DOI, guideline, or trial-registry URL.
+      description: Prefer a PubMed, DOI, guideline, trial-registry, SinoMed, or Wanfang record. Link the stable original-language source.
       placeholder: https://pubmed.ncbi.nlm.nih.gov/...
     validations:
       required: true
@@ -20,7 +20,7 @@ body:
     id: relevance
     attributes:
       label: Why might it matter to patients or carers?
-      description: Briefly identify the topic, population, and potential relevance.
+      description: Briefly identify the topic, population, study design, publication language, and potential relevance.
     validations:
       required: true
   - type: textarea

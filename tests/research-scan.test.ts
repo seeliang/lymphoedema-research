@@ -59,5 +59,7 @@ describe("research discovery normalisation", () => {
     expect(digest).toContain("Discovery only")
     expect(digest).toContain("Do not include personal medical information")
     expect(digest).toContain("No new PubMed candidates")
+    expect(digest).toContain("Supplementary Chinese-language discovery (manual)")
+    expect(digest).toContain("promote an accepted finding into the global English record")
   })
 })

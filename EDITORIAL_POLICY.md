@@ -34,6 +34,8 @@ A new calendar edition records each completed monthly review, including months i
 
 ## Languages and translations
 
-The `en-AU` edition is the primary global evidence record. Translations are secondary presentations of that record, not independent evidence feeds. They must preserve the source edition number, population, study design, meaning, limitation, trial/result distinction, and direct global source links.
+The `en-AU` edition is the primary global evidence record. Translations are secondary presentations of that record, not independent evidence feeds. They must preserve the source edition number, population, study design, meaning, limitation, trial/result distinction, and direct source links.
+
+Chinese-language databases may supplement global discovery when they contain an important non-duplicate finding absent from the automated scan. The publication must meet `SUPPLEMENTARY_CHINESE_DISCOVERY.md`, undergo human review in its original language, and enter the global English evidence record before it is translated for the Chinese page. Trial registration alone remains separate from published findings.
 
 Translation status is separate from source-review status. AI-assisted wording must be labelled, must not claim independent human review, and remains excluded from search indexing until a human language reviewer checks it. Translation-only changes increment the locale's translation revision without changing the global evidence edition. If translation review exposes an error in the underlying evidence summary, the global correction policy applies first and every translation must follow it.

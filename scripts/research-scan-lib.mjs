@@ -89,6 +89,19 @@ export function formatDigest({
 
   lines.push(
     "",
+    "## Supplementary Chinese-language discovery (manual)",
+    "",
+    "Chinese-language sources can surface important findings missing from the automated global scan. Complete and document these checks manually; do not scrape services without a supported interface.",
+    "",
+    "- [ ] Search [SinoMed](https://www.sinomed.ac.cn/main.jsp) with a 45-day or longer overlap.",
+    "- [ ] Search [Wanfang Data journals](https://c.wanfangdata.com.cn/) for non-duplicate clinical evidence, guidelines, and safety signals.",
+    "- [ ] Search [ChiCTR](https://www.chictr.org.cn/) for new or changed trial registrations; registration is not evidence of efficacy.",
+    "- [ ] Record databases, concepts or queries, date searched, result counts when available, and include/exclude reasons.",
+    "- [ ] Apply `SUPPLEMENTARY_CHINESE_DISCOVERY.md`: promote an accepted finding into the global English record before translating it into Chinese.",
+  )
+
+  lines.push(
+    "",
     "## Editorial checklist",
     "",
     "- [ ] Confirm each candidate is about lymphoedema rather than a similarly named condition.",
