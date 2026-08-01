@@ -27,7 +27,7 @@ body:
     id: body-area
     attributes:
       label: Body area
-      description: Select the area directly studied; use the final option when several areas are involved.
+      description: Select the area directly studied. Choose Other when the listed areas do not fit; body-area labels do not limit eligible research.
       options:
         - Arm or upper limb
         - Trunk, chest, or abdominal wall
@@ -35,6 +35,7 @@ body:
         - Head or neck
         - Genital or pelvic region
         - Multiple areas or not area-specific
+        - Other body area (describe above)
     validations:
       required: true
   - type: textarea

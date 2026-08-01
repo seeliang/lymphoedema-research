@@ -38,7 +38,7 @@ describe("Simplified Chinese translation coverage", () => {
     expect(chineseCopy).not.toContain("英文原版状态")
   })
 
-  it("explains Milroy disease for non-clinical readers in 2026.08.3 revision 1", () => {
+  it("explains Milroy disease for non-clinical readers in 2026.08.3 revision 1 and carries it into 2026.08.4", () => {
     const translation = zhCNEditionTranslations["2026.08.3"]
     const population = translation.evidence["primary-biology"].population
 
@@ -48,5 +48,6 @@ describe("Simplified Chinese translation coverage", () => {
     expect(population).toContain("遗传性淋巴水肿")
     expect(population).toContain("出生时或婴儿期")
     expect(population).toContain("小腿和足部")
+    expect(zhCNEditionTranslations["2026.08.4"].evidence["primary-biology"].population).toBe(population)
   })
 })

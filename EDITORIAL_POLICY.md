@@ -4,6 +4,10 @@
 
 The brief is written for patients and carers. It covers primary and secondary lymphoedema across body areas while labelling the population actually studied. It does not provide personalised advice or attempt to list every publication.
 
+Named report sections are organisational views, not limits on research eligibility. Relevant evidence may address any population, body area, cause, intervention, diagnostic method, biological mechanism, preventive approach, outcome, lived experience, or service-delivery question. Reviewed evidence that does not fit an existing heading remains visible under an extensible fallback section rather than being excluded.
+
+Children and adolescents have a dedicated section spanning every relevant research topic. When no child-specific finding has completed source review, that section states this explicitly and keeps discovery candidates separate from evidence. Adult-only findings are not assumed to apply to children.
+
 ## Source selection
 
 Priority is given to clinical guidelines, systematic reviews, randomised trials, well-designed prospective studies, and research that materially changes how a patient might understand the evidence landscape. Pilot, observational, genetic, and laboratory studies may be included when their early status is unmistakable.

@@ -14,7 +14,7 @@
     "research:scan": "node scripts/research-scan.mjs",
     "release:check": "node scripts/release-edition.mjs",
     "check:publication": "node scripts/check-publication-contract.mjs",
-    "test:release": "pnpm release:check -- 2026.08.3 && pnpm check:publication -- 2026.08.3"
+    "test:release": "pnpm release:check -- 2026.08.4 && pnpm check:publication -- 2026.08.4"
   },
   "dependencies": {
     "astro": "^7.1.6"

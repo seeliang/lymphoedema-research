@@ -27,14 +27,17 @@ assertEqual(englishArtifact.version, version, "English artifact version")
 assertEqual(chineseArtifact.version, version, "Chinese artifact version")
 assertEqual(chineseArtifact.locale, "zh-CN", "Chinese artifact locale")
 
-if (edition.childrenFocus) {
+if (edition.childrenSection) {
   for (const [label, html] of [["English current", englishCurrentHtml], ["English archive", englishHtml]]) {
-    assertOrderedSections(html, ["children", "evidence", "understanding-diagnosis", "treatment", "deferred", "trials"], label)
+    assertOrderedSections(html, ["evidence", "children", "understanding-diagnosis", "treatment", "deferred", "trials"], label)
+    assertIncludes(html, "Evidence selected for this edition", `${label} evidence heading`)
     assertIncludes(html, "Children and adolescents", `${label} children heading`)
-    assertIncludes(html, "Other current evidence", `${label} secondary evidence heading`)
+    assertIncludes(html, "No reviewed child-specific evidence in this edition", `${label} children empty state`)
+    assertExcludes(html, "Main research focus", `${label} obsolete main-focus label`)
     assertIncludes(html, "Understanding and diagnosis", `${label} understanding heading`)
     assertIncludes(html, "Treatment and management", `${label} treatment heading`)
     assertIncludes(html, "Deferred evidence", `${label} deferred heading`)
+    assertGroupNumbers(html, "children", "understanding-diagnosis", [], label)
     assertGroupNumbers(html, "understanding-diagnosis", "treatment", ["01", "02"], label)
     assertGroupNumbers(html, "treatment", "deferred", ["01", "02", "03"], label)
     assertTextOrder(
@@ -69,13 +72,16 @@ if (edition.childrenFocus) {
     )
   }
   for (const [label, html] of [["Chinese current", chineseCurrentHtml], ["Chinese archive", chineseHtml]]) {
-    assertOrderedSections(html, ["children", "evidence", "understanding-diagnosis", "treatment", "deferred", "trials"], label)
+    assertOrderedSections(html, ["evidence", "children", "understanding-diagnosis", "treatment", "deferred", "trials"], label)
+    assertIncludes(html, "本期研究摘要", `${label} evidence heading`)
     assertIncludes(html, "儿童和青少年", `${label} children heading`)
-    assertIncludes(html, "其他现有证据", `${label} secondary evidence heading`)
+    assertIncludes(html, "本期没有儿童专属证据完成审查", `${label} children empty state`)
+    assertExcludes(html, "主要研究重点", `${label} obsolete main-focus label`)
     assertIncludes(html, "了解病因和诊断", `${label} understanding heading`)
     assertIncludes(html, "治疗与管理", `${label} treatment heading`)
     assertIncludes(html, "暂缓处理的证据", `${label} deferred heading`)
     assertIncludes(html, 'name="robots" content="noindex', `${label} noindex metadata`)
+    assertGroupNumbers(html, "children", "understanding-diagnosis", [], label)
     assertGroupNumbers(html, "understanding-diagnosis", "treatment", ["01", "02"], label)
     assertGroupNumbers(html, "treatment", "deferred", ["01", "02", "03"], label)
     assertTextOrder(
@@ -110,10 +116,10 @@ if (edition.childrenFocus) {
     )
   }
 
-  assertEqual(englishArtifact.childrenFocus?.publicationCandidates, edition.childrenFocus.publicationCandidates, "English publication candidate count")
-  assertEqual(chineseArtifact.childrenFocus?.publicationCandidates, edition.childrenFocus.publicationCandidates, "Chinese publication candidate count")
-  assertEqual(englishArtifact.childrenFocus?.trialRecords, edition.childrenFocus.trialRecords, "English child trial count")
-  assertEqual(chineseArtifact.childrenFocus?.trialRecords, edition.childrenFocus.trialRecords, "Chinese child trial count")
+  assertEqual(englishArtifact.childrenSection?.publicationCandidates, edition.childrenSection.publicationCandidates, "English publication candidate count")
+  assertEqual(chineseArtifact.childrenSection?.publicationCandidates, edition.childrenSection.publicationCandidates, "Chinese publication candidate count")
+  assertEqual(englishArtifact.childrenSection?.trialRecords, edition.childrenSection.trialRecords, "English child trial count")
+  assertEqual(chineseArtifact.childrenSection?.trialRecords, edition.childrenSection.trialRecords, "Chinese child trial count")
   assertEqual(englishArtifact.deferredCandidates?.length, edition.deferredCandidates?.length, "English deferred candidate count")
   assertEqual(chineseArtifact.deferredCandidates?.length, edition.deferredCandidates?.length, "Chinese deferred candidate count")
   const expectedEvidenceSections = JSON.stringify({
@@ -122,6 +128,16 @@ if (edition.childrenFocus) {
   })
   assertEqual(JSON.stringify(groupEvidenceSections(englishArtifact.evidence)), expectedEvidenceSections, "English evidence sections")
   assertEqual(JSON.stringify(groupEvidenceSections(chineseArtifact.evidence)), expectedEvidenceSections, "Chinese evidence sections")
+  assertEqual(englishArtifact.evidence.filter((entry) => entry.section === "children-adolescents").length, 0, "English reviewed child-specific evidence count")
+  assertEqual(chineseArtifact.evidence.filter((entry) => entry.section === "children-adolescents").length, 0, "Chinese reviewed child-specific evidence count")
+  for (const entry of englishArtifact.evidence) {
+    assertIncludes(englishCurrentHtml, entry.title, `English current evidence ${entry.id}`)
+    assertIncludes(englishHtml, entry.title, `English archive evidence ${entry.id}`)
+  }
+  for (const entry of chineseArtifact.evidence) {
+    assertIncludes(chineseCurrentHtml, entry.title, `Chinese current evidence ${entry.id}`)
+    assertIncludes(chineseHtml, entry.title, `Chinese archive evidence ${entry.id}`)
+  }
 
 }
 
@@ -146,6 +162,10 @@ async function readRequired(path) {
 
 function assertIncludes(source, expected, label) {
   if (!source.includes(expected)) throw new Error(`${label} is missing: ${expected}`)
+}
+
+function assertExcludes(source, unexpected, label) {
+  if (source.includes(unexpected)) throw new Error(`${label} is still present: ${unexpected}`)
 }
 
 function assertEqual(actual, expected, label) {

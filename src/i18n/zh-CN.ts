@@ -28,6 +28,7 @@ export type ZhCNEditionTranslation = {
   summary: string
   changes: string[]
   childrenFocus?: { summary: string }
+  childrenSection?: { summary: string }
   deferredCandidates?: Record<string, { title: string; reason: string; revisitWhen: string }>
   evidence: Record<string, EvidenceTranslation>
   trials: Record<string, TrialTranslation>
@@ -279,6 +280,22 @@ zhCNEditionTranslations["2026.08.3"] = {
       reason: "在面向患者解释治疗排序前，需要先评估偏倚风险、证据网络连通性、异质性和证据确定性。",
       revisitWhen: "由人工审查者完成网状荟萃分析评估后重新考虑。",
     },
+  },
+}
+
+zhCNEditionTranslations["2026.08.4"] = {
+  ...structuredClone(zhCNEditionTranslations["2026.08.3"]),
+  translationStatus: "ai-assisted",
+  translationRevision: 0,
+  translatedOn: "2026-08-01",
+  changes: [
+    "将原先独立突出显示的儿童和青少年内容移入专门的证据栏目，与其他证据主题处于同一层级。",
+    "如果没有儿童专属研究完成审查，页面会明确说明；同时说明页面栏目不会限制哪些相关研究可以纳入考虑。",
+    "原样保留 5 则已审查研究摘要、2 项尚无结果的试验和 3 项暂缓候选资料，没有更改证据措辞或来源。",
+  ],
+  childrenFocus: undefined,
+  childrenSection: {
+    summary: "最近一次覆盖 45 天的检索发现 5 篇涉及儿童或青少年的论文候选资料，以及 3 条近期更新的试验注册记录。这些资料尚未完成纳入患者证据摘要所需的原始来源审查。",
   },
 }
 

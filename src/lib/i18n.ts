@@ -46,6 +46,9 @@ export function localizeEditionBundle(bundle: EditionBundle, locale: SiteLocale)
   if (bundle.edition.data.childrenFocus && !translated.childrenFocus) {
     throw new Error(`Chinese children-focus copy is missing for ${bundle.edition.data.version}`)
   }
+  if (bundle.edition.data.childrenSection && !translated.childrenSection) {
+    throw new Error(`Chinese children-section copy is missing for ${bundle.edition.data.version}`)
+  }
 
   const evidence = bundle.evidence.map((entry) => {
     const item = translated.evidence[evidenceSlug(entry.id)]
@@ -80,6 +83,9 @@ export function localizeEditionBundle(bundle: EditionBundle, locale: SiteLocale)
         changes: translated.changes,
         childrenFocus: bundle.edition.data.childrenFocus && translated.childrenFocus
           ? { ...bundle.edition.data.childrenFocus, summary: translated.childrenFocus.summary }
+          : undefined,
+        childrenSection: bundle.edition.data.childrenSection && translated.childrenSection
+          ? { ...bundle.edition.data.childrenSection, summary: translated.childrenSection.summary }
           : undefined,
         deferredCandidates: bundle.edition.data.deferredCandidates?.map((candidate) => ({
           ...candidate,

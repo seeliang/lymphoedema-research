@@ -18,8 +18,8 @@ const evidence = defineCollection({
   schema: z.object({
     edition: editionVersion,
     order: z.number().int().positive(),
-    section: z.enum(["understanding-diagnosis", "treatment-management"]).optional(),
-    area: z.enum(["Prevention and exercise", "Compression and self-management", "Microsurgery", "Imaging", "Primary lymphoedema biology"]),
+    section: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Use a lowercase kebab-case section identifier").optional(),
+    area: z.string().min(3),
     title: z.string().min(8),
     population: z.string().min(8),
     studyDesign: z.string().min(5),
@@ -55,7 +55,7 @@ const deferredCandidateSchema = z.object({
   revisitWhen: z.string().min(20),
 })
 
-const childrenFocusSchema = z.object({
+const childrenSummarySchema = z.object({
   publicationCandidates: z.number().int().nonnegative(),
   trialRecords: z.number().int().nonnegative(),
   summary: z.string().min(20),
@@ -73,9 +73,13 @@ const editions = defineCollection({
     title: z.string().min(8),
     summary: z.string().min(20),
     changes: z.array(z.string().min(5)).min(1),
-    childrenFocus: childrenFocusSchema.optional(),
+    childrenFocus: childrenSummarySchema.optional(),
+    childrenSection: childrenSummarySchema.optional(),
     deferredCandidates: z.array(deferredCandidateSchema).optional(),
     trials: z.array(trialSchema),
+  }).refine((edition) => !(edition.childrenFocus && edition.childrenSection), {
+    message: "An edition cannot use both the legacy children focus and the children evidence section",
+    path: ["childrenSection"],
   }),
 })
 

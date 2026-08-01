@@ -60,6 +60,13 @@ export const enAUUI = {
     reviewLink: "Open the reviewed discovery report",
     button: "Read the children focus",
   },
+  childrenSection: {
+    emptyTitle: "No reviewed child-specific evidence in this edition",
+    publicationCandidates: (count: number) => count === 1 ? "Publication candidate" : "Publication candidates",
+    trialRecords: (count: number) => count === 1 ? "Updated trial record" : "Updated trial records",
+    caution: "These are discovery records, not evidence that a treatment works. Adult-only findings are not treated as evidence for children.",
+    reviewLink: "Open the reviewed discovery report",
+  },
   takeaways: {
     eyebrow: "The short version",
     title: "Three things to take away",
@@ -76,6 +83,10 @@ export const enAUUI = {
     otherIntro: "These reviewed summaries remain relevant to the wider lymphoedema evidence landscape. They are not presented as child-specific evidence.",
     intro: "Each summary names the population and design before explaining possible meaning. Important limits stay visible.",
     groups: {
+      children: {
+        title: "Children and adolescents",
+        intro: "Child-specific evidence is reviewed separately across treatment, diagnosis, biology, prevention, quality of life, and any other relevant topic. Adult-only findings are not assumed to apply to children.",
+      },
       understandingDiagnosis: {
         title: "Understanding and diagnosis",
         intro: "Research about disease mechanisms and imaging can improve understanding or assessment, but it does not by itself establish a treatment.",
@@ -83,6 +94,10 @@ export const enAUUI = {
       treatmentManagement: {
         title: "Treatment and management",
         intro: "These studies examine ways to prevent or manage lymphoedema. The cards describe who was studied and where uncertainty remains.",
+      },
+      otherResearch: {
+        title: "Other research",
+        intro: "This section keeps reviewed evidence visible when it does not fit an existing heading. Report headings organise the page; they do not limit which relevant research can be considered.",
       },
     },
     population: "Who was studied",
@@ -226,6 +241,13 @@ export const zhCNUI = {
     reviewLink: "查看已复核的检索报告",
     button: "查看儿童研究重点",
   },
+  childrenSection: {
+    emptyTitle: "本期没有儿童专属证据完成审查",
+    publicationCandidates: () => "论文候选资料",
+    trialRecords: () => "近期更新的试验记录",
+    caution: "这些只是检索发现，不能证明某种治疗有效。仅针对成年人的研究结果不会被当作儿童证据。",
+    reviewLink: "查看已复核的检索报告",
+  },
   takeaways: {
     eyebrow: "先看重点",
     title: "先记住这三点",
@@ -242,6 +264,10 @@ export const zhCNUI = {
     otherIntro: "这些已审查摘要仍有助于了解更广泛的淋巴水肿研究，但不会被当作儿童专属证据。",
     intro: "每则摘要先交代研究对象和方法，再说明研究发现该如何理解，同时把重要局限清楚列出。",
     groups: {
+      children: {
+        title: "儿童和青少年",
+        intro: "儿童专属证据会跨越治疗、诊断、生物机制、预防、生活质量和其他相关主题分别审查。仅针对成年人的研究结果不会被直接套用到儿童身上。",
+      },
       understandingDiagnosis: {
         title: "了解病因和诊断",
         intro: "疾病机制和影像研究有助于理解或评估淋巴水肿，但这些研究本身不能证明某种治疗有效。",
@@ -249,6 +275,10 @@ export const zhCNUI = {
       treatmentManagement: {
         title: "治疗与管理",
         intro: "这些研究关注怎样预防或管理淋巴水肿。每则摘要都会说明研究对象，以及目前仍有哪些不确定性。",
+      },
+      otherResearch: {
+        title: "其他研究",
+        intro: "不属于现有标题的已审查证据会在这里继续显示。页面栏目只用于整理内容，不会限制哪些相关研究可以纳入考虑。",
       },
     },
     population: "研究了谁",

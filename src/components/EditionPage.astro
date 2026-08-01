@@ -1,5 +1,6 @@
 ---
 import { enAUUI, zhCNUI } from "../i18n/ui"
+import { partitionEvidenceSections } from "../lib/evidence-sections"
 import { hasZhCNTranslation, type LocalizedEditionBundle } from "../lib/i18n"
 import { withBase } from "../lib/paths"
 import BrandMark from "./BrandMark.astro"
@@ -15,24 +16,39 @@ const isCurrent = data.status === "current"
 const isChinese = locale === "zh-CN"
 const copy = isChinese ? zhCNUI : enAUUI
 const childrenFocus = data.childrenFocus
+const childrenSection = data.childrenSection
 const deferredCandidates = data.deferredCandidates ?? []
-const hasEvidenceGrouping = evidence.length > 0 && evidence.every((entry) => entry.data.section)
+const partitionedEvidence = partitionEvidenceSections(evidence)
+const hasEvidenceGrouping = Boolean(childrenSection) || evidence.some((entry) => entry.data.section)
 const evidenceGroups = hasEvidenceGrouping
   ? [
+      {
+        id: "children",
+        title: copy.evidence.groups.children.title,
+        intro: copy.evidence.groups.children.intro,
+        entries: partitionedEvidence.children,
+      },
       {
         id: "understanding-diagnosis",
         title: copy.evidence.groups.understandingDiagnosis.title,
         intro: copy.evidence.groups.understandingDiagnosis.intro,
-        entries: evidence.filter((entry) => entry.data.section === "understanding-diagnosis"),
+        entries: partitionedEvidence.understandingDiagnosis,
       },
       {
         id: "treatment",
         title: copy.evidence.groups.treatmentManagement.title,
         intro: copy.evidence.groups.treatmentManagement.intro,
-        entries: evidence.filter((entry) => entry.data.section === "treatment-management"),
+        entries: partitionedEvidence.treatmentManagement,
       },
-    ]
+      {
+        id: "other-research",
+        title: copy.evidence.groups.otherResearch.title,
+        intro: copy.evidence.groups.otherResearch.intro,
+        entries: partitionedEvidence.otherResearch,
+      },
+    ].filter((group) => group.entries.length > 0 || (group.id === "children" && childrenSection))
   : [{ id: null, title: null, intro: null, entries: evidence }]
+const hasChildrenSection = evidenceGroups.some((group) => group.id === "children")
 const hasTreatmentSection = evidenceGroups.some((group) => group.id === "treatment" && group.entries.length > 0)
 const formatDate = (date: string) => new Intl.DateTimeFormat(locale, {
   day: "numeric",
@@ -60,6 +76,7 @@ const translationAvailable = hasZhCNTranslation(data.version)
       <nav aria-label={copy.navigation.label}>
         {childrenFocus && <a href={archive ? withBase(`${isChinese ? "/zh-cn" : ""}/versions/${data.version}/#children`) : "#children"}>{copy.navigation.children}</a>}
         <a href={archive ? withBase(`${isChinese ? "/zh-cn" : ""}/versions/${data.version}/#evidence`) : "#evidence"}>{copy.navigation.evidence}</a>
+        {hasChildrenSection && <a href={archive ? withBase(`${isChinese ? "/zh-cn" : ""}/versions/${data.version}/#children`) : "#children"}>{copy.navigation.children}</a>}
         {hasTreatmentSection && <a href={archive ? withBase(`${isChinese ? "/zh-cn" : ""}/versions/${data.version}/#treatment`) : "#treatment"}>{copy.navigation.treatment}</a>}
         {deferredCandidates.length > 0 && <a href={archive ? withBase(`${isChinese ? "/zh-cn" : ""}/versions/${data.version}/#deferred`) : "#deferred"}>{copy.navigation.deferred}</a>}
         <a href={archive ? withBase(`${isChinese ? "/zh-cn" : ""}/versions/${data.version}/#trials`) : "#trials"}>{copy.navigation.trials}</a>
@@ -227,7 +244,25 @@ const translationAvailable = hasZhCNTranslation(data.version)
                 <p>{group.intro}</p>
               </div>
             )}
-            <div class="evidence-list">
+            {group.id === "children" && group.entries.length === 0 && childrenSection && (
+              <div class="children-empty">
+                <h4>{copy.childrenSection.emptyTitle}</h4>
+                <p>{childrenSection.summary}</p>
+                <p class="children-empty-caution">{copy.childrenSection.caution}</p>
+                <dl class="children-section-counts">
+                  <div>
+                    <dt>{copy.childrenSection.publicationCandidates(childrenSection.publicationCandidates)}</dt>
+                    <dd>{childrenSection.publicationCandidates}</dd>
+                  </div>
+                  <div>
+                    <dt>{copy.childrenSection.trialRecords(childrenSection.trialRecords)}</dt>
+                    <dd>{childrenSection.trialRecords}</dd>
+                  </div>
+                </dl>
+                <a class="text-link" href={childrenSection.reviewUrl}>{copy.childrenSection.reviewLink} <ExternalLinkIcon /></a>
+              </div>
+            )}
+            {group.entries.length > 0 && <div class="evidence-list">
               {group.entries.map((entry, groupIndex) => (
                 <article class="evidence-card">
                   <div class="evidence-card-topline">
@@ -271,7 +306,7 @@ const translationAvailable = hasZhCNTranslation(data.version)
                   </div>
                 </article>
               ))}
-            </div>
+            </div>}
           </div>
         ))}
       </div>

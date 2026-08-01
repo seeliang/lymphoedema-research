@@ -131,7 +131,7 @@
     "id": "2026.08.3",
     "version": "2026.08.3",
     "schemaVersion": 3,
-    "status": "current",
+    "status": "superseded",
     "reviewedOn": "2026-08-01",
     "nextReviewDue": "2026-09-01",
     "title": "Lymphoedema Research Brief",
@@ -142,6 +142,78 @@
       "Added a visible deferred-evidence section while keeping unreviewed candidates separate from published findings."
     ],
     "childrenFocus": {
+      "publicationCandidates": 5,
+      "trialRecords": 3,
+      "summary": "The latest 45-day discovery scan identified five publication candidates and three recently updated trial records involving children or adolescents. None has completed the source review required for inclusion in the patient-facing evidence summary.",
+      "reviewUrl": "https://github.com/seeliang/lymphoedema-research/issues/1"
+    },
+    "deferredCandidates": [
+      {
+        "id": "PMID 40081785",
+        "title": "Randomized Trial Assessing Prospective Surveillance and Exercise for Preventing Breast Cancer-Related Lymphedema in High-Risk Patients",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/40081785/",
+        "reason": "The trial is relevant but substantially overlaps the resistance-training prevention evidence already summarised.",
+        "revisitWhen": "Reassess during the next exercise evidence update or if it materially changes the current interpretation."
+      },
+      {
+        "id": "PMID 41886031",
+        "title": "LYMPHA Technique to Prevent Arm Lymphedema After Breast Cancer Treatment: A Single-Center Study Based on a 15-Year Follow-Up Period",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/41886031/",
+        "reason": "The long follow-up is potentially important, but the non-randomised single-centre design and selection across a long treatment era require detailed appraisal.",
+        "revisitWhen": "Reassess after full source review of selection, comparator, follow-up, harms, funding and conflicts."
+      },
+      {
+        "id": "PMID 42294341",
+        "title": "Non-pharmacological therapies for breast cancer-related lymphedema: a systematic review and network meta-analysis based on randomized controlled trials",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/42294341/",
+        "reason": "Treatment rankings should not be interpreted for patients until risk of bias, network connectivity, heterogeneity and certainty are assessed.",
+        "revisitWhen": "Reassess after a human reviewer completes the network meta-analysis appraisal."
+      }
+    ],
+    "trials": [
+      {
+        "nctId": "NCT05890677",
+        "title": "The LYMPH Trial — microsurgical versus conservative treatment of chronic breast-cancer-associated lymphoedema",
+        "population": "Adults with chronic breast-cancer-associated upper-limb lymphoedema",
+        "design": "Pragmatic randomised international multicentre comparison of microsurgery and conservative complex decongestive therapy",
+        "status": "Recruiting",
+        "enrolment": 280,
+        "resultsAvailable": false,
+        "lastUpdated": "2026-06-04",
+        "checkedOn": "2026-08-01",
+        "url": "https://clinicaltrials.gov/study/NCT05890677",
+        "caution": "Recruitment and registration do not show that surgery is better. The primary completion date is still in the future and no results are reported here."
+      },
+      {
+        "nctId": "NCT07012642",
+        "title": "Efficacy of GLP-1 receptor agonists in upper- and lower-extremity lymphoedema",
+        "population": "Adults with unilateral upper- or lower-extremity lymphoedema who meet the study criteria",
+        "design": "Early Phase 1, open-label, single-group interventional study",
+        "status": "Recruiting",
+        "enrolment": 110,
+        "resultsAvailable": false,
+        "lastUpdated": "2025-06-10",
+        "checkedOn": "2026-08-01",
+        "url": "https://clinicaltrials.gov/study/NCT07012642",
+        "caution": "This is an early, uncontrolled study with no posted results. It does not establish GLP-1 medicines as a lymphoedema treatment and is not a recommendation to use them."
+      }
+    ]
+  },
+  {
+    "id": "2026.08.4",
+    "version": "2026.08.4",
+    "schemaVersion": 4,
+    "status": "current",
+    "reviewedOn": "2026-08-01",
+    "nextReviewDue": "2026-09-01",
+    "title": "Lymphoedema Research Brief",
+    "summary": "A patient-and-carer summary of recent research, what the findings may mean, and where important uncertainty remains.",
+    "changes": [
+      "Moved Children and adolescents from a visually dominant standalone block into a dedicated evidence subsection at the same hierarchy as other evidence topics.",
+      "Added an explicit empty state when no child-specific finding has completed review and clarified that report sections never limit which relevant research can be considered.",
+      "Carried forward the five reviewed findings, two trials without results and three deferred candidates without changing their evidence wording or sources."
+    ],
+    "childrenSection": {
       "publicationCandidates": 5,
       "trialRecords": 3,
       "summary": "The latest 45-day discovery scan identified five publication candidates and three recently updated trial records involving children or adolescents. None has completed the source review required for inclusion in the patient-facing evidence summary.",
