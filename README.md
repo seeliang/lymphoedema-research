@@ -48,6 +48,20 @@ Optional environment variables:
 - `NCBI_EMAIL` — contact address sent to NCBI E-utilities.
 - `RESEARCH_SCAN_DAYS` — overlap window, default `45`.
 
+## Optional Copilot-assisted drafting
+
+GitHub Copilot may prepare a candidate draft after the scheduled discovery issue has been reviewed. The repository includes persistent guardrails in `.github/copilot-instructions.md`, a manually selected `research-editor` custom agent in `.github/agents/research-editor.agent.md`, and a non-published `drafts/` staging area.
+
+From GitHub Copilot CLI, start an interactive, permission-gated session from the repository root:
+
+```sh
+copilot --agent research-editor
+```
+
+Then ask it to triage a specific monthly issue and prepare a draft update. Alternatively, select the `research-editor` agent when assigning that issue to Copilot on GitHub; Copilot can open a pull request for human review.
+
+Copilot must not modify published edition data, merge, publish, set review dates, or mark its own wording as source-reviewed. A human editor checks every changed claim and source, promotes approved wording from `drafts/`, supplies the review dates, runs `pnpm check`, merges the pull request, and triggers the edition release.
+
 ## Licensing
 
 Code is available under the [MIT licence](./LICENSE). Original editorial content is available under [CC BY 4.0](./CONTENT_LICENSE.md), with the exclusions described there.
