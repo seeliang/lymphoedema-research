@@ -8,7 +8,7 @@ Automation and AI may discover, organise, compare, and draft. They may not claim
 
 The global `en-AU` edition is the primary evidence record. Simplified Chinese is a secondary, one-to-one translation and must not introduce a separate public evidence feed, omit a limitation, or change a trial into a finding. An exceptional Chinese-language publication may be considered only through `SUPPLEMENTARY_CHINESE_DISCOVERY.md`; it must enter the global English record first with the original source link, then be translated one-to-one. AI-assisted Chinese remains labelled and unindexed until independent human language review.
 
-For Chinese wording, follow `CHINESE_TRANSLATION_GUIDE.md`. Translate meaning rather than English syntax, prefer short patient-facing sentences, and preserve every qualifier and limitation.
+For Chinese wording, use `$translate-lymphoedema-zh` when repository skills are available and follow `CHINESE_TRANSLATION_GUIDE.md`. Translate meaning rather than English syntax, prefer short patient-facing sentences, and preserve every qualifier and limitation.
 
 For evidence changes:
 
