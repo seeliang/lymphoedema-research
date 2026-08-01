@@ -51,6 +51,24 @@ describe("research discovery normalisation", () => {
       currentVersion: "2026.08.0",
       nextReviewDue: "2026-09-01",
       newPublications: [],
+      armPublications: [{
+        pmid: "11",
+        title: "Arm lymphoedema study",
+        journal: "Example Journal",
+        publicationDate: "2026 Aug",
+        publicationTypes: ["Journal Article"],
+        doi: null,
+        url: "https://pubmed.ncbi.nlm.nih.gov/11/",
+      }],
+      trunkAbdomenPublications: [{
+        pmid: "12",
+        title: "Truncal lymphoedema study",
+        journal: "Example Journal",
+        publicationDate: "2026 Aug",
+        publicationTypes: ["Journal Article"],
+        doi: null,
+        url: "https://pubmed.ncbi.nlm.nih.gov/12/",
+      }],
       trackedWarnings: [],
       changedTrials: [],
       newTrials: [],
@@ -59,6 +77,12 @@ describe("research discovery normalisation", () => {
     expect(digest).toContain("Discovery only")
     expect(digest).toContain("Do not include personal medical information")
     expect(digest).toContain("No new PubMed candidates")
+    expect(digest).toContain("Body-area watchlists")
+    expect(digest).toContain("Arm and upper limb")
+    expect(digest).toContain("Arm lymphoedema study")
+    expect(digest).toContain("Trunk, chest and abdomen")
+    expect(digest).toContain("Truncal lymphoedema study")
+    expect(digest).toContain("external truncal or abdominal-wall lymphoedema")
     expect(digest).toContain("Supplementary Chinese-language discovery (manual)")
     expect(digest).toContain("promote an accepted finding into the global English record")
   })

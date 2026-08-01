@@ -27,22 +27,20 @@ for (const file of evidenceFiles.filter((path) => path.endsWith(".md"))) {
 }
 
 const pubmedQuery = '("Lymphedema"[MeSH Terms] OR lymphedema[Title/Abstract] OR lymphoedema[Title/Abstract])'
-const searchParams = new URLSearchParams({
-  db: "pubmed",
-  retmode: "json",
-  retmax: "200",
-  sort: "pub date",
-  datetype: "edat",
-  reldate: String(windowDays),
-  term: pubmedQuery,
-  tool: toolName,
-})
-if (contactEmail) searchParams.set("email", contactEmail)
-const search = await fetchJson(`https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?${searchParams}`)
-const discoveredPmids = search.esearchresult?.idlist ?? []
+const armQuery = `${pubmedQuery} AND (arm[Title/Abstract] OR "upper limb"[Title/Abstract] OR "upper-limb"[Title/Abstract] OR "upper extremity"[Title/Abstract] OR "upper-extremity"[Title/Abstract])`
+const trunkAbdomenQuery = `${pubmedQuery} AND (truncal[Title/Abstract] OR trunk[Title/Abstract] OR torso[Title/Abstract] OR abdominal[Title/Abstract] OR abdomen[Title/Abstract] OR "abdominal wall"[Title/Abstract] OR "chest wall"[Title/Abstract] OR "breast edema"[Title/Abstract] OR "breast oedema"[Title/Abstract])`
+const [discoveredPmids, armPmids, trunkAbdomenPmids] = await Promise.all([
+  searchPubmed(pubmedQuery),
+  searchPubmed(armQuery),
+  searchPubmed(trunkAbdomenQuery),
+])
 const discoveredPublications = await fetchPubmedSummaries(discoveredPmids)
 const trackedPublications = await fetchPubmedSummaries([...trackedPmids])
 const newPublications = discoveredPublications.filter((record) => !trackedPmids.has(record.pmid))
+const armPmidSet = new Set(armPmids)
+const trunkAbdomenPmidSet = new Set(trunkAbdomenPmids)
+const armPublications = newPublications.filter((record) => armPmidSet.has(record.pmid))
+const trunkAbdomenPublications = newPublications.filter((record) => trunkAbdomenPmidSet.has(record.pmid))
 
 const ctVersion = await fetchJson("https://clinicaltrials.gov/api/v2/version")
 const allTrials = await fetchClinicalTrials()
@@ -80,11 +78,29 @@ process.stdout.write(formatDigest({
   currentVersion: current.version,
   nextReviewDue: current.nextReviewDue,
   newPublications,
+  armPublications,
+  trunkAbdomenPublications,
   trackedWarnings: retractionWarnings(trackedPublications),
   changedTrials,
   newTrials,
   clinicalTrialsTimestamp: ctVersion.dataTimestamp,
 }))
+
+async function searchPubmed(term) {
+  const params = new URLSearchParams({
+    db: "pubmed",
+    retmode: "json",
+    retmax: "200",
+    sort: "pub date",
+    datetype: "edat",
+    reldate: String(windowDays),
+    term,
+    tool: toolName,
+  })
+  if (contactEmail) params.set("email", contactEmail)
+  const response = await fetchJson(`https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi?${params}`)
+  return response.esearchresult?.idlist ?? []
+}
 
 async function fetchPubmedSummaries(pmids) {
   const records = []

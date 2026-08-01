@@ -23,6 +23,20 @@ body:
       description: Briefly identify the topic, population, study design, publication language, and potential relevance.
     validations:
       required: true
+  - type: dropdown
+    id: body-area
+    attributes:
+      label: Body area
+      description: Select the area directly studied; use the final option when several areas are involved.
+      options:
+        - Arm or upper limb
+        - Trunk, chest, or abdominal wall
+        - Leg or lower limb
+        - Head or neck
+        - Genital or pelvic region
+        - Multiple areas or not area-specific
+    validations:
+      required: true
   - type: textarea
     id: limitations
     attributes:

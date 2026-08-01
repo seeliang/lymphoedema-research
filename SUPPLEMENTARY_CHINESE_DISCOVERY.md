@@ -10,7 +10,9 @@ Review these sources during each monthly editorial cycle using a date overlap of
 - [Wanfang Data journals](https://c.wanfangdata.com.cn/) for additional Chinese journal coverage; and
 - [Chinese Clinical Trial Registry (ChiCTR)](https://www.chictr.org.cn/), listed in the [WHO ICTRP primary-registry network](https://www.who.int/tools/clinical-trials-registry-platform/network/primary-registries/chinese-clinical-trial-registry-%28chictr%29). Use its records for trial discovery and status checking, not as evidence of efficacy.
 
-Suggested concepts include `淋巴水肿`, `乳腺癌相关淋巴水肿`, `原发性淋巴水肿`, `继发性淋巴水肿`, `综合消肿治疗`, `压力治疗`, `淋巴管-静脉吻合术`, and `蜂窝织炎`. Adapt database syntax rather than assuming one query works everywhere.
+Suggested concepts include `淋巴水肿`, `乳腺癌相关淋巴水肿`, `原发性淋巴水肿`, `继发性淋巴水肿`, `上肢淋巴水肿`, `手臂淋巴水肿`, `躯干淋巴水肿`, `胸壁淋巴水肿`, `腹部淋巴水肿`, `腹壁淋巴水肿`, `综合消肿治疗`, `压力治疗`, `淋巴管-静脉吻合术`, and `蜂窝织炎`. Adapt database syntax rather than assuming one query works everywhere.
+
+For a request about the “stomach,” distinguish external abdominal-wall or truncal lymphoedema from ascites, internal-organ disease, and abdominal lymphatic malformations before considering a record in scope.
 
 Do not automate scraping of these services without documented permission, a stable supported interface, rate limits, and tests. Record the database, query or concepts, date searched, result count when available, and include/exclude decisions in the monthly review issue.
 

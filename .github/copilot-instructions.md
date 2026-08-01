@@ -13,6 +13,7 @@ For evidence changes:
 - Work from primary publication, guideline, PubMed, DOI, and registry links. Do not treat search snippets or generated summaries as sources.
 - Do not copy abstracts, tables, figures, or paywalled text.
 - State the studied population and design, distinguish findings from interpretation, and keep an important limitation visible.
+- Label the body area actually studied. Treat “stomach” as a request to search external truncal and abdominal-wall lymphoedema, then exclude ascites, internal-organ disease, and lymphatic malformations unless the user explicitly asks for those conditions.
 - Keep trials without posted results in `src/data/editions.json`; registration is not evidence that an intervention works.
 - Do not infer efficacy from a trial's title, status, enrolment, phase, sponsor, or planned outcomes.
 - Preserve existing edition directories and historical wording. Corrections use a new patch edition and an archive notice.
