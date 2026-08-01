@@ -16,7 +16,7 @@ Research editions use calendar versioning:
 - `YYYY.MM.1`, `.2`, and so on for corrections or material research-reporting updates published within that edition month;
 - an independent integer `schemaVersion` for the content format.
 
-The current edition appears at the site root. Immutable snapshots remain browsable under `/versions/<edition>/`. Later corrections are attached as notices instead of silently rewriting what an old edition said.
+The current edition appears at the site root. Immutable research snapshots remain browsable under `/versions/<edition>/`. A defect that only prevents already-approved edition content from rendering or deploying correctly is fixed under the existing edition number; it does not create a new research version. The repair remains auditable in version control and may carry a visible service notice when readers could have been misled. Changes to evidence, interpretation, reviewed wording, selection, or translation content still require the appropriate research or translation version update.
 
 ## Languages and source hierarchy
 
