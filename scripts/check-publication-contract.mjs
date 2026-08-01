@@ -35,6 +35,8 @@ if (edition.childrenFocus) {
     assertIncludes(html, "Understanding and diagnosis", `${label} understanding heading`)
     assertIncludes(html, "Treatment and management", `${label} treatment heading`)
     assertIncludes(html, "Deferred evidence", `${label} deferred heading`)
+    assertGroupNumbers(html, "understanding-diagnosis", "treatment", ["01", "02"], label)
+    assertGroupNumbers(html, "treatment", "deferred", ["01", "02", "03"], label)
     assertTextOrder(
       html,
       'id="understanding-diagnosis"',
@@ -74,6 +76,8 @@ if (edition.childrenFocus) {
     assertIncludes(html, "治疗与管理", `${label} treatment heading`)
     assertIncludes(html, "暂缓处理的证据", `${label} deferred heading`)
     assertIncludes(html, 'name="robots" content="noindex', `${label} noindex metadata`)
+    assertGroupNumbers(html, "understanding-diagnosis", "treatment", ["01", "02"], label)
+    assertGroupNumbers(html, "treatment", "deferred", ["01", "02", "03"], label)
     assertTextOrder(
       html,
       'id="understanding-diagnosis"',
@@ -170,4 +174,12 @@ function groupEvidenceSections(evidence) {
     groups[entry.section].push(id)
     return groups
   }, {})
+}
+
+function assertGroupNumbers(html, startId, endId, expected, label) {
+  const start = html.indexOf(`id="${startId}"`)
+  const end = html.indexOf(`id="${endId}"`)
+  const section = html.slice(start, end)
+  const actual = [...section.matchAll(/<span class="evidence-number">(\d+)<\/span>/g)].map((match) => match[1])
+  assertEqual(JSON.stringify(actual), JSON.stringify(expected), `${label} ${startId} card numbering`)
 }

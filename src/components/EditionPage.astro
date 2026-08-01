@@ -228,10 +228,10 @@ const translationAvailable = hasZhCNTranslation(data.version)
               </div>
             )}
             <div class="evidence-list">
-              {group.entries.map((entry) => (
+              {group.entries.map((entry, groupIndex) => (
                 <article class="evidence-card">
                   <div class="evidence-card-topline">
-                    <span class="evidence-number">{String(entry.data.order).padStart(2, "0")}</span>
+                    <span class="evidence-number">{String(group.title ? groupIndex + 1 : entry.data.order).padStart(2, "0")}</span>
                     <div class="badge-row">
                       <span class="badge">{entry.data.area}</span>
                       <span class="badge badge--level">{entry.data.evidenceLevel}</span>
