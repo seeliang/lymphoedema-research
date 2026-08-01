@@ -1,0 +1,26 @@
+{
+  "name": "lymphoedema-research",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.33.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "test": "vitest run",
+    "check:freshness": "node scripts/check-freshness.mjs",
+    "check": "astro check && pnpm test && pnpm check:freshness && astro build && pnpm test:release",
+    "research:scan": "node scripts/research-scan.mjs",
+    "release:check": "node scripts/release-edition.mjs",
+    "test:release": "pnpm release:check -- 2026.08.0"
+  },
+  "dependencies": {
+    "astro": "^7.1.6"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.10"
+  }
+}

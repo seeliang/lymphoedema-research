@@ -1,0 +1,57 @@
+# Lymphoedema Research Brief
+
+A versioned, plain-language evidence brief for people living with lymphoedema and those who support them.
+
+The project publishes dated research snapshots, explains important limitations, and keeps trials without results separate from published findings. It is an independent public-interest project from Crosspathing Studio.
+
+## Important
+
+This project provides general information, not diagnosis or treatment advice. Its summaries are checked against cited sources but are not a substitute for a clinician who knows your circumstances. The first edition is source-reviewed and is not clinician-reviewed.
+
+## Editions
+
+Research editions use calendar versioning:
+
+- `YYYY.MM.0` for the scheduled monthly review;
+- `YYYY.MM.1`, `.2`, and so on for corrections published within that edition month;
+- an independent integer `schemaVersion` for the content format.
+
+The current edition appears at the site root. Immutable snapshots remain browsable under `/versions/<edition>/`. Later corrections are attached as notices instead of silently rewriting what an old edition said.
+
+## Local development
+
+```sh
+pnpm install
+pnpm dev
+```
+
+Run the complete validation suite with:
+
+```sh
+pnpm check
+```
+
+## Monthly research review
+
+On the first day of each month, a scheduled workflow searches a 45-day overlap in PubMed and ClinicalTrials.gov, rechecks tracked identifiers, and opens a review issue. Automation discovers candidates only; it never writes or publishes medical summaries.
+
+To run the scanner locally:
+
+```sh
+pnpm research:scan
+```
+
+Set the optional `NCBI_EMAIL` environment variable to give NCBI a contact address for automated requests. The repository does not publish or require a personal email address.
+
+Optional environment variables:
+
+- `NCBI_EMAIL` — contact address sent to NCBI E-utilities.
+- `RESEARCH_SCAN_DAYS` — overlap window, default `45`.
+
+## Licensing
+
+Code is available under the [MIT licence](./LICENSE). Original editorial content is available under [CC BY 4.0](./CONTENT_LICENSE.md), with the exclusions described there.
+
+## Corrections and contributions
+
+Read [EDITORIAL_POLICY.md](./EDITORIAL_POLICY.md), [CORRECTIONS.md](./CORRECTIONS.md), and [CONTRIBUTING.md](./CONTRIBUTING.md) before proposing a content change.

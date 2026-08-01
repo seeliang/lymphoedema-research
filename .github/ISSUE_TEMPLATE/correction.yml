@@ -1,0 +1,39 @@
+name: Report a possible correction
+description: Flag a factual, source, safety, or accessibility problem without sharing personal medical information.
+title: "Correction: "
+labels:
+  - correction
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping keep the brief accurate. Do not include names, health records, symptoms, or other personal medical information.
+  - type: input
+    id: location
+    attributes:
+      label: Page or edition
+      description: Link to the page and name the edition or section affected.
+      placeholder: https://seeliang.github.io/lymphoedema-research/versions/2026.08.0/
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What may be wrong?
+      description: Quote only the brief's own wording and explain the issue.
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Supporting source
+      description: Link to a publication record, guideline, registry, or other primary source.
+    validations:
+      required: true
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy check
+      options:
+        - label: I have not included personal medical information.
+          required: true

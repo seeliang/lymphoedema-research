@@ -1,0 +1,317 @@
+---
+import type { EditionBundle } from "../lib/content"
+import { withBase } from "../lib/paths"
+import BrandMark from "./BrandMark.astro"
+import ExternalLinkIcon from "./ExternalLinkIcon.astro"
+
+interface Props extends EditionBundle {
+  archive?: boolean
+}
+
+const { edition, evidence, notices, archive = false } = Astro.props
+const { data } = edition
+const isCurrent = data.status === "current"
+const formatDate = (date: string) => new Intl.DateTimeFormat("en-AU", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+  timeZone: "UTC",
+}).format(new Date(`${date}T00:00:00Z`))
+const evidenceGuide = [
+  ["Randomised evidence", "People were assigned to different approaches, which can reduce—but not remove—bias."],
+  ["Systematic review", "Researchers combined and assessed multiple studies; confidence still depends on the underlying evidence."],
+  ["Early clinical evidence", "A small, pilot, or uncontrolled human study that needs stronger confirmation."],
+  ["Mechanistic evidence", "Genetic, tissue, or laboratory work that helps explain disease but does not establish a treatment."],
+]
+---
+
+<header class="site-header">
+  <div class="shell header-inner">
+    <a class="brand" href={withBase("/")} aria-label="Lymphoedema Research Brief home">
+      <BrandMark />
+      <span>
+        <strong>Lymphoedema Research Brief</strong>
+        <small>Source-reviewed evidence snapshots</small>
+      </span>
+    </a>
+    <nav aria-label="Primary navigation">
+      <a href={archive ? withBase(`/versions/${data.version}/#evidence`) : "#evidence"}>Evidence</a>
+      <a href={archive ? withBase(`/versions/${data.version}/#trials`) : "#trials"}>Studies in progress</a>
+      <a href={withBase("/versions/")}>Versions</a>
+    </nav>
+  </div>
+</header>
+
+{archive && (
+  <aside class:list={["archive-banner", !isCurrent && "archive-banner--superseded"]} aria-label="Version status">
+    <div class="shell archive-banner-inner">
+      <strong>{isCurrent ? "Versioned snapshot" : "Superseded edition"}</strong>
+      <span>
+        {isCurrent
+          ? `This is the archived copy of current edition ${data.version}.`
+          : `Edition ${data.version} has been replaced by a newer review.`}
+      </span>
+      <a href={withBase("/")}>View the latest edition</a>
+    </div>
+  </aside>
+)}
+
+{notices.map((notice) => (
+  <aside class="notice-banner" aria-label={`${notice.data.type} notice`}>
+    <div class="shell">
+      <strong>{notice.data.type[0].toUpperCase() + notice.data.type.slice(1)} notice</strong>
+      <p>{notice.data.message}</p>
+      {notice.data.replacementVersion && (
+        <a href={withBase(`/versions/${notice.data.replacementVersion}/`)}>
+          Read replacement edition {notice.data.replacementVersion}
+        </a>
+      )}
+    </div>
+  </aside>
+))}
+
+<main id="main-content">
+  <section class="hero">
+    <div class="hero-pattern" aria-hidden="true">
+      <svg viewBox="0 0 800 420" preserveAspectRatio="xMidYMid slice">
+        <g fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M-40 330C120 310 135 120 310 158s210 216 520 50"></path>
+          <path d="M80 20c40 110 160 75 205 180s180 85 240 210"></path>
+        </g>
+        <g fill="currentColor">
+          <circle cx="140" cy="282" r="8"></circle>
+          <circle cx="310" cy="158" r="10"></circle>
+          <circle cx="515" cy="280" r="7"></circle>
+          <circle cx="690" cy="238" r="11"></circle>
+        </g>
+      </svg>
+    </div>
+    <div class="shell hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Edition {data.version} · reviewed {formatDate(data.reviewedOn)}</p>
+        <h1>What recent lymphoedema research may mean</h1>
+        <p class="lede">{data.summary}</p>
+        <div class="hero-actions">
+          <a class="button button--primary" href="#evidence">Read the evidence</a>
+          <a class="button button--secondary" href={withBase(`/versions/${data.version}/`)}>Permanent edition link</a>
+        </div>
+      </div>
+      <aside class="review-card" aria-labelledby="review-card-title">
+        <div class="review-card-heading">
+          <span class="status-dot" aria-hidden="true"></span>
+          <h2 id="review-card-title">Review status</h2>
+        </div>
+        <dl>
+          <div><dt>Reviewed</dt><dd>{formatDate(data.reviewedOn)}</dd></div>
+          <div><dt>Next review due</dt><dd>{formatDate(data.nextReviewDue)}</dd></div>
+          <div><dt>Evidence items</dt><dd>{evidence.length}</dd></div>
+          <div><dt>Editorial status</dt><dd>Source-reviewed, not clinician-reviewed</dd></div>
+        </dl>
+      </aside>
+    </div>
+  </section>
+
+  <section class="disclaimer" aria-labelledby="disclaimer-title">
+    <div class="shell disclaimer-inner">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2.5 20h19L12 3Zm0 6v5m0 3h.01" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+      <div>
+        <h2 id="disclaimer-title">General information, not medical advice</h2>
+        <p>This page cannot diagnose lymphoedema or tell you which treatment is right for you. Discuss changes in symptoms or care with a qualified health professional who knows your circumstances.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--takeaways" aria-labelledby="takeaways-title">
+    <div class="shell">
+      <p class="eyebrow">The short version</p>
+      <h2 id="takeaways-title">Three things to take away</h2>
+      <div class="takeaway-grid">
+        <article>
+          <span>01</span>
+          <h3>Established care still matters</h3>
+          <p>Compression, skin care, movement, and appropriately delivered decongestive therapy remain the foundation of management.</p>
+        </article>
+        <article>
+          <span>02</span>
+          <h3>Options are improving—not universal</h3>
+          <p>Recent studies suggest more flexible exercise, compression, imaging, and surgical pathways, but no approach works for every person.</p>
+        </article>
+        <article>
+          <span>03</span>
+          <h3>Study design changes confidence</h3>
+          <p>A promising pilot or registered trial is not the same as replicated randomised evidence with patient-important outcomes.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="evidence" class="section" aria-labelledby="evidence-title">
+    <div class="shell">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Published findings</p>
+          <h2 id="evidence-title">Evidence selected for this edition</h2>
+        </div>
+        <p>Each summary names the population and design before explaining possible meaning. Important limits stay visible.</p>
+      </div>
+
+      <div class="evidence-list">
+        {evidence.map((entry) => (
+          <article class="evidence-card">
+            <div class="evidence-card-topline">
+              <span class="evidence-number">{String(entry.data.order).padStart(2, "0")}</span>
+              <div class="badge-row">
+                <span class="badge">{entry.data.area}</span>
+                <span class="badge badge--level">{entry.data.evidenceLevel}</span>
+              </div>
+            </div>
+            <h3>{entry.data.title}</h3>
+            <dl class="study-context">
+              <div><dt>Who was studied</dt><dd>{entry.data.population}</dd></div>
+              <div><dt>Study design</dt><dd>{entry.data.studyDesign}</dd></div>
+            </dl>
+            <div class="finding-grid">
+              <div>
+                <h4>What researchers found</h4>
+                <p>{entry.data.takeaway}</p>
+              </div>
+              <div>
+                <h4>What it may mean</h4>
+                <p>{entry.data.meaning}</p>
+              </div>
+            </div>
+            <aside class="limitation">
+              <strong>Important limitation</strong>
+              <p>{entry.data.limitation}</p>
+            </aside>
+            <div class="sources" aria-label="Sources">
+              <strong>{entry.data.sources.length === 1 ? "Source" : "Sources"}</strong>
+              <ul>
+                {entry.data.sources.map((source) => (
+                  <li>
+                    <a href={source.url}>
+                      {source.label}
+                      <ExternalLinkIcon />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="trials" class="section section--tint" aria-labelledby="trials-title">
+    <div class="shell">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Being studied now</p>
+          <h2 id="trials-title">Trials without results</h2>
+        </div>
+        <p>These registrations show what researchers are testing. They do not show that an intervention works.</p>
+      </div>
+      <div class="trial-grid">
+        {data.trials.map((trial) => (
+          <article class="trial-card">
+            <div class="trial-status"><span aria-hidden="true"></span>{trial.status} · no results posted</div>
+            <p class="trial-id">{trial.nctId}</p>
+            <h3>{trial.title}</h3>
+            <dl>
+              <div><dt>Population</dt><dd>{trial.population}</dd></div>
+              <div><dt>Design</dt><dd>{trial.design}</dd></div>
+              <div><dt>Estimated enrolment</dt><dd>{trial.enrolment}</dd></div>
+              <div><dt>Status checked</dt><dd>{formatDate(trial.checkedOn)}</dd></div>
+            </dl>
+            <p class="trial-caution"><strong>Why caution matters:</strong> {trial.caution}</p>
+            <a class="text-link" href={trial.url}>View registry record <ExternalLinkIcon /></a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="guide-title">
+    <div class="shell guide-grid">
+      <div>
+        <p class="eyebrow">Reading the labels</p>
+        <h2 id="guide-title">Not all evidence answers the same question</h2>
+        <p class="section-intro">The label on each card describes the evidence shape, not a score or treatment recommendation.</p>
+      </div>
+      <dl class="evidence-guide">
+        {evidenceGuide.map(([term, description]) => (
+          <div><dt>{term}</dt><dd>{description}</dd></div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <section class="section section--care" aria-labelledby="care-title">
+    <div class="shell care-grid">
+      <div>
+        <p class="eyebrow">Finding care in Australia</p>
+        <h2 id="care-title">Use research as a conversation starter</h2>
+        <p>New or changing swelling needs assessment because several conditions can look similar. An accredited practitioner can help with diagnosis pathways, garment fitting, movement, skin care, and individual management.</p>
+        <div class="resource-links">
+          <a class="button button--light" href="https://www.healthdirect.gov.au/lymphoedema">Read Healthdirect guidance <ExternalLinkIcon /></a>
+          <a class="button button--outline-light" href="https://www.lymphoedema.org.au/accreditation-nlpr/find-a-practitioner/">Find an ALA-accredited practitioner <ExternalLinkIcon /></a>
+        </div>
+      </div>
+      <aside class="urgent-card">
+        <h3>Watch for possible infection</h3>
+        <p>If an affected area becomes suddenly more painful, red, warm, or swollen—or you develop a fever—seek medical care as soon as possible. Cellulitis can become serious.</p>
+        <a href="https://www.healthdirect.gov.au/lymphoedema">See when to seek help on Healthdirect <ExternalLinkIcon /></a>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section--method" aria-labelledby="method-title">
+    <div class="shell method-grid">
+      <div>
+        <p class="eyebrow">How this edition was made</p>
+        <h2 id="method-title">Transparent by design</h2>
+      </div>
+      <div class="method-copy">
+        <p>Sources were selected for patient relevance and checked against PubMed, the publication record, or ClinicalTrials.gov. Established-care context follows the International Society of Lymphology consensus and Australian patient guidance.</p>
+        <ul>
+          <li><a href="https://pubmed.ncbi.nlm.nih.gov/39207406/">2023 International Society of Lymphology consensus <ExternalLinkIcon /></a></li>
+          <li><a href="https://www.healthdirect.gov.au/lymphoedema">Healthdirect Australia: lymphoedema <ExternalLinkIcon /></a></li>
+          <li><a href="https://github.com/seeliang/lymphoedema-research/blob/main/EDITORIAL_POLICY.md">Editorial and selection policy <ExternalLinkIcon /></a></li>
+          <li><a href="https://github.com/seeliang/lymphoedema-research/issues/new">Suggest a source or correction <ExternalLinkIcon /></a></li>
+        </ul>
+        <p class="method-note">The project does not reproduce journal abstracts. Links take you to the source record so you can check the evidence directly.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section version-notes" aria-labelledby="changes-title">
+    <div class="shell version-notes-inner">
+      <div>
+        <p class="eyebrow">Edition {data.version}</p>
+        <h2 id="changes-title">What changed</h2>
+      </div>
+      <ul>
+        {data.changes.map((change) => <li>{change}</li>)}
+      </ul>
+      <a class="text-link" href={withBase("/versions/")}>Browse all versions</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="shell footer-grid">
+    <div>
+      <a class="brand brand--footer" href={withBase("/")}>
+        <BrandMark />
+        <span><strong>Lymphoedema Research Brief</strong><small>A Crosspathing Studio public-interest project</small></span>
+      </a>
+    </div>
+    <div class="footer-links">
+      <a href="https://github.com/seeliang/lymphoedema-research">Source code</a>
+      <a href="https://github.com/seeliang/lymphoedema-research/blob/main/CONTENT_LICENSE.md">Content licence</a>
+      <a href="https://github.com/seeliang/lymphoedema-research/blob/main/CORRECTIONS.md">Corrections policy</a>
+    </div>
+    <p>General information only. Not medical advice. Source-reviewed; not clinician-reviewed.</p>
+  </div>
+</footer>

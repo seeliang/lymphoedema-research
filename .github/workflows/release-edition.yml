@@ -1,0 +1,60 @@
+name: Release research edition
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Calendar edition to release, for example 2026.08.0"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      VERSION: ${{ inputs.version }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.33.1
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Validate edition and build artifact
+        run: |
+          pnpm check
+          pnpm release:check -- "${VERSION}" > /tmp/release-notes.md
+      - name: Create annotated edition tag
+        run: |
+          set -euo pipefail
+          tag="research-${VERSION}"
+          if ! git ls-remote --exit-code --tags origin "refs/tags/${tag}" >/dev/null 2>&1; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git tag -a "${tag}" "${GITHUB_SHA}" -m "Lymphoedema Research Brief ${VERSION}"
+            git push origin "${tag}"
+          fi
+      - name: Create GitHub Release and attach edition JSON
+        run: |
+          set -euo pipefail
+          tag="research-${VERSION}"
+          artifact="dist/versions/${VERSION}/edition.json"
+          if gh release view "${tag}" >/dev/null 2>&1; then
+            gh release upload "${tag}" "${artifact}#edition-${VERSION}.json" --clobber
+          else
+            gh release create "${tag}" "${artifact}#edition-${VERSION}.json" --title "Lymphoedema Research Brief ${VERSION}" --notes-file /tmp/release-notes.md --verify-tag
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

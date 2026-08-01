@@ -1,0 +1,45 @@
+[
+  {
+    "id": "2026.08.0",
+    "version": "2026.08.0",
+    "schemaVersion": 1,
+    "status": "current",
+    "reviewedOn": "2026-08-01",
+    "nextReviewDue": "2026-09-01",
+    "title": "Lymphoedema Research Brief",
+    "summary": "A patient-and-carer summary of recent research, what the findings may mean, and where important uncertainty remains.",
+    "changes": [
+      "Published the first source-reviewed evidence edition.",
+      "Separated published findings from trials that do not yet have results.",
+      "Added Australian care and urgent-infection resources."
+    ],
+    "trials": [
+      {
+        "nctId": "NCT05890677",
+        "title": "The LYMPH Trial — microsurgical versus conservative treatment of chronic breast-cancer-associated lymphoedema",
+        "population": "Adults with chronic breast-cancer-associated upper-limb lymphoedema",
+        "design": "Pragmatic randomised international multicentre comparison of microsurgery and conservative complex decongestive therapy",
+        "status": "Recruiting",
+        "enrolment": 280,
+        "resultsAvailable": false,
+        "lastUpdated": "2026-06-04",
+        "checkedOn": "2026-08-01",
+        "url": "https://clinicaltrials.gov/study/NCT05890677",
+        "caution": "Recruitment and registration do not show that surgery is better. The primary completion date is still in the future and no results are reported here."
+      },
+      {
+        "nctId": "NCT07012642",
+        "title": "Efficacy of GLP-1 receptor agonists in upper- and lower-extremity lymphoedema",
+        "population": "Adults with unilateral upper- or lower-extremity lymphoedema who meet the study criteria",
+        "design": "Early Phase 1, open-label, single-group interventional study",
+        "status": "Recruiting",
+        "enrolment": 110,
+        "resultsAvailable": false,
+        "lastUpdated": "2025-06-10",
+        "checkedOn": "2026-08-01",
+        "url": "https://clinicaltrials.gov/study/NCT07012642",
+        "caution": "This is an early, uncontrolled study with no posted results. It does not establish GLP-1 medicines as a lymphoedema treatment and is not a recommendation to use them."
+      }
+    ]
+  }
+]

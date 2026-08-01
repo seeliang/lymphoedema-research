@@ -1,0 +1,14 @@
+---
+import EditionPage from "../components/EditionPage.astro"
+import BaseLayout from "../layouts/BaseLayout.astro"
+import { getCurrentEdition, getEditionBundle } from "../lib/content"
+
+const current = await getCurrentEdition()
+const bundle = await getEditionBundle(current.data.version)
+const title = "Lymphoedema Research Brief — Evidence snapshot"
+const description = `Plain-language summaries of recent lymphoedema research, limitations, and studies in progress. Edition ${current.data.version}, reviewed ${current.data.reviewedOn}.`
+---
+
+<BaseLayout title={title} description={description}>
+  <EditionPage {...bundle} />
+</BaseLayout>

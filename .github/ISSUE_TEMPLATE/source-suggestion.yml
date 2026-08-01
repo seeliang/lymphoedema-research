@@ -1,0 +1,37 @@
+name: Suggest a research source
+description: Propose a source for a future editorial review.
+title: "Source suggestion: "
+labels:
+  - source-suggestion
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Suggestions enter the review queue; they are not automatically added to the public brief. Do not include personal medical information or paste copyrighted abstracts.
+  - type: input
+    id: source
+    attributes:
+      label: Source link
+      description: Prefer a PubMed, DOI, guideline, or trial-registry URL.
+      placeholder: https://pubmed.ncbi.nlm.nih.gov/...
+    validations:
+      required: true
+  - type: textarea
+    id: relevance
+    attributes:
+      label: Why might it matter to patients or carers?
+      description: Briefly identify the topic, population, and potential relevance.
+    validations:
+      required: true
+  - type: textarea
+    id: limitations
+    attributes:
+      label: Limitations you noticed
+      description: Optional. Note study-design or population limits without making treatment recommendations.
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy and copyright check
+      options:
+        - label: I have not included personal medical information or pasted an abstract.
+          required: true

@@ -1,0 +1,43 @@
+name: Monthly research review
+
+on:
+  schedule:
+    - cron: "0 9 1 * *"
+      timezone: "Australia/Sydney"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+      - name: Discover publications and trial changes
+        run: node scripts/research-scan.mjs > /tmp/research-review.md
+        env:
+          NCBI_EMAIL: ${{ vars.NCBI_EMAIL }}
+          RESEARCH_SCAN_DAYS: "45"
+      - name: Create or refresh this month's issue
+        shell: bash
+        run: |
+          set -euo pipefail
+          issue_title="Research review — $(TZ=Australia/Sydney date +%Y-%m)"
+          gh label create research-review --color 0E7490 --description "Scheduled evidence and registry review" --force
+          gh label create automated --color D9F3EF --description "Created or updated by repository automation" --force
+          existing="$(gh issue list --state all --limit 100 --json number,title --jq ".[] | select(.title == \"${issue_title}\") | .number" | head -n 1)"
+          if [[ -n "${existing}" ]]; then
+            gh issue edit "${existing}" --body-file /tmp/research-review.md --add-label research-review --add-label automated
+          else
+            gh issue create --title "${issue_title}" --body-file /tmp/research-review.md --label research-review --label automated
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
