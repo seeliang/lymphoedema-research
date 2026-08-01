@@ -20,13 +20,21 @@ export type EditionBundle = {
   notices: NoticeEntry[]
 }
 
+const publicationPreview = import.meta.env.PUBLICATION_PREVIEW === "1"
+
 export async function getAllEditions(): Promise<EditionEntry[]> {
   const editions = await getCollection("editions")
-  return editions.sort((a, b) => b.data.version.localeCompare(a.data.version, undefined, { numeric: true }))
+  return editions
+    .filter((entry) => publicationPreview || entry.data.status !== "draft")
+    .sort((a, b) => b.data.version.localeCompare(a.data.version, undefined, { numeric: true }))
 }
 
 export async function getCurrentEdition(): Promise<EditionEntry> {
   const editions = await getAllEditions()
+  if (publicationPreview) {
+    const draft = editions.find((entry) => entry.data.status === "draft")
+    if (draft) return draft
+  }
   const current = editions.filter((entry) => entry.data.status === "current")
 
   if (current.length !== 1) {

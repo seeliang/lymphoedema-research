@@ -1,0 +1,51 @@
+---
+import { enAUUI, zhCNUI } from "../i18n/ui"
+import type { LocalizedEditionBundle, SiteLocale } from "../lib/i18n"
+import ExternalLinkIcon from "./ExternalLinkIcon.astro"
+
+interface Props {
+  entry: LocalizedEditionBundle["evidence"][number]
+  locale: SiteLocale
+  number: number
+}
+
+const { entry, locale, number } = Astro.props
+const copy = locale === "zh-CN" ? zhCNUI : enAUUI
+---
+
+<article class="evidence-card">
+  <div class="evidence-card-topline">
+    <span class="evidence-number">{String(number).padStart(2, "0")}</span>
+    <div class="badge-row">
+      <span class="badge">{entry.data.area}</span>
+      <span class="badge badge--level">{entry.data.evidenceLevel}</span>
+    </div>
+  </div>
+  <h3 class="evidence-card-title">{entry.data.title}</h3>
+  <dl class="study-context">
+    <div><dt>{copy.evidence.population}</dt><dd>{entry.data.population}</dd></div>
+    <div><dt>{copy.evidence.design}</dt><dd>{entry.data.studyDesign}</dd></div>
+  </dl>
+  <div class="finding-grid">
+    <div>
+      <h4>{copy.evidence.finding}</h4>
+      <p>{entry.data.takeaway}</p>
+    </div>
+    <div>
+      <h4>{copy.evidence.meaning}</h4>
+      <p>{entry.data.meaning}</p>
+    </div>
+  </div>
+  <aside class="limitation">
+    <strong>{copy.evidence.limitation}</strong>
+    <p>{entry.data.limitation}</p>
+  </aside>
+  <div class="sources" aria-label={copy.evidence.sources(entry.data.sources.length)}>
+    <strong>{copy.evidence.sources(entry.data.sources.length)}</strong>
+    <ul>
+      {entry.data.sources.map((source) => (
+        <li><a href={source.url}>{source.label} <ExternalLinkIcon /></a></li>
+      ))}
+    </ul>
+  </div>
+</article>

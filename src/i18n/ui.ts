@@ -44,11 +44,13 @@ export const enAUUI = {
     translationStatus: "Chinese translation status",
     translationValue: (revision: number, status: "ai-assisted" | "human-reviewed") => status === "human-reviewed"
       ? `Revision ${revision} · independently language-reviewed`
-      : `Revision ${revision} · AI-assisted, awaiting independent language review`,
+      : `Revision ${revision} · AI-assisted, not independently language-reviewed`,
   },
   disclaimer: {
     title: "General information, not medical advice",
     body: "This page cannot diagnose lymphoedema or tell you which treatment is right for you. Discuss changes in symptoms or care with a qualified health professional who knows your circumstances.",
+    responsibilityTitle: "Information use and responsibility",
+    responsibilityBody: "You remain responsible for decisions about your health and should not rely on this page as a substitute for professional advice. To the extent permitted by law, the project does not accept liability for loss arising from reliance on this general information. Nothing in this notice excludes rights or liabilities that cannot lawfully be excluded.",
   },
   translationNotice: null,
   childrenFocus: {
@@ -75,6 +77,75 @@ export const enAUUI = {
       ["Options are improving—not universal", "Recent studies suggest more flexible exercise, compression, imaging, and surgical pathways, but no approach works for every person."],
       ["Study design changes confidence", "A promising pilot or registered trial is not the same as replicated randomised evidence with patient-important outcomes."],
     ],
+  },
+  evidenceFirst: {
+    navigation: {
+      whatWorks: "What works",
+      treatment: "Treatment",
+      medicines: "Medicines",
+      children: "Children",
+      diagnosis: "Diagnosis",
+      versions: "Versions",
+    },
+    draft: {
+      title: "Draft preview — not published",
+      body: "This candidate edition is visible only in local preview mode and is not included in the public build.",
+    },
+    heroButton: "Start with what works",
+    heroEyebrow: (version: string, date: string) => `Edition ${version} · sources checked ${date}`,
+    overview: {
+      eyebrow: "Evidence at a glance",
+      title: "What the research supports now",
+      intro: "These conclusions deliberately separate established care, options for selected people, and questions where the evidence is not yet enough.",
+      references: "Direct references",
+      status: {
+        supported: "Supported by current guidance",
+        selected: "May help selected people",
+        uncertain: "Confidence depends on the evidence",
+      },
+    },
+    review: {
+      clinical: "Clinical review",
+      notReviewed: "Source-reviewed · not clinician-reviewed",
+      approved: "Approved",
+      scope: "Source-review scope",
+      language: "Chinese language review",
+      languageNotReviewed: "AI-assisted · not independently language-reviewed",
+      languageApproved: "Approved",
+      sourceChecked: "Sources checked",
+      details: "Review details",
+    },
+    sections: {
+      eyebrow: "Research in detail",
+      treatment: {
+        title: "Treatment and management",
+        evidenceTitle: "Recent findings",
+        trialTitle: "Being studied — no results yet",
+      },
+      medicines: {
+        title: "Medicines",
+        evidenceTitle: "Reviewed medicine findings",
+        empty: "No published medicine finding has completed review for this edition. The context below comes from current guidance; the registered GLP-1 study has no posted results.",
+        trialTitle: "Being studied — no results yet",
+      },
+      children: {
+        title: "Children and adolescents",
+        intro: "Child-specific evidence is reviewed across every relevant topic. Adult-only findings are not assumed to apply to children.",
+      },
+      diagnosis: {
+        title: "Understanding and diagnosis",
+        intro: "Research into biology and imaging can improve understanding or assessment, but it does not by itself establish a treatment.",
+      },
+      other: {
+        title: "Other research",
+        intro: "Reviewed evidence that does not fit the sections above stays visible here. Page headings organise the research; they do not limit what can be considered.",
+      },
+      contextSources: "Guidance and context sources",
+    },
+    footer: {
+      clinicallyReviewed: "General information only. Not medical advice. Clinically reviewed for the scope stated above.",
+      clinicallyAndLanguageReviewed: "General information only. Not medical advice. Clinically reviewed for the stated scope; Chinese independently language-reviewed.",
+    },
   },
   evidence: {
     eyebrow: "Published findings",
@@ -160,7 +231,7 @@ export const enAUUI = {
   },
   changes: { eyebrow: (version: string) => `Edition ${version}`, title: "What changed", versions: "Browse all versions" },
   footer: {
-    studio: "A Crosspathing Studio public-interest project",
+    studio: "Independent public-interest project",
     source: "Source code",
     licence: "Content licence",
     corrections: "Corrections policy",
@@ -221,15 +292,17 @@ export const zhCNUI = {
     translationStatus: "中文稿状态",
     translationValue: (revision: number, status: "ai-assisted" | "human-reviewed") => status === "human-reviewed"
       ? `修订 ${revision} · 已完成独立人工语言审校`
-      : `修订 ${revision} · AI 辅助译稿，待独立人工语言审校`,
+      : `修订 ${revision} · AI 辅助译稿，未经独立人工语言审校`,
   },
   disclaimer: {
     title: "本页提供一般信息，不是医疗建议",
     body: "本页不能诊断淋巴水肿，也不能替您选择治疗方案。如果肿胀、其他症状或照护需求有变化，请咨询了解您情况的合格医疗专业人员。",
+    responsibilityTitle: "信息使用与责任说明",
+    responsibilityBody: "您需要对自己的健康决定负责，不应把本页当作专业医疗建议的替代。在法律允许的范围内，本项目不对因依赖本页一般信息而造成的损失承担责任。本说明不排除法律规定不能排除的权利或责任。",
   },
   translationNotice: {
     title: "关于这份中文稿",
-    body: "本页由 AI 协助翻译，尚待独立人工语言审校。所选研究、版本号和来源链接均与全球英文版一致。如中文表述有歧义，请以英文版及所链接的原始研究为准。",
+    body: "本页由 AI 协助翻译，未经独立人工语言审校。所选研究、版本号和来源链接均与全球英文版一致。如中文表述有歧义，请以英文版及所链接的原始研究为准。",
     link: "查看全球英文版",
   },
   childrenFocus: {
@@ -256,6 +329,75 @@ export const zhCNUI = {
       ["选择更多了，但要因人而异", "近期研究正在探索更灵活的运动、加压治疗、影像检查和手术方案，但没有一种方法适合所有人。"],
       ["研究方法会影响结论可信度", "小型探索性研究和仅完成注册的试验，与经过重复验证、关注患者实际结局的随机研究，不是同一级别的证据。"],
     ],
+  },
+  evidenceFirst: {
+    navigation: {
+      whatWorks: "哪些方法有效",
+      treatment: "治疗",
+      medicines: "药物",
+      children: "儿童",
+      diagnosis: "诊断",
+      versions: "历史版本",
+    },
+    draft: {
+      title: "草稿预览，尚未发布",
+      body: "本候选版本只在本地预览模式中显示，不会进入公开构建。",
+    },
+    heroButton: "先看哪些方法有效",
+    heroEyebrow: (version: string, date: string) => `第 ${version} 版 · 英文资料核对于 ${date}`,
+    overview: {
+      eyebrow: "先看证据结论",
+      title: "现有研究支持什么",
+      intro: "以下结论明确区分已有依据的照护、可能适合部分人的方法，以及证据仍不足的问题。",
+      references: "直接查看依据",
+      status: {
+        supported: "现行指导意见支持",
+        selected: "可能帮助部分人",
+        uncertain: "结论取决于证据强弱",
+      },
+    },
+    review: {
+      clinical: "临床审核",
+      notReviewed: "已核对原始来源 · 尚未经临床专家审核",
+      approved: "已审核通过",
+      scope: "原始来源核对范围",
+      language: "中文语言审校",
+      languageNotReviewed: "AI 辅助译稿 · 未经独立人工语言审校",
+      languageApproved: "已审校通过",
+      sourceChecked: "英文资料核对日期",
+      details: "查看审核详情",
+    },
+    sections: {
+      eyebrow: "详细研究内容",
+      treatment: {
+        title: "治疗与管理",
+        evidenceTitle: "近期研究发现",
+        trialTitle: "正在研究，尚无结果",
+      },
+      medicines: {
+        title: "药物",
+        evidenceTitle: "已审查的药物研究",
+        empty: "本期没有已发表的药物研究完成审查。以下背景来自现行指导意见；注册的 GLP-1 研究尚未公布结果。",
+        trialTitle: "正在研究，尚无结果",
+      },
+      children: {
+        title: "儿童和青少年",
+        intro: "儿童专属证据会在所有相关主题中分别审查。仅针对成年人的研究结果不会被直接套用到儿童身上。",
+      },
+      diagnosis: {
+        title: "认识与诊断",
+        intro: "生物机制和影像研究有助于认识或评估淋巴水肿，但这些研究本身不能证明某种治疗有效。",
+      },
+      other: {
+        title: "其他研究",
+        intro: "不属于以上栏目的已审查证据会继续显示在这里。页面标题只用于整理研究，不会限制哪些资料可以纳入考虑。",
+      },
+      contextSources: "指导意见与背景来源",
+    },
+    footer: {
+      clinicallyReviewed: "仅供一般信息参考，不是医疗建议。页面所列范围已完成临床审核。",
+      clinicallyAndLanguageReviewed: "仅供一般信息参考，不是医疗建议。页面所列范围已完成临床审核；中文已完成独立人工语言审校。",
+    },
   },
   evidence: {
     eyebrow: "已发表研究",
@@ -341,10 +483,10 @@ export const zhCNUI = {
   },
   changes: { eyebrow: (version: string) => `第 ${version} 版`, title: "本期更新", versions: "浏览历史版本" },
   footer: {
-    studio: "Crosspathing Studio 公益项目",
+    studio: "独立公益项目",
     source: "源代码",
     licence: "内容许可",
     corrections: "更正政策",
-    disclaimer: "仅供一般信息参考，不是医疗建议。英文版已核对原始来源，尚未经临床专家审核；中文为 AI 辅助译稿，待独立人工语言审校。",
+    disclaimer: "仅供一般信息参考，不是医疗建议。英文版已核对原始来源，尚未经临床专家审核；中文为 AI 辅助译稿，未经独立人工语言审校。",
   },
 } as const

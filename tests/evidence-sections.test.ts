@@ -18,4 +18,15 @@ describe("evidence section partitioning", () => {
 
     expect(partitionEvidenceSections([childEvidence]).children).toEqual([childEvidence])
   })
+
+  it("keeps medicine evidence in its own section", () => {
+    const medicineEvidence = {
+      id: "medicine-study",
+      data: { section: "medicines", area: "Medicines" },
+    }
+
+    const groups = partitionEvidenceSections([medicineEvidence])
+    expect(groups.medicines).toEqual([medicineEvidence])
+    expect(groups.otherResearch).toEqual([])
+  })
 })

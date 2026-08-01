@@ -203,7 +203,7 @@
     "id": "2026.08.4",
     "version": "2026.08.4",
     "schemaVersion": 4,
-    "status": "current",
+    "status": "superseded",
     "reviewedOn": "2026-08-01",
     "nextReviewDue": "2026-09-01",
     "title": "Lymphoedema Research Brief",
@@ -268,6 +268,251 @@
         "checkedOn": "2026-08-01",
         "url": "https://clinicaltrials.gov/study/NCT07012642",
         "caution": "This is an early, uncontrolled study with no posted results. It does not establish GLP-1 medicines as a lymphoedema treatment and is not a recommendation to use them."
+      }
+    ]
+  },
+  {
+    "id": "2026.08.5",
+    "version": "2026.08.5",
+    "schemaVersion": 5,
+    "status": "current",
+    "reviewedOn": "2026-08-01",
+    "nextReviewDue": "2026-09-01",
+    "title": "Lymphoedema research: what works and what is still uncertain",
+    "summary": "A research-based guide to established care, promising options, unanswered questions, and the evidence behind each conclusion.",
+    "changes": [
+      "Replaced the generic introduction with three evidence-status takeaways, each linked directly to its supporting references.",
+      "Reorganised reviewed findings around treatment and management, medicines, children and adolescents, and understanding and diagnosis.",
+      "Clearly labels the English synthesis as source-reviewed but not clinician-reviewed, and the Chinese version as AI-assisted and not independently language-reviewed."
+    ],
+    "evidenceOverview": {
+      "items": [
+        {
+          "id": "established-foundations",
+          "status": "supported",
+          "title": "Current care has established foundations",
+          "summary": "Current guidance supports individually assessed compression, skin care, movement and exercise, and appropriate decongestive therapy as foundations of lymphoedema management.",
+          "sources": [
+            {
+              "label": "Healthdirect Australia — How is lymphoedema treated?",
+              "url": "https://www.healthdirect.gov.au/lymphoedema#treated",
+              "kind": "patient-resource"
+            },
+            {
+              "label": "NHS — Treatment for lymphoedema",
+              "url": "https://www.nhs.uk/conditions/lymphoedema/treatment/",
+              "kind": "patient-resource"
+            },
+            {
+              "label": "International Society of Lymphology 2023 consensus — conservative treatment",
+              "url": "https://isl.arizona.edu/sites/default/files/2024-11/THE-DIAGNOSIS-AND-TREATMENT-OF-PERIPHERAL-LYMPHEDEMA-2023-CONSENSUS-DOCUMENT-OF-THE-INTERNATIONAL-SOCIETY-OF-LYMPHOLOGY.pdf#page=8",
+              "kind": "guideline"
+            }
+          ]
+        },
+        {
+          "id": "selected-options",
+          "status": "selected",
+          "title": "Newer options may help selected people",
+          "summary": "Newer compression delivery, progressive resistance training, and specialist microsurgery may help particular populations, but the findings do not make any one option suitable for everyone.",
+          "sources": [
+            {
+              "label": "Adjustable compression-wrap randomised study",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/40015477/",
+              "kind": "journal",
+              "pmid": "40015477"
+            },
+            {
+              "label": "Digitally supported therapy study",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/41773709/",
+              "kind": "journal",
+              "pmid": "41773709"
+            },
+            {
+              "label": "Resistance-exercise prevention systematic review",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/42360033/",
+              "kind": "journal",
+              "pmid": "42360033"
+            },
+            {
+              "label": "Resistance-training systematic review",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/42326594/",
+              "kind": "journal",
+              "pmid": "42326594"
+            },
+            {
+              "label": "Lymphatic venous anastomosis randomised trial",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/37997932/",
+              "kind": "journal",
+              "pmid": "37997932"
+            },
+            {
+              "label": "Microsurgery umbrella systematic review",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/42208734/",
+              "kind": "journal",
+              "pmid": "42208734"
+            }
+          ]
+        },
+        {
+          "id": "evidence-strength",
+          "status": "uncertain",
+          "title": "Evidence strength changes what we can conclude",
+          "summary": "A small study, a randomised trial, a systematic review, and a registered trial with no results support different levels of confidence; registration alone does not show that a treatment works.",
+          "sources": [
+            {
+              "label": "Cochrane Handbook — assessing certainty of evidence",
+              "url": "https://training.cochrane.org/handbook/current/chapter-14",
+              "kind": "guideline"
+            },
+            {
+              "label": "Cochrane Handbook — interpreting results and conclusions",
+              "url": "https://training.cochrane.org/handbook/current/chapter-15",
+              "kind": "guideline"
+            },
+            {
+              "label": "ClinicalTrials.gov — how to read study results",
+              "url": "https://clinicaltrials.gov/study-basics/how-to-read-study-results",
+              "kind": "registry"
+            },
+            {
+              "label": "International Society of Lymphology consensus record",
+              "url": "https://pubmed.ncbi.nlm.nih.gov/39207406/",
+              "kind": "journal",
+              "pmid": "39207406"
+            },
+            {
+              "label": "LYMPH trial registry record — no results posted",
+              "url": "https://clinicaltrials.gov/study/NCT05890677",
+              "kind": "registry"
+            },
+            {
+              "label": "GLP-1 trial registry record — no results posted",
+              "url": "https://clinicaltrials.gov/study/NCT07012642",
+              "kind": "registry"
+            }
+          ]
+        }
+      ]
+    },
+    "sectionContexts": {
+      "treatmentManagement": {
+        "intro": "Established care is individualised. Current guidance describes compression, skin care, exercise and movement, and decongestive therapy as core approaches; specialist procedures may be considered for selected people.",
+        "sources": [
+          {
+            "label": "Healthdirect Australia — lymphoedema treatment",
+            "url": "https://www.healthdirect.gov.au/lymphoedema#treated",
+            "kind": "patient-resource"
+          },
+          {
+            "label": "NHS — lymphoedema treatment",
+            "url": "https://www.nhs.uk/conditions/lymphoedema/treatment/",
+            "kind": "patient-resource"
+          },
+          {
+            "label": "International Society of Lymphology consensus — conservative treatment",
+            "url": "https://isl.arizona.edu/sites/default/files/2024-11/THE-DIAGNOSIS-AND-TREATMENT-OF-PERIPHERAL-LYMPHEDEMA-2023-CONSENSUS-DOCUMENT-OF-THE-INTERNATIONAL-SOCIETY-OF-LYMPHOLOGY.pdf#page=8",
+            "kind": "guideline"
+          },
+          {
+            "label": "International Society of Lymphology consensus — operative treatment",
+            "url": "https://isl.arizona.edu/sites/default/files/2024-11/THE-DIAGNOSIS-AND-TREATMENT-OF-PERIPHERAL-LYMPHEDEMA-2023-CONSENSUS-DOCUMENT-OF-THE-INTERNATIONAL-SOCIETY-OF-LYMPHOLOGY.pdf#page=13",
+            "kind": "guideline"
+          }
+        ]
+      },
+      "medicines": {
+        "intro": "No medicine is established as routine treatment for uncomplicated peripheral lymphoedema itself. Antibiotics are used for diagnosed infections such as cellulitis, not as general lymphoedema treatment; long-term diuretics are generally discouraged except for selected coexisting conditions or complications. A registered GLP-1 study has no posted results and is not a treatment recommendation.",
+        "sources": [
+          {
+            "label": "International Society of Lymphology consensus — molecular and pharmacological research",
+            "url": "https://isl.arizona.edu/sites/default/files/2024-11/THE-DIAGNOSIS-AND-TREATMENT-OF-PERIPHERAL-LYMPHEDEMA-2023-CONSENSUS-DOCUMENT-OF-THE-INTERNATIONAL-SOCIETY-OF-LYMPHOLOGY.pdf#page=11",
+            "kind": "guideline"
+          },
+          {
+            "label": "International Society of Lymphology consensus — diuretics and antibiotics",
+            "url": "https://isl.arizona.edu/sites/default/files/2024-11/THE-DIAGNOSIS-AND-TREATMENT-OF-PERIPHERAL-LYMPHEDEMA-2023-CONSENSUS-DOCUMENT-OF-THE-INTERNATIONAL-SOCIETY-OF-LYMPHOLOGY.pdf#page=12",
+            "kind": "guideline"
+          },
+          {
+            "label": "Healthdirect Australia — when to see a doctor",
+            "url": "https://www.healthdirect.gov.au/lymphoedema#doctor",
+            "kind": "patient-resource"
+          },
+          {
+            "label": "Healthdirect Australia — complications",
+            "url": "https://www.healthdirect.gov.au/lymphoedema#complications",
+            "kind": "patient-resource"
+          },
+          {
+            "label": "NHS — lymphoedema and cellulitis",
+            "url": "https://www.nhs.uk/conditions/lymphoedema/",
+            "kind": "patient-resource"
+          }
+        ]
+      }
+    },
+    "clinicalReview": {
+      "status": "not-reviewed",
+      "scope": "The three evidence-status takeaways and the treatment and medicines context"
+    },
+    "childrenSection": {
+      "publicationCandidates": 5,
+      "trialRecords": 3,
+      "summary": "The latest 45-day discovery scan identified five publication candidates and three recently updated trial records involving children or adolescents. None has completed the source review required for inclusion in the patient-facing evidence summary.",
+      "reviewUrl": "https://github.com/seeliang/lymphoedema-research/issues/1"
+    },
+    "deferredCandidates": [
+      {
+        "id": "PMID 40081785",
+        "title": "Randomized Trial Assessing Prospective Surveillance and Exercise for Preventing Breast Cancer-Related Lymphedema in High-Risk Patients",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/40081785/",
+        "reason": "The trial is relevant but substantially overlaps the resistance-training prevention evidence already summarised.",
+        "revisitWhen": "Reassess during the next exercise evidence update or if it materially changes the current interpretation."
+      },
+      {
+        "id": "PMID 41886031",
+        "title": "LYMPHA Technique to Prevent Arm Lymphedema After Breast Cancer Treatment: A Single-Center Study Based on a 15-Year Follow-Up Period",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/41886031/",
+        "reason": "The long follow-up is potentially important, but the non-randomised single-centre design and selection across a long treatment era require detailed appraisal.",
+        "revisitWhen": "Reassess after full source review of selection, comparator, follow-up, harms, funding and conflicts."
+      },
+      {
+        "id": "PMID 42294341",
+        "title": "Non-pharmacological therapies for breast cancer-related lymphedema: a systematic review and network meta-analysis based on randomized controlled trials",
+        "url": "https://pubmed.ncbi.nlm.nih.gov/42294341/",
+        "reason": "Treatment rankings should not be interpreted for patients until risk of bias, network connectivity, heterogeneity and certainty are assessed.",
+        "revisitWhen": "Reassess after a human reviewer completes the network meta-analysis appraisal."
+      }
+    ],
+    "trials": [
+      {
+        "nctId": "NCT05890677",
+        "title": "The LYMPH Trial — microsurgical versus conservative treatment of chronic breast-cancer-associated lymphoedema",
+        "population": "Adults with chronic breast-cancer-associated upper-limb lymphoedema",
+        "design": "Pragmatic randomised international multicentre comparison of microsurgery and conservative complex decongestive therapy",
+        "status": "Recruiting",
+        "enrolment": 280,
+        "resultsAvailable": false,
+        "lastUpdated": "2026-06-04",
+        "checkedOn": "2026-08-01",
+        "url": "https://clinicaltrials.gov/study/NCT05890677",
+        "caution": "Recruitment and registration do not show that surgery is better. The primary completion date is still in the future and no results are reported here.",
+        "section": "treatment-management"
+      },
+      {
+        "nctId": "NCT07012642",
+        "title": "Efficacy of GLP-1 receptor agonists in upper- and lower-extremity lymphoedema",
+        "population": "Adults with unilateral upper- or lower-extremity lymphoedema who meet the study criteria",
+        "design": "Early Phase 1, open-label, single-group interventional study",
+        "status": "Recruiting",
+        "enrolment": 110,
+        "resultsAvailable": false,
+        "lastUpdated": "2025-06-10",
+        "checkedOn": "2026-08-01",
+        "url": "https://clinicaltrials.gov/study/NCT07012642",
+        "caution": "This is an early, uncontrolled study with no posted results. It does not establish GLP-1 medicines as a lymphoedema treatment and is not a recommendation to use them.",
+        "section": "medicines"
       }
     ]
   }

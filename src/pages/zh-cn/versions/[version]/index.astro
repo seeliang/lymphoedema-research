@@ -14,8 +14,12 @@ export async function getStaticPaths() {
 
 interface Props { bundle: LocalizedEditionBundle }
 const { bundle } = Astro.props
-const title = `第 ${bundle.edition.data.version} 版｜淋巴水肿研究简报`
-const description = `全球英文第 ${bundle.edition.data.version} 版的简体中文稿，包含研究局限和试验状态。`
+const title = bundle.edition.data.evidenceOverview
+  ? `第 ${bundle.edition.data.version} 版｜${bundle.edition.data.title}`
+  : `第 ${bundle.edition.data.version} 版｜淋巴水肿研究简报`
+const description = bundle.edition.data.evidenceOverview
+  ? bundle.edition.data.summary
+  : `全球英文第 ${bundle.edition.data.version} 版的简体中文稿，包含研究局限和试验状态。`
 ---
 
 <BaseLayout

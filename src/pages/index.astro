@@ -6,10 +6,12 @@ import { localizeEditionBundle } from "../lib/i18n"
 
 const current = await getCurrentEdition()
 const bundle = localizeEditionBundle(await getEditionBundle(current.data.version), "en-AU")
-const title = "Lymphoedema Research Brief — Evidence snapshot"
-const description = `Plain-language summaries of recent lymphoedema research, limitations, and studies in progress. Edition ${current.data.version}, reviewed ${current.data.reviewedOn}.`
+const title = current.data.evidenceOverview ? current.data.title : "Lymphoedema Research Brief — Evidence snapshot"
+const description = current.data.evidenceOverview
+  ? `${current.data.summary} Edition ${current.data.version}.`
+  : `Plain-language summaries of recent lymphoedema research, limitations, and studies in progress. Edition ${current.data.version}, reviewed ${current.data.reviewedOn}.`
 ---
 
-<BaseLayout title={title} description={description} alternatePaths={{ enAU: "/", zhCN: "/zh-cn/" }}>
+<BaseLayout title={title} description={description} noindex={current.data.status === "draft"} alternatePaths={{ enAU: "/", zhCN: "/zh-cn/" }}>
   <EditionPage {...bundle} />
 </BaseLayout>

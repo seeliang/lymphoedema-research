@@ -1,6 +1,7 @@
 import { readFile, readdir } from "node:fs/promises"
 import { fileURLToPath } from "node:url"
 import { dirname, join } from "node:path"
+import { assertEvidenceFirstReleaseReady } from "./release-readiness.mjs"
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..")
 const argumentsAfterSeparator = process.argv.slice(2).filter((argument) => argument !== "--")
@@ -43,6 +44,15 @@ try {
   if (error?.code !== "ENOENT") throw error
 }
 
+assertEvidenceFirstReleaseReady(edition, chineseTranslation)
+
+const clinicalReviewLine = edition.clinicalReview?.status === "approved"
+  ? `Clinical review: ${edition.clinicalReview.reviewerName}, ${edition.clinicalReview.credentials} (${edition.clinicalReview.reviewedOn})`
+  : "Clinical review: not performed; source-reviewed only"
+const chineseReviewLine = chineseTranslation?.translationStatus === "human-reviewed"
+  ? `Chinese language review: ${chineseTranslation.languageReview.reviewerName}, ${chineseTranslation.languageReview.reviewerRole} (${chineseTranslation.languageReview.reviewedOn})`
+  : "Chinese language review: not performed; AI-assisted translation remains noindex"
+
 const notes = [
   `# Lymphoedema Research Brief ${version}`,
   "",
@@ -60,7 +70,11 @@ const notes = [
     `Simplified Chinese translation: revision ${chineseTranslation.translationRevision} (${chineseTranslation.translationStatus})`,
   ] : []),
   "",
-  "General information only. Not medical advice. Source-reviewed; not clinician-reviewed.",
+  ...(edition.evidenceOverview ? [
+    clinicalReviewLine,
+    chineseReviewLine,
+    "General information only. Not medical advice.",
+  ] : ["General information only. Not medical advice. Source-reviewed; not clinician-reviewed."]),
   "",
 ]
 

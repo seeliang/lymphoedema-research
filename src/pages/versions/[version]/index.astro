@@ -14,8 +14,12 @@ export async function getStaticPaths() {
 
 interface Props { bundle: LocalizedEditionBundle }
 const { bundle } = Astro.props
-const title = `Edition ${bundle.edition.data.version} — Lymphoedema Research Brief`
-const description = `Permanent evidence snapshot reviewed ${bundle.edition.data.reviewedOn}. Source-reviewed summaries with limitations and trial status.`
+const title = bundle.edition.data.evidenceOverview
+  ? `Edition ${bundle.edition.data.version} — ${bundle.edition.data.title}`
+  : `Edition ${bundle.edition.data.version} — Lymphoedema Research Brief`
+const description = bundle.edition.data.evidenceOverview
+  ? bundle.edition.data.summary
+  : `Permanent evidence snapshot reviewed ${bundle.edition.data.reviewedOn}. Source-reviewed summaries with limitations and trial status.`
 ---
 
 <BaseLayout

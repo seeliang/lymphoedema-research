@@ -27,7 +27,100 @@ assertEqual(englishArtifact.version, version, "English artifact version")
 assertEqual(chineseArtifact.version, version, "Chinese artifact version")
 assertEqual(chineseArtifact.locale, "zh-CN", "Chinese artifact locale")
 
-if (edition.childrenSection) {
+if (edition.evidenceOverview) {
+  for (const [label, html] of [["English current", englishCurrentHtml], ["English archive", englishHtml]]) {
+    assertOrderedSections(html, ["what-works", "treatment", "medicines", "children", "understanding-diagnosis", "deferred"], label)
+    assertIncludes(html, "Lymphoedema research: what works and what is still uncertain", `${label} evidence-first title`)
+    assertExcludes(html, "What recent lymphoedema research may mean", `${label} legacy hero title`)
+    assertIncludes(html, "What the research supports now", `${label} overview heading`)
+    assertIncludes(html, "Current care has established foundations", `${label} established-care takeaway`)
+    assertIncludes(html, "Newer options may help selected people", `${label} selected-options takeaway`)
+    assertIncludes(html, "Evidence strength changes what we can conclude", `${label} evidence-strength takeaway`)
+    assertIncludes(html, "Direct references", `${label} direct-reference label`)
+    assertIncludes(html, "Treatment and management", `${label} treatment heading`)
+    assertIncludes(html, "Medicines", `${label} medicines heading`)
+    assertIncludes(html, "No medicine is established as routine treatment for uncomplicated peripheral lymphoedema itself", `${label} medicine context`)
+    assertIncludes(html, "No published medicine finding has completed review for this edition", `${label} medicine empty state`)
+    assertIncludes(html, "Children and adolescents", `${label} children heading`)
+    assertIncludes(html, "No reviewed child-specific evidence in this edition", `${label} children empty state`)
+    assertIncludes(html, "Understanding and diagnosis", `${label} diagnosis heading`)
+    assertExcludes(html, 'id="trials"', `${label} duplicate global trials section`)
+    assertGroupNumbers(html, "treatment", "medicines", ["01", "02", "03"], label)
+    assertGroupNumbers(html, "understanding-diagnosis", "deferred", ["01", "02"], label)
+    assertTextOrder(html, 'id="treatment"', "New delivery options may make conservative care easier to manage", `${label} treatment section start`)
+    assertTextOrder(html, "New delivery options may make conservative care easier to manage", "Progressive resistance training may reduce lymphoedema risk after breast-cancer surgery", `${label} compression before resistance training`)
+    assertTextOrder(html, "Progressive resistance training may reduce lymphoedema risk after breast-cancer surgery", "Microsurgery may reduce cellulitis, but outcomes differ", `${label} resistance training before microsurgery`)
+    assertSectionIncludes(html, "treatment", "medicines", "NCT05890677", `${label} LYMPH trial in treatment`)
+    assertSectionIncludes(html, "medicines", "children", "NCT07012642", `${label} GLP-1 trial in medicines`)
+    assertTextOrder(html, 'id="understanding-diagnosis"', "Genetic and tissue studies are refining disease mechanisms—not treatment yet", `${label} diagnosis section start`)
+    assertTextOrder(html, "Genetic and tissue studies are refining disease mechanisms—not treatment yet", "ICG lymphography is promising, but protocols are not yet consistent", `${label} diagnosis evidence order`)
+    assertCount(html, '<p class="trial-id">NCT05890677</p>', 1, `${label} LYMPH trial rendering`)
+    assertCount(html, '<p class="trial-id">NCT07012642</p>', 1, `${label} GLP-1 trial rendering`)
+    assertIncludes(html, "Source-reviewed · not clinician-reviewed", `${label} clinical review disclosure`)
+    assertIncludes(html, "Information use and responsibility", `${label} responsibility notice`)
+  }
+
+  assertExcludes(englishCurrentHtml, 'name="robots" content="noindex', "English current indexing metadata")
+  assertIncludes(englishHtml, 'name="robots" content="noindex', "English archive noindex metadata")
+
+  for (const [label, html] of [["Chinese current", chineseCurrentHtml], ["Chinese archive", chineseHtml]]) {
+    assertOrderedSections(html, ["what-works", "treatment", "medicines", "children", "understanding-diagnosis", "deferred"], label)
+    assertIncludes(html, "淋巴水肿研究：哪些方法有效，哪些问题仍不确定", `${label} evidence-first title`)
+    assertExcludes(html, "近期淋巴水肿研究说了什么", `${label} legacy hero title`)
+    assertIncludes(html, "现有研究支持什么", `${label} overview heading`)
+    assertIncludes(html, "现有照护已有明确基础", `${label} established-care takeaway`)
+    assertIncludes(html, "较新的方法可能帮助部分人", `${label} selected-options takeaway`)
+    assertIncludes(html, "证据强弱决定我们能得出什么结论", `${label} evidence-strength takeaway`)
+    assertIncludes(html, "直接查看依据", `${label} direct-reference label`)
+    assertIncludes(html, "治疗与管理", `${label} treatment heading`)
+    assertIncludes(html, "药物", `${label} medicines heading`)
+    assertIncludes(html, "目前没有药物被确立为无并发症外周淋巴水肿本身的常规治疗", `${label} medicine context`)
+    assertIncludes(html, "本期没有已发表的药物研究完成审查", `${label} medicine empty state`)
+    assertIncludes(html, "儿童和青少年", `${label} children heading`)
+    assertIncludes(html, "本期没有儿童专属证据完成审查", `${label} children empty state`)
+    assertIncludes(html, "认识与诊断", `${label} diagnosis heading`)
+    assertIncludes(html, 'name="robots" content="noindex', `${label} noindex metadata`)
+    assertExcludes(html, 'id="trials"', `${label} duplicate global trials section`)
+    assertGroupNumbers(html, "treatment", "medicines", ["01", "02", "03"], label)
+    assertGroupNumbers(html, "understanding-diagnosis", "deferred", ["01", "02"], label)
+    assertTextOrder(html, 'id="treatment"', "更灵活的加压和指导方式，可能让日常管理更容易", `${label} treatment section start`)
+    assertTextOrder(html, "更灵活的加压和指导方式，可能让日常管理更容易", "乳腺癌手术后，渐进式力量训练可能有助于降低淋巴水肿风险", `${label} compression before resistance training`)
+    assertTextOrder(html, "乳腺癌手术后，渐进式力量训练可能有助于降低淋巴水肿风险", "显微手术可能减少蜂窝织炎，但不同结局并不一致", `${label} resistance training before microsurgery`)
+    assertSectionIncludes(html, "treatment", "medicines", "NCT05890677", `${label} LYMPH trial in treatment`)
+    assertSectionIncludes(html, "medicines", "children", "NCT07012642", `${label} GLP-1 trial in medicines`)
+    assertTextOrder(html, 'id="understanding-diagnosis"', "基因和组织研究正在帮助理解病因，但还没有带来新的治疗", `${label} diagnosis section start`)
+    assertTextOrder(html, "基因和组织研究正在帮助理解病因，但还没有带来新的治疗", "吲哚菁绿（ICG）淋巴造影值得关注，但检查方法尚未统一", `${label} diagnosis evidence order`)
+    assertCount(html, '<p class="trial-id">NCT05890677</p>', 1, `${label} LYMPH trial rendering`)
+    assertCount(html, '<p class="trial-id">NCT07012642</p>', 1, `${label} GLP-1 trial rendering`)
+    assertIncludes(html, "已核对原始来源 · 尚未经临床专家审核", `${label} clinical review disclosure`)
+    assertIncludes(html, "AI 辅助译稿 · 未经独立人工语言审校", `${label} language review disclosure`)
+    assertIncludes(html, "信息使用与责任说明", `${label} responsibility notice`)
+  }
+
+  assertEqual(englishArtifact.status, "current", "English current status")
+  assertEqual(chineseArtifact.status, "current", "Chinese current status")
+  assertEqual(englishArtifact.clinicalReview?.status, "not-reviewed", "English clinical review status")
+  assertEqual(chineseArtifact.clinicalReview?.status, "not-reviewed", "Chinese clinical review status")
+  assertEqual(chineseArtifact.translationStatus, "ai-assisted", "Chinese translation status")
+  assertEqual(chineseArtifact.languageReview?.status, "not-reviewed", "Chinese language review status")
+  assertEqual(englishArtifact.evidenceOverview?.items.length, 3, "English overview item count")
+  assertEqual(chineseArtifact.evidenceOverview?.items.length, 3, "Chinese overview item count")
+  assertEqual(JSON.stringify(overviewUrls(chineseArtifact)), JSON.stringify(overviewUrls(englishArtifact)), "Chinese overview URL parity")
+  assertEqual(JSON.stringify(contextUrls(chineseArtifact)), JSON.stringify(contextUrls(englishArtifact)), "Chinese context URL parity")
+  assertEqual(JSON.stringify(chineseArtifact.trials.map((trial) => [trial.nctId, trial.url, trial.section])), JSON.stringify(englishArtifact.trials.map((trial) => [trial.nctId, trial.url, trial.section])), "Chinese trial URL and section parity")
+  for (const item of englishArtifact.evidenceOverview.items) {
+    for (const source of item.sources) {
+      assertIncludes(englishCurrentHtml, source.url, `English overview source ${source.label}`)
+      assertIncludes(englishHtml, source.url, `English archive overview source ${source.label}`)
+    }
+  }
+  for (const item of chineseArtifact.evidenceOverview.items) {
+    for (const source of item.sources) {
+      assertIncludes(chineseCurrentHtml, source.url, `Chinese overview source ${source.label}`)
+      assertIncludes(chineseHtml, source.url, `Chinese archive overview source ${source.label}`)
+    }
+  }
+} else if (edition.childrenSection) {
   for (const [label, html] of [["English current", englishCurrentHtml], ["English archive", englishHtml]]) {
     assertOrderedSections(html, ["evidence", "children", "understanding-diagnosis", "treatment", "deferred", "trials"], label)
     assertIncludes(html, "Evidence selected for this edition", `${label} evidence heading`)
@@ -170,6 +263,26 @@ function assertExcludes(source, unexpected, label) {
 
 function assertEqual(actual, expected, label) {
   if (actual !== expected) throw new Error(`${label} mismatch: expected ${expected}, received ${actual}`)
+}
+
+function assertCount(source, value, expected, label) {
+  const actual = source.split(value).length - 1
+  assertEqual(actual, expected, label)
+}
+
+function assertSectionIncludes(html, startId, endId, expected, label) {
+  const start = html.indexOf(`id="${startId}"`)
+  const end = html.indexOf(`id="${endId}"`)
+  if (start < 0 || end < 0 || start >= end) throw new Error(`${label} section boundaries are missing`)
+  assertIncludes(html.slice(start, end), expected, label)
+}
+
+function overviewUrls(artifact) {
+  return artifact.evidenceOverview.items.map((item) => [item.id, item.sources.map((source) => source.url)])
+}
+
+function contextUrls(artifact) {
+  return Object.entries(artifact.sectionContexts).map(([section, context]) => [section, context.sources.map((source) => source.url)])
 }
 
 function assertOrderedSections(html, ids, locale) {

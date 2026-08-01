@@ -19,6 +19,7 @@ export const GET: APIRoute<{ bundle: LocalizedEditionBundle }> = ({ props }) => 
     translationStatus: translation?.status,
     translationRevision: translation?.revision,
     translatedOn: translation?.translatedOn,
+    languageReview: translation?.languageReview,
     sourceEditionPath: `/versions/${edition.data.version}/`,
     ...edition.data,
     evidence: evidence.map((entry) => ({ id: entry.id, ...entry.data })),

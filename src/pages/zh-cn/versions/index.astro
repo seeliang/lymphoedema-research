@@ -9,7 +9,7 @@ const editions = (await getAllEditions()).filter((edition) => hasZhCNTranslation
 const formatDate = (date: string) => new Intl.DateTimeFormat("zh-CN", {
   day: "numeric", month: "long", year: "numeric", timeZone: "UTC",
 }).format(new Date(`${date}T00:00:00Z`))
-const statusLabels = { current: "最新一期", superseded: "已有更新", withdrawn: "已撤回" }
+const statusLabels = { draft: "草稿", current: "最新一期", superseded: "已有更新", withdrawn: "已撤回" }
 ---
 
 <BaseLayout
@@ -53,7 +53,7 @@ const statusLabels = { current: "最新一期", superseded: "已有更新", with
                 <span class:list={["edition-status", `edition-status--${edition.data.status}`]}>{statusLabels[edition.data.status]}</span>
                 <h2>第 {edition.data.version} 版</h2>
                 <p>英文资料核对于 {formatDate(edition.data.reviewedOn)} · 内容格式版本 {edition.data.schemaVersion}</p>
-                <p class="translation-state">中文稿更新于 {formatDate(translation.translatedOn)} · 修订 {translation.translationRevision} · {translation.translationStatus === "human-reviewed" ? "已完成独立人工语言审校" : "AI 辅助译稿，待独立人工语言审校"}</p>
+                <p class="translation-state">中文稿更新于 {formatDate(translation.translatedOn)} · 修订 {translation.translationRevision} · {translation.translationStatus === "human-reviewed" ? "已完成独立人工语言审校" : "AI 辅助译稿，未经独立人工语言审校"}</p>
               </div>
               <ul>{translation.changes.map((change) => <li>{change}</li>)}</ul>
               <div class="edition-actions">
@@ -66,5 +66,5 @@ const statusLabels = { current: "最新一期", superseded: "已有更新", with
       </div>
     </section>
   </main>
-  <footer><div class="shell footer-grid"><p>淋巴水肿研究简报 · Crosspathing Studio 公益项目</p></div></footer>
+  <footer><div class="shell footer-grid"><p>淋巴水肿研究简报 · 独立公益项目</p></div></footer>
 </BaseLayout>

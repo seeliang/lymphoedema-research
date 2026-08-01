@@ -18,6 +18,12 @@ export type LocalizedEditionBundle = {
     revision: number
     translatedOn: string
     sourceLocale: "en-AU"
+    languageReview?: {
+      status: "not-reviewed" | "approved"
+      reviewerName?: string
+      reviewerRole?: string
+      reviewedOn?: string
+    }
   }
 }
 
@@ -49,6 +55,45 @@ export function localizeEditionBundle(bundle: EditionBundle, locale: SiteLocale)
   if (bundle.edition.data.childrenSection && !translated.childrenSection) {
     throw new Error(`Chinese children-section copy is missing for ${bundle.edition.data.version}`)
   }
+  if (bundle.edition.data.evidenceOverview && !translated.evidenceOverview) {
+    throw new Error(`Chinese evidence-overview copy is missing for ${bundle.edition.data.version}`)
+  }
+  if (bundle.edition.data.sectionContexts && !translated.sectionContexts) {
+    throw new Error(`Chinese section-context copy is missing for ${bundle.edition.data.version}`)
+  }
+
+  const evidenceOverview = bundle.edition.data.evidenceOverview && translated.evidenceOverview
+    ? {
+        items: bundle.edition.data.evidenceOverview.items.map((item) => {
+          const translatedItem = translated.evidenceOverview?.[item.id]
+          if (!translatedItem) throw new Error(`Chinese evidence-overview item is missing: ${item.id}`)
+          if (translatedItem.sourceLabels.length !== item.sources.length) {
+            throw new Error(`Chinese evidence-overview source-label count does not match ${item.id}`)
+          }
+          return {
+            ...item,
+            title: translatedItem.title,
+            summary: translatedItem.summary,
+            sources: item.sources.map((source, index) => ({ ...source, label: translatedItem.sourceLabels[index] })),
+          }
+        }),
+      }
+    : undefined
+
+  const sectionContexts = bundle.edition.data.sectionContexts && translated.sectionContexts
+    ? {
+        treatmentManagement: localizeSectionContext(
+          bundle.edition.data.sectionContexts.treatmentManagement,
+          translated.sectionContexts.treatmentManagement,
+          "treatment and management",
+        ),
+        medicines: localizeSectionContext(
+          bundle.edition.data.sectionContexts.medicines,
+          translated.sectionContexts.medicines,
+          "medicines",
+        ),
+      }
+    : undefined
 
   const evidence = bundle.evidence.map((entry) => {
     const item = translated.evidence[evidenceSlug(entry.id)]
@@ -91,6 +136,11 @@ export function localizeEditionBundle(bundle: EditionBundle, locale: SiteLocale)
           ...candidate,
           ...translated.deferredCandidates?.[candidate.id],
         })),
+        evidenceOverview,
+        sectionContexts,
+        clinicalReview: bundle.edition.data.clinicalReview
+          ? { ...bundle.edition.data.clinicalReview, scope: translated.clinicalReview?.scope ?? bundle.edition.data.clinicalReview.scope }
+          : undefined,
         trials: bundle.edition.data.trials.map((trial) => ({ ...trial, ...translated.trials[trial.nctId] })),
       },
     },
@@ -104,7 +154,23 @@ export function localizeEditionBundle(bundle: EditionBundle, locale: SiteLocale)
       revision: translated.translationRevision,
       translatedOn: translated.translatedOn,
       sourceLocale: translated.sourceLocale,
+      languageReview: translated.languageReview,
     },
+  }
+}
+
+function localizeSectionContext<T extends { intro: string; sources: Array<Record<string, unknown> & { label: string }> }>(
+  source: T,
+  translated: { intro: string; sourceLabels: string[] },
+  section: string,
+): T {
+  if (translated.sourceLabels.length !== source.sources.length) {
+    throw new Error(`Chinese source-label count does not match the ${section} context`)
+  }
+  return {
+    ...source,
+    intro: translated.intro,
+    sources: source.sources.map((item, index) => ({ ...item, label: translated.sourceLabels[index] })),
   }
 }
 

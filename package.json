@@ -10,11 +10,12 @@
     "preview": "astro preview",
     "test": "vitest run",
     "check:freshness": "node scripts/check-freshness.mjs",
-    "check": "astro check && pnpm test && pnpm check:freshness && astro build && pnpm test:release",
+    "check": "astro check && pnpm test && pnpm check:freshness && astro build && pnpm check:public-build && pnpm test:release",
     "research:scan": "node scripts/research-scan.mjs",
     "release:check": "node scripts/release-edition.mjs",
     "check:publication": "node scripts/check-publication-contract.mjs",
-    "test:release": "pnpm release:check -- 2026.08.4 && pnpm check:publication -- 2026.08.4"
+    "check:public-build": "node scripts/check-public-build.mjs",
+    "test:release": "pnpm release:check -- 2026.08.5 && pnpm check:publication -- 2026.08.5"
   },
   "dependencies": {
     "astro": "^7.1.6"

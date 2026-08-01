@@ -28,6 +28,8 @@ Trials without results are shown in a separate section. Registration is not evid
 
 “Source-reviewed” means an editor checked the summary against the linked record and, where available, the full publication. It does not mean the page has been reviewed or endorsed by a clinician, institution, journal, sponsor, or patient organisation.
 
+An edition that synthesises “what works”, established treatment, or medicine context must disclose its clinical-review status prominently. This project currently publishes source-reviewed material without clinician review and must never imply clinical endorsement. If a qualified clinician reviews a stated scope in future, the public record may identify the reviewer, credentials, review date, and scope only with consent. Each high-level evidence takeaway must show direct links to the references that support it.
+
 ## Prohibited claims
 
 The project does not publish cure claims, individual recommendations, drug doses, instructions to change treatment, or implications beyond the population studied. Automated systems may discover sources but may not author or publish summaries.
@@ -42,4 +44,4 @@ The `en-AU` edition is the primary global evidence record. Translations are seco
 
 Chinese-language databases may supplement global discovery when they contain an important non-duplicate finding absent from the automated scan. The publication must meet `SUPPLEMENTARY_CHINESE_DISCOVERY.md`, undergo human review in its original language, and enter the global English evidence record before it is translated for the Chinese page. Trial registration alone remains separate from published findings.
 
-Translation status is separate from source-review status. AI-assisted wording must be labelled, must not claim independent human review, and remains excluded from search indexing until a human language reviewer checks it. Translation-only changes increment the locale's translation revision without changing the global evidence edition. If translation review exposes an error in the underlying evidence summary, the global correction policy applies first and every translation must follow it.
+Translation status is separate from source-review and clinical-review status. AI-assisted wording may be published only when it is clearly labelled as not independently language-reviewed and remains excluded from search indexing. If independent review is completed in future, record the reviewer’s name, role, review date, and consent to attribution before changing the status. Translation-only changes increment the locale's translation revision without changing the global evidence edition. If translation review exposes an error in the underlying evidence summary, the global correction policy applies first and every translation must follow it.

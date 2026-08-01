@@ -13,12 +13,14 @@ Corrections, source suggestions, accessibility improvements, and implementation 
 
 Content contributions are reviewed editorially before publication. A pull request is not evidence of clinical endorsement.
 
+Evidence-first editions that state what works or summarise treatment or medicine context must disclose that they are source-reviewed but not clinician-reviewed. Include direct patient-visible references on every high-level takeaway. Never describe the project as clinically reviewed unless a named, scoped clinical review has actually been completed and recorded with consent.
+
 ## Translation changes
 
 - Translate from the current global English edition; do not create a locale-specific evidence list.
 - Preserve all direct publication and registry URLs.
 - Keep the population, design, finding, possible meaning, and limitation structurally aligned.
-- Mark AI-assisted text as unreviewed until a named human language-review step is completed.
+- Mark AI-assisted text as not independently language-reviewed and keep it `noindex`; record the reviewer role and date only if independent approval is later completed.
 - Increment `translationRevision` for translation-only corrections. Use a new global edition when the underlying evidence meaning changes.
 - Follow `CHINESE_TRANSLATION_GUIDE.md` for natural patient-facing wording and the shared terminology list.
 - Run the translation coverage tests through `pnpm check`.

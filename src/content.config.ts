@@ -45,6 +45,40 @@ const trialSchema = z.object({
   checkedOn: isoDate,
   url: z.url(),
   caution: z.string().min(20),
+  section: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Use a lowercase kebab-case section identifier").optional(),
+})
+
+const overviewItemSchema = z.object({
+  id: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/, "Use a lowercase kebab-case identifier"),
+  status: z.enum(["supported", "selected", "uncertain"]),
+  title: z.string().min(8),
+  summary: z.string().min(20),
+  sources: z.array(sourceSchema).min(1),
+})
+
+const sectionContextSchema = z.object({
+  intro: z.string().min(20),
+  sources: z.array(sourceSchema).min(1),
+})
+
+const clinicalReviewSchema = z.object({
+  status: z.enum(["not-reviewed", "approved"]),
+  scope: z.string().min(20),
+  reviewerName: z.string().min(2).optional(),
+  credentials: z.string().min(2).optional(),
+  reviewedOn: isoDate.optional(),
+}).superRefine((review, context) => {
+  if (review.status !== "approved") return
+
+  for (const field of ["reviewerName", "credentials", "reviewedOn"] as const) {
+    if (!review[field]) {
+      context.addIssue({
+        code: "custom",
+        message: `Approved clinical reviews require ${field}`,
+        path: [field],
+      })
+    }
+  }
 })
 
 const deferredCandidateSchema = z.object({
@@ -67,7 +101,7 @@ const editions = defineCollection({
   schema: z.object({
     version: editionVersion,
     schemaVersion: z.number().int().positive(),
-    status: z.enum(["current", "superseded", "withdrawn"]),
+    status: z.enum(["draft", "current", "superseded", "withdrawn"]),
     reviewedOn: isoDate,
     nextReviewDue: isoDate,
     title: z.string().min(8),
@@ -76,10 +110,31 @@ const editions = defineCollection({
     childrenFocus: childrenSummarySchema.optional(),
     childrenSection: childrenSummarySchema.optional(),
     deferredCandidates: z.array(deferredCandidateSchema).optional(),
+    evidenceOverview: z.object({
+      items: z.array(overviewItemSchema).length(3),
+    }).optional(),
+    sectionContexts: z.object({
+      treatmentManagement: sectionContextSchema,
+      medicines: sectionContextSchema,
+    }).optional(),
+    clinicalReview: clinicalReviewSchema.optional(),
     trials: z.array(trialSchema),
   }).refine((edition) => !(edition.childrenFocus && edition.childrenSection), {
     message: "An edition cannot use both the legacy children focus and the children evidence section",
     path: ["childrenSection"],
+  }).superRefine((edition, context) => {
+    if (!edition.evidenceOverview) return
+
+    if (!edition.sectionContexts) {
+      context.addIssue({ code: "custom", message: "Evidence-first editions require section contexts", path: ["sectionContexts"] })
+    }
+    if (!edition.clinicalReview) {
+      context.addIssue({ code: "custom", message: "Evidence-first editions require a clinical review record", path: ["clinicalReview"] })
+    }
+    const ids = edition.evidenceOverview.items.map((item) => item.id)
+    if (new Set(ids).size !== ids.length) {
+      context.addIssue({ code: "custom", message: "Evidence overview item identifiers must be unique", path: ["evidenceOverview", "items"] })
+    }
   }),
 })
 

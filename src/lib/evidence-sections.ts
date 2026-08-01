@@ -2,6 +2,7 @@ export const knownEvidenceSectionIds = [
   "children-adolescents",
   "understanding-diagnosis",
   "treatment-management",
+  "medicines",
 ] as const
 
 type SectionedEvidence = {
@@ -17,6 +18,7 @@ export function partitionEvidenceSections<T extends SectionedEvidence>(evidence:
     children: evidence.filter((entry) => entry.data.section === "children-adolescents"),
     understandingDiagnosis: evidence.filter((entry) => entry.data.section === "understanding-diagnosis"),
     treatmentManagement: evidence.filter((entry) => entry.data.section === "treatment-management"),
+    medicines: evidence.filter((entry) => entry.data.section === "medicines"),
     otherResearch: evidence.filter((entry) => !entry.data.section || !knownSections.has(entry.data.section)),
   }
 }

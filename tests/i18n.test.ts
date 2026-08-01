@@ -21,6 +21,15 @@ describe("Simplified Chinese translation coverage", () => {
       expect(translation.sourceLocale).toBe("en-AU")
       expect(translation.locale).toBe("zh-CN")
       expect(translation.translationRevision).toBeGreaterThanOrEqual(0)
+
+      if (edition?.evidenceOverview) {
+        expect(Object.keys(translation.evidenceOverview ?? {})).toEqual(edition.evidenceOverview.items.map((item) => item.id))
+        for (const item of edition.evidenceOverview.items) {
+          expect(translation.evidenceOverview?.[item.id]?.sourceLabels).toHaveLength(item.sources.length)
+        }
+        expect(translation.sectionContexts?.treatmentManagement.sourceLabels).toHaveLength(edition.sectionContexts?.treatmentManagement.sources.length)
+        expect(translation.sectionContexts?.medicines.sourceLabels).toHaveLength(edition.sectionContexts?.medicines.sources.length)
+      }
     })
   }
 
@@ -38,7 +47,7 @@ describe("Simplified Chinese translation coverage", () => {
     expect(chineseCopy).not.toContain("英文原版状态")
   })
 
-  it("explains Milroy disease for non-clinical readers in 2026.08.3 revision 1 and carries it into 2026.08.4", () => {
+  it("explains Milroy disease for non-clinical readers and carries it into later editions", () => {
     const translation = zhCNEditionTranslations["2026.08.3"]
     const population = translation.evidence["primary-biology"].population
 
@@ -49,5 +58,19 @@ describe("Simplified Chinese translation coverage", () => {
     expect(population).toContain("出生时或婴儿期")
     expect(population).toContain("小腿和足部")
     expect(zhCNEditionTranslations["2026.08.4"].evidence["primary-biology"].population).toBe(population)
+    expect(zhCNEditionTranslations["2026.08.5"].evidence["primary-biology"].population).toBe(population)
+  })
+
+  it("uses research-first navigation and evidence-status language in the 8.5 Chinese UI", () => {
+    expect(zhCNUI.evidenceFirst.navigation.whatWorks).toBe("哪些方法有效")
+    expect(zhCNUI.evidenceFirst.navigation.medicines).toBe("药物")
+    expect(zhCNUI.evidenceFirst.overview.references).toBe("直接查看依据")
+    expect(zhCNUI.evidenceFirst.review.languageNotReviewed).toContain("未经独立人工语言审校")
+  })
+
+  it("keeps the responsibility notice qualified in both languages", () => {
+    expect(zhCNUI.disclaimer.responsibilityBody).toContain("在法律允许的范围内")
+    expect(zhCNUI.disclaimer.responsibilityBody).toContain("不能排除的权利或责任")
+    expect(zhCNUI.disclaimer.responsibilityBody).not.toContain("免除全部责任")
   })
 })

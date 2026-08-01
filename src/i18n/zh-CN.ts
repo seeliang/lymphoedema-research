@@ -30,6 +30,18 @@ export type ZhCNEditionTranslation = {
   childrenFocus?: { summary: string }
   childrenSection?: { summary: string }
   deferredCandidates?: Record<string, { title: string; reason: string; revisitWhen: string }>
+  evidenceOverview?: Record<string, { title: string; summary: string; sourceLabels: string[] }>
+  sectionContexts?: {
+    treatmentManagement: { intro: string; sourceLabels: string[] }
+    medicines: { intro: string; sourceLabels: string[] }
+  }
+  clinicalReview?: { scope: string }
+  languageReview?: {
+    status: "not-reviewed" | "approved"
+    reviewerName?: string
+    reviewerRole?: string
+    reviewedOn?: string
+  }
   evidence: Record<string, EvidenceTranslation>
   trials: Record<string, TrialTranslation>
 }
@@ -296,6 +308,82 @@ zhCNEditionTranslations["2026.08.4"] = {
   childrenFocus: undefined,
   childrenSection: {
     summary: "最近一次覆盖 45 天的检索发现 5 篇涉及儿童或青少年的论文候选资料，以及 3 条近期更新的试验注册记录。这些资料尚未完成纳入患者证据摘要所需的原始来源审查。",
+  },
+}
+
+zhCNEditionTranslations["2026.08.5"] = {
+  ...structuredClone(zhCNEditionTranslations["2026.08.4"]),
+  translationStatus: "ai-assisted",
+  translationRevision: 0,
+  translatedOn: "2026-08-01",
+  title: "淋巴水肿研究：哪些方法有效，哪些问题仍不确定",
+  summary: "以研究为基础，说明已确立的照护方法、可能有帮助的新选择、仍无答案的问题，以及每项结论所依据的证据。",
+  changes: [
+    "用 3 项标明证据状态的重点结论取代笼统的开场介绍，并为每项结论直接列出支持资料。",
+    "按照治疗与管理、药物、儿童和青少年、认识与诊断重新组织已审查的研究发现。",
+    "明确标注英文内容已核对原始来源但未经临床专家审核，中文为 AI 辅助译稿且未经独立人工语言审校。",
+  ],
+  evidenceOverview: {
+    "established-foundations": {
+      title: "现有照护已有明确基础",
+      summary: "现行指导意见支持把个体化评估后的加压治疗、皮肤护理、活动和运动，以及适当的综合消肿治疗作为淋巴水肿管理的基础。",
+      sourceLabels: [
+        "Healthdirect Australia：淋巴水肿如何治疗？（英文）",
+        "英国 NHS：淋巴水肿治疗（英文）",
+        "国际淋巴学会 2023 共识：保守治疗（英文）",
+      ],
+    },
+    "selected-options": {
+      title: "较新的方法可能帮助部分人",
+      summary: "新的加压治疗实施方式、渐进式力量训练和专科显微手术，可能对特定人群有帮助；但这些研究并不表示某一种方法适合所有人。",
+      sourceLabels: [
+        "可调式加压包扎随机研究（英文）",
+        "数字化支持治疗研究（英文）",
+        "力量训练预防系统综述（英文）",
+        "力量训练系统综述（英文）",
+        "淋巴管静脉吻合术随机试验（英文）",
+        "显微手术伞状系统综述（英文）",
+      ],
+    },
+    "evidence-strength": {
+      title: "证据强弱决定我们能得出什么结论",
+      summary: "小型研究、随机试验、系统综述，以及尚无结果的注册试验，能支持的信心程度并不相同；只有试验注册记录，不能证明治疗有效。",
+      sourceLabels: [
+        "Cochrane 手册：评估证据确定性（英文）",
+        "Cochrane 手册：解释结果和结论（英文）",
+        "ClinicalTrials.gov：如何阅读研究结果（英文）",
+        "国际淋巴学会共识的 PubMed 记录（英文）",
+        "LYMPH 试验注册记录：尚无结果（英文）",
+        "GLP-1 试验注册记录：尚无结果（英文）",
+      ],
+    },
+  },
+  sectionContexts: {
+    treatmentManagement: {
+      intro: "现有照护需要根据个人情况制定。现行指导意见把加压治疗、皮肤护理、活动和运动，以及综合消肿治疗列为核心方法；专科操作可供经过筛选的部分患者考虑。",
+      sourceLabels: [
+        "Healthdirect Australia：淋巴水肿治疗（英文）",
+        "英国 NHS：淋巴水肿治疗（英文）",
+        "国际淋巴学会共识：保守治疗（英文）",
+        "国际淋巴学会共识：手术治疗（英文）",
+      ],
+    },
+    medicines: {
+      intro: "目前没有药物被确立为无并发症外周淋巴水肿本身的常规治疗。抗生素用于治疗已经诊断的蜂窝织炎等感染，并非一般的淋巴水肿治疗；除非同时存在特定疾病或并发症，通常不鼓励长期使用利尿剂。一项 GLP-1 注册研究尚未公布结果，也不构成治疗建议。",
+      sourceLabels: [
+        "国际淋巴学会共识：分子与药物研究（英文）",
+        "国际淋巴学会共识：利尿剂与抗生素（英文）",
+        "Healthdirect Australia：何时就医（英文）",
+        "Healthdirect Australia：并发症（英文）",
+        "英国 NHS：淋巴水肿与蜂窝织炎（英文）",
+      ],
+    },
+  },
+  clinicalReview: {
+    scope: "3 项证据状态重点结论，以及治疗和药物部分的背景说明",
+  },
+  languageReview: {
+    status: "not-reviewed",
   },
 }
 
