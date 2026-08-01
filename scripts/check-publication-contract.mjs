@@ -21,6 +21,15 @@ const chineseCurrentHtml = await readRequired(join(root, "dist", "zh-cn", "index
 const englishArtifact = JSON.parse(await readRequired(join(root, "dist", "versions", version, "edition.json")))
 const chineseArtifact = JSON.parse(await readRequired(join(root, "dist", "zh-cn", "versions", version, "edition.json")))
 
+for (const [label, html] of [
+  ["English current", englishCurrentHtml],
+  ["English archive", englishHtml],
+  ["Chinese current", chineseCurrentHtml],
+  ["Chinese archive", chineseHtml],
+]) {
+  assertDisclaimerDirectlyAfterHeader(html, label)
+}
+
 assertIncludes(englishHtml, `Edition ${version}`, "English version heading")
 assertIncludes(chineseHtml, `第 ${version} 版`, "Chinese version heading")
 assertEqual(englishArtifact.version, version, "English artifact version")
@@ -297,6 +306,23 @@ function assertTextOrder(source, first, second, label) {
   if (firstIndex < 0 || secondIndex < 0 || firstIndex >= secondIndex) {
     throw new Error(`${label} mismatch: expected "${first}" before "${second}"`)
   }
+}
+
+function assertDisclaimerDirectlyAfterHeader(html, label) {
+  const headerEnd = html.indexOf("</header>")
+  const disclaimerStart = html.indexOf('<aside class="disclaimer"')
+  const mainStart = html.indexOf('<main id="main-content">')
+
+  if (headerEnd === -1 || disclaimerStart === -1 || mainStart === -1) {
+    throw new Error(`${label}: could not locate header, disclaimer, and main content`)
+  }
+  if (html.slice(headerEnd + "</header>".length, disclaimerStart).trim() !== "") {
+    throw new Error(`${label}: disclaimer is not directly after the navigation header`)
+  }
+  if (disclaimerStart > mainStart) {
+    throw new Error(`${label}: disclaimer must appear before main content`)
+  }
+  assertCount(html, '<aside class="disclaimer"', 1, `${label} disclaimer rendering`)
 }
 
 function groupEvidenceSections(evidence) {

@@ -69,6 +69,20 @@ const languageReviewApproved = translation?.languageReview?.status === "approved
   </div>
 </header>
 
+<aside class="disclaimer" aria-labelledby="disclaimer-title">
+  <div class="shell disclaimer-inner">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2.5 20h19L12 3Zm0 6v5m0 3h.01" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    <div>
+      <h2 id="disclaimer-title">{copy.disclaimer.title}</h2>
+      <p>{copy.disclaimer.body}</p>
+      <div class="responsibility-note" aria-labelledby="responsibility-title">
+        <h3 id="responsibility-title">{copy.disclaimer.responsibilityTitle}</h3>
+        <p>{copy.disclaimer.responsibilityBody}</p>
+      </div>
+    </div>
+  </div>
+</aside>
+
 {data.status === "draft" && (
   <aside class="draft-banner" aria-label={evidenceFirst.draft.title}>
     <div class="shell draft-banner-inner">
@@ -139,20 +153,6 @@ const languageReviewApproved = translation?.languageReview?.status === "approved
           {translation && <div><dt>{evidenceFirst.review.language}</dt><dd>{languageReviewApproved ? `${translation.languageReview?.reviewerName}, ${translation.languageReview?.reviewerRole} · ${formatDate(translation.languageReview!.reviewedOn!)}` : evidenceFirst.review.languageNotReviewed}</dd></div>}
         </dl>
       </details>
-    </div>
-  </section>
-
-  <section class="disclaimer" aria-labelledby="disclaimer-title">
-    <div class="shell disclaimer-inner">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2.5 20h19L12 3Zm0 6v5m0 3h.01" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-      <div>
-        <h2 id="disclaimer-title">{copy.disclaimer.title}</h2>
-        <p>{copy.disclaimer.body}</p>
-        <aside class="responsibility-note" aria-labelledby="responsibility-title">
-          <h3 id="responsibility-title">{copy.disclaimer.responsibilityTitle}</h3>
-          <p>{copy.disclaimer.responsibilityBody}</p>
-        </aside>
-      </div>
     </div>
   </section>
 

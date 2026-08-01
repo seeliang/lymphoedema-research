@@ -92,6 +92,20 @@ const translationAvailable = hasZhCNTranslation(data.version)
   </div>
 </header>
 
+<aside class="disclaimer" aria-labelledby="disclaimer-title">
+  <div class="shell disclaimer-inner">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2.5 20h19L12 3Zm0 6v5m0 3h.01" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    <div>
+      <h2 id="disclaimer-title">{copy.disclaimer.title}</h2>
+      <p>{copy.disclaimer.body}</p>
+      <div class="responsibility-note" aria-labelledby="responsibility-title">
+        <h3 id="responsibility-title">{copy.disclaimer.responsibilityTitle}</h3>
+        <p>{copy.disclaimer.responsibilityBody}</p>
+      </div>
+    </div>
+  </div>
+</aside>
+
 {archive && (
   <aside class:list={["archive-banner", !isCurrent && "archive-banner--superseded"]} aria-label={copy.archive.label}>
     <div class="shell archive-banner-inner">
@@ -160,20 +174,6 @@ const translationAvailable = hasZhCNTranslation(data.version)
           {translation && <div><dt>{copy.review.translationStatus}</dt><dd>{copy.review.translationValue(translation.revision, translation.status)}</dd></div>}
         </dl>
       </aside>
-    </div>
-  </section>
-
-  <section class="disclaimer" aria-labelledby="disclaimer-title">
-    <div class="shell disclaimer-inner">
-      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2.5 20h19L12 3Zm0 6v5m0 3h.01" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>
-      <div>
-        <h2 id="disclaimer-title">{copy.disclaimer.title}</h2>
-        <p>{copy.disclaimer.body}</p>
-        <aside class="responsibility-note" aria-labelledby="responsibility-title">
-          <h3 id="responsibility-title">{copy.disclaimer.responsibilityTitle}</h3>
-          <p>{copy.disclaimer.responsibilityBody}</p>
-        </aside>
-      </div>
     </div>
   </section>
 
