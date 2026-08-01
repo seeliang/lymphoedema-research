@@ -38,7 +38,7 @@ describe("Simplified Chinese translation coverage", () => {
     expect(chineseCopy).not.toContain("英文原版状态")
   })
 
-  it("does not claim independent human review for the 2026.08.1 translation", () => {
-    expect(zhCNEditionTranslations["2026.08.1"].translationStatus).toBe("ai-assisted")
+  it("does not claim independent human review for the 2026.08.2 translation", () => {
+    expect(zhCNEditionTranslations["2026.08.2"].translationStatus).toBe("ai-assisted")
   })
 })

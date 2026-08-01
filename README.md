@@ -13,7 +13,7 @@ This project provides general information, not diagnosis or treatment advice. It
 Research editions use calendar versioning:
 
 - `YYYY.MM.0` for the scheduled monthly review;
-- `YYYY.MM.1`, `.2`, and so on for corrections published within that edition month;
+- `YYYY.MM.1`, `.2`, and so on for corrections or material research-reporting updates published within that edition month;
 - an independent integer `schemaVersion` for the content format.
 
 The current edition appears at the site root. Immutable snapshots remain browsable under `/versions/<edition>/`. Later corrections are attached as notices instead of silently rewriting what an old edition said.
@@ -47,7 +47,7 @@ pnpm check
 
 ## Monthly research review
 
-On the first day of each month, a scheduled workflow searches a 45-day overlap in PubMed and ClinicalTrials.gov, rechecks tracked identifiers, and opens a review issue. The PubMed report includes dedicated watchlists for arm/upper-limb and trunk/chest/abdominal-wall research so evidence in less consistently named body areas is easier to find. It also groups French-, German-, Chinese-, and Japanese-language PubMed candidates into publication-language watchlists. These watchlists remain subsets of the global scan and do not create separate evidence feeds or lower the editorial threshold. Automation discovers candidates only; it never writes or publishes medical summaries.
+On the first day of each month, a scheduled workflow searches a 45-day overlap in PubMed and ClinicalTrials.gov, rechecks tracked identifiers, and opens a review issue. Children and adolescents are a main report section covering both new PubMed candidates and newly updated trial records. Cancer is not a report section, although cancer-related evidence remains eligible when it is relevant to lymphoedema. The report also includes watchlists for arm/upper-limb and trunk/chest/abdominal-wall research, plus French-, German-, Chinese-, and Japanese-language PubMed candidates. A durable deferred-candidates section records relevant evidence that is waiting for a specific appraisal or revisit trigger. These focused sections, watchlists, and deferrals do not create separate evidence feeds or lower the editorial threshold. Automation discovers candidates only; it never writes or publishes medical summaries.
 
 To run the scanner locally:
 

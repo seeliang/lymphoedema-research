@@ -19,7 +19,9 @@ Requested scope: research specific to arm lymphoedema and to swelling described 
 - Source access: both PubMed records were available; the 2018 open-access full text was checked on 2026-08-01. Only the abstract and citation metadata were available for the 2026 truncal paper during drafting.
 - Human check still required: obtain and read the 2026 full text; verify truncal boundaries, staging, selection of the two surgical cases, outcome measurement, follow-up, adverse events, funding, and conflicts.
 
-## Considered but not proposed as separate cards
+## Deferred candidates
+
+The durable deferral status and revisit triggers for these records are maintained in `drafts/deferred-candidates.json` and reproduced in each monthly research report.
 
 - **PMID 40081785 — supervised multimodal exercise and surveillance RCT:** directly measures arm outcomes, but substantially overlaps the current edition’s resistance-training prevention summary. A human editor may decide to add it as a supporting source to that item instead.
 - **PMID 41886031 — long-term LYMPHA single-centre study:** potentially relevant to arm-lymphoedema prevention, but the non-randomised design and selection over a long treatment era need detailed appraisal before it could alter the brief.

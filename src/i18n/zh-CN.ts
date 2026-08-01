@@ -229,6 +229,18 @@ export const zhCNEditionTranslations: Record<string, ZhCNEditionTranslation> = {
   },
 }
 
+zhCNEditionTranslations["2026.08.2"] = {
+  ...structuredClone(zhCNEditionTranslations["2026.08.1"]),
+  translationStatus: "ai-assisted",
+  translationRevision: 0,
+  translatedOn: "2026-08-01",
+  changes: [
+    "将儿童和青少年设为研究检索报告的主要栏目，分别列出新发表论文和试验注册记录。",
+    "新增可长期保留的“暂缓处理”栏目，记录每项候选资料暂缓的原因和重新评估条件。",
+    "本次没有把尚未完成人工审查的儿童研究候选资料加入面向患者的证据摘要。",
+  ],
+}
+
 export function hasZhCNTranslation(version: string): boolean {
   return version in zhCNEditionTranslations
 }

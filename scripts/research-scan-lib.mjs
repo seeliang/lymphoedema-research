@@ -23,6 +23,7 @@ export function normaliseTrial(study = {}) {
   const identification = protocol.identificationModule ?? {}
   const status = protocol.statusModule ?? {}
   const design = protocol.designModule ?? {}
+  const eligibility = protocol.eligibilityModule ?? {}
   const derived = study.derivedSection ?? {}
 
   const nctId = String(identification.nctId ?? "")
@@ -33,6 +34,7 @@ export function normaliseTrial(study = {}) {
     lastUpdated: String(status.lastUpdatePostDateStruct?.date ?? ""),
     studyType: String(design.studyType ?? "UNKNOWN"),
     phases: Array.isArray(design.phases) ? design.phases.map(String) : [],
+    ages: Array.isArray(eligibility.stdAges) ? eligibility.stdAges.map(String) : [],
     enrolment: Number(design.enrollmentInfo?.count ?? 0),
     hasResults: Boolean(study.hasResults || study.resultsSection || derived.miscInfoModule?.versionHolder && study.resultsSection),
     url: nctId ? `https://clinicaltrials.gov/study/${nctId}` : "https://clinicaltrials.gov/",
@@ -63,6 +65,7 @@ export function formatDigest({
   newPublications,
   armPublications,
   trunkAbdomenPublications,
+  childrenPublications,
   frenchPublications,
   germanPublications,
   chinesePublications,
@@ -70,6 +73,8 @@ export function formatDigest({
   trackedWarnings,
   changedTrials,
   newTrials,
+  childrenTrials,
+  deferredCandidates,
   clinicalTrialsTimestamp,
 }) {
   const lines = [
@@ -105,6 +110,19 @@ export function formatDigest({
 
   lines.push(
     "",
+    "## Children and adolescents",
+    "",
+    "This is a main report section covering lymphoedema research and trial records involving children or adolescents. It does not create a lower evidence standard or imply that adult findings apply to younger people.",
+    "",
+    "### PubMed candidates",
+    "",
+  )
+  appendRecordList(lines, [...childrenPublications].sort((a, b) => publicationPriority(a) - publicationPriority(b)), "No new child or adolescent PubMed candidates were found in the overlap window.")
+  lines.push("", "### Trial records", "")
+  appendTrialList(lines, childrenTrials, "No newly updated child or adolescent lymphoedema trial records were found.")
+
+  lines.push(
+    "",
     "## Publication-language watchlists",
     "",
     "These are subsets of the new PubMed candidates, grouped by PubMed publication-language metadata. They improve visibility without creating separate evidence feeds or changing the editorial threshold.",
@@ -127,6 +145,15 @@ export function formatDigest({
 
   lines.push(
     "",
+    "## Deferred candidates",
+    "",
+    "This human-maintained list contains in-scope evidence that is not ready for the public brief. Deferred does not mean ineffective or excluded; each entry records why it is waiting and what should trigger another review.",
+    "",
+  )
+  appendDeferredList(lines, deferredCandidates, "No candidates are currently deferred.")
+
+  lines.push(
+    "",
     "## Supplementary Chinese-language discovery (manual)",
     "",
     "Chinese-language sources can surface important findings missing from the automated global scan. Complete and document these checks manually; do not scrape services without a supported interface.",
@@ -146,6 +173,7 @@ export function formatDigest({
     "- [ ] Read the full paper when available; verify population, design, outcomes, harms, funding, and conflicts.",
     "- [ ] Decide whether the result is patient-relevant and stronger than evidence already summarised.",
     "- [ ] For ‘stomach-area’ requests, confirm that the source concerns external truncal or abdominal-wall lymphoedema—not ascites, an internal-organ condition, or a lymphatic malformation.",
+    "- [ ] For children’s evidence, verify the reported age range and an extractable child or adolescent population. Do not extrapolate adult-only evidence to children.",
     "- [ ] Keep trials without results separate from published findings.",
     "- [ ] Update every affected takeaway and limitation together.",
     "- [ ] Record exclusions or a reviewed ‘no changes’ decision in this issue.",
@@ -178,6 +206,20 @@ function appendTrialList(lines, trials, emptyMessage) {
   for (const trial of trials.slice(0, 60)) {
     const results = trial.hasResults ? "results posted" : "no results posted"
     lines.push(`- [${trial.nctId}: ${escapeMarkdown(trial.title)}](${trial.url}) — ${trial.status}; updated ${trial.lastUpdated || "date not reported"}; ${results}`)
+  }
+}
+
+function appendDeferredList(lines, candidates, emptyMessage) {
+  if (candidates.length === 0) {
+    lines.push(emptyMessage)
+    return
+  }
+  for (const candidate of candidates) {
+    lines.push(
+      `- [${escapeMarkdown(candidate.title)}](${candidate.url}) — ${escapeMarkdown(candidate.id)}`,
+      `  - Deferred because: ${escapeMarkdown(candidate.reason)}`,
+      `  - Revisit when: ${escapeMarkdown(candidate.revisitWhen)}`,
+    )
   }
 }
 

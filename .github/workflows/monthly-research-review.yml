@@ -4,6 +4,12 @@ on:
   schedule:
     - cron: "0 9 1 * *"
       timezone: "Australia/Sydney"
+  push:
+    branches: [main]
+    paths:
+      - "scripts/research-scan.mjs"
+      - "scripts/research-scan-lib.mjs"
+      - "drafts/deferred-candidates.json"
   workflow_dispatch:
 
 permissions:

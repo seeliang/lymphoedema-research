@@ -1,0 +1,23 @@
+[
+  {
+    "id": "PMID 40081785",
+    "title": "Randomized Trial Assessing Prospective Surveillance and Exercise for Preventing Breast Cancer-Related Lymphedema in High-Risk Patients",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/40081785/",
+    "reason": "The trial is relevant but substantially overlaps the resistance-training prevention evidence already summarised.",
+    "revisitWhen": "Reassess during the next exercise evidence update or if it materially changes the current interpretation."
+  },
+  {
+    "id": "PMID 41886031",
+    "title": "LYMPHA Technique to Prevent Arm Lymphedema After Breast Cancer Treatment: A Single-Center Study Based on a 15-Year Follow-Up Period",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/41886031/",
+    "reason": "The long follow-up is potentially important, but the non-randomised single-centre design and selection across a long treatment era require detailed appraisal.",
+    "revisitWhen": "Reassess after full source review of selection, comparator, follow-up, harms, funding and conflicts."
+  },
+  {
+    "id": "PMID 42294341",
+    "title": "Non-pharmacological therapies for breast cancer-related lymphedema: a systematic review and network meta-analysis based on randomized controlled trials",
+    "url": "https://pubmed.ncbi.nlm.nih.gov/42294341/",
+    "reason": "Treatment rankings should not be interpreted for patients until risk of bias, network connectivity, heterogeneity and certainty are assessed.",
+    "revisitWhen": "Reassess after a human reviewer completes the network meta-analysis appraisal."
+  }
+]

@@ -14,6 +14,7 @@ const contactEmail = process.env.NCBI_EMAIL?.trim()
 const toolName = "lymphoedema_research_brief"
 const projectUrl = "https://github.com/seeliang/lymphoedema-research"
 const editions = JSON.parse(await readFile(join(root, "src/data/editions.json"), "utf8"))
+const deferredCandidates = JSON.parse(await readFile(join(root, "drafts/deferred-candidates.json"), "utf8"))
 const currentEditions = editions.filter((edition) => edition.status === "current")
 
 if (currentEditions.length !== 1) throw new Error(`Expected one current edition, found ${currentEditions.length}`)
@@ -29,18 +30,22 @@ for (const file of evidenceFiles.filter((path) => path.endsWith(".md"))) {
 const pubmedQuery = '("Lymphedema"[MeSH Terms] OR lymphedema[Title/Abstract] OR lymphoedema[Title/Abstract])'
 const armQuery = `${pubmedQuery} AND (arm[Title/Abstract] OR "upper limb"[Title/Abstract] OR "upper-limb"[Title/Abstract] OR "upper extremity"[Title/Abstract] OR "upper-extremity"[Title/Abstract])`
 const trunkAbdomenQuery = `${pubmedQuery} AND (truncal[Title/Abstract] OR trunk[Title/Abstract] OR torso[Title/Abstract] OR abdominal[Title/Abstract] OR abdomen[Title/Abstract] OR "abdominal wall"[Title/Abstract] OR "chest wall"[Title/Abstract] OR "breast edema"[Title/Abstract] OR "breast oedema"[Title/Abstract])`
-const [discoveredPmids, armPmids, trunkAbdomenPmids] = await Promise.all([
+const childrenQuery = `${pubmedQuery} AND ("Infant"[MeSH Terms] OR "Child"[MeSH Terms] OR "Adolescent"[MeSH Terms] OR "Pediatrics"[MeSH Terms] OR pediatric*[Title/Abstract] OR paediatric*[Title/Abstract] OR child*[Title/Abstract] OR adolescen*[Title/Abstract] OR infant*[Title/Abstract] OR newborn*[Title/Abstract] OR neonat*[Title/Abstract] OR youth*[Title/Abstract] OR juvenile*[Title/Abstract] OR "young people"[Title/Abstract] OR "young person"[Title/Abstract])`
+const [discoveredPmids, armPmids, trunkAbdomenPmids, childrenPmids] = await Promise.all([
   searchPubmed(pubmedQuery),
   searchPubmed(armQuery),
   searchPubmed(trunkAbdomenQuery),
+  searchPubmed(childrenQuery),
 ])
 const discoveredPublications = await fetchPubmedSummaries(discoveredPmids)
 const trackedPublications = await fetchPubmedSummaries([...trackedPmids])
 const newPublications = discoveredPublications.filter((record) => !trackedPmids.has(record.pmid))
 const armPmidSet = new Set(armPmids)
 const trunkAbdomenPmidSet = new Set(trunkAbdomenPmids)
+const childrenPmidSet = new Set(childrenPmids)
 const armPublications = newPublications.filter((record) => armPmidSet.has(record.pmid))
 const trunkAbdomenPublications = newPublications.filter((record) => trunkAbdomenPmidSet.has(record.pmid))
+const childrenPublications = newPublications.filter((record) => childrenPmidSet.has(record.pmid))
 const frenchPublications = newPublications.filter((record) => record.languages.includes("fre"))
 const germanPublications = newPublications.filter((record) => record.languages.includes("ger"))
 const chinesePublications = newPublications.filter((record) => record.languages.includes("chi"))
@@ -68,6 +73,7 @@ const newTrials = allTrials.filter((trial) => {
   const updated = Date.parse(`${trial.lastUpdated}T00:00:00Z`)
   return Number.isFinite(updated) && updated >= cutoff
 })
+const childrenTrials = newTrials.filter((trial) => trial.ages.includes("CHILD"))
 
 const now = new Date()
 const reviewMonth = new Intl.DateTimeFormat("en-CA", {
@@ -84,6 +90,7 @@ process.stdout.write(formatDigest({
   newPublications,
   armPublications,
   trunkAbdomenPublications,
+  childrenPublications,
   frenchPublications,
   germanPublications,
   chinesePublications,
@@ -91,6 +98,8 @@ process.stdout.write(formatDigest({
   trackedWarnings: retractionWarnings(trackedPublications),
   changedTrials,
   newTrials,
+  childrenTrials,
+  deferredCandidates,
   clinicalTrialsTimestamp: ctVersion.dataTimestamp,
 }))
 

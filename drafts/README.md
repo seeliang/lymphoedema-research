@@ -11,4 +11,6 @@ Create one folder per review month, for example `drafts/2026-09/`. A proposal sh
 - explicit notes for any claim that still needs full-text verification; and
 - no copied abstracts, personal medical information, review dates, or claim of editorial approval.
 
+`deferred-candidates.json` is the durable, human-maintained list of in-scope candidates that are not ready for promotion. Every entry records the reason for deferral and a concrete revisit trigger. Do not use it for clearly irrelevant or excluded records, and remove an entry when it is promoted or formally excluded. The monthly research report reproduces this list so automated issue refreshes do not erase editorial decisions.
+
 After a human editor checks every changed statement against its source, approved wording is manually promoted into a new version under `src/data/evidence/` and `src/data/editions.json`. The draft remains in version control as an audit trail or is closed with a documented exclusion decision.
