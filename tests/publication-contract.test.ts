@@ -73,6 +73,6 @@ describe("public edition structure", () => {
       "selected-options",
       "evidence-strength",
     ])
-    expect(translation.sectionContexts?.medicines.intro).toContain("目前没有药物被确立")
+    expect(translation.sectionContexts?.medicines.intro).toContain("目前没有哪种药物被确立为常规治疗")
   })
 })

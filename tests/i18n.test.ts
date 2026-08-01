@@ -72,13 +72,41 @@ describe("Simplified Chinese translation coverage", () => {
   it("uses patient-facing efficacy language for treatment outcomes in 8.5", () => {
     const translation = zhCNEditionTranslations["2026.08.5"]
 
-    expect(translation.translationRevision).toBe(2)
+    expect(translation.translationRevision).toBe(3)
     expect(translation.evidence["compression-self-management"].title).toBe("更灵活的加压和指导方式，可能让日常护理更容易")
     expect(translation.evidence["compression-self-management"].title).not.toContain("日常管理")
     expect(translation.evidence.microsurgery.title).toBe("显微手术可能减少蜂窝织炎，但不同疗效并不一致")
     expect(translation.evidence.microsurgery.title).not.toContain("结局")
     expect(translation.evidence["resistance-training"].takeaway).toContain("肢体状况也有所改善")
     expect(translation.evidence["resistance-training"].takeaway).not.toContain("肢体结局")
+  })
+
+  it("explains specialist research language for readers with a middle-school education in 8.5", () => {
+    const translation = zhCNEditionTranslations["2026.08.5"]
+    const chineseCopy = JSON.stringify(translation)
+
+    expect(translation.evidence["compression-self-management"].studyDesign).toContain("看前者减小小腿体积的效果是否不比后者差")
+    expect(translation.evidence.microsurgery.studyDesign).toContain("汇总了多篇系统综述")
+    expect(translation.evidence.microsurgery.studyDesign).toContain("用显微手术把淋巴管接到小静脉")
+    expect(translation.evidence.microsurgery.takeaway).toContain("蜂窝织炎（一种皮肤感染）")
+    expect(translation.evidence.microsurgery.limitation).toContain("评估疗效的指标")
+    expect(translation.evidence["primary-biology"].takeaway).toContain("淋巴系统细胞之间传递信息的方式")
+    expect(translation.evidenceOverview?.["established-foundations"].summary).toContain("把多种护理方法组合使用")
+    expect(translation.trials.NCT07012642.design).toContain("这种药物用于淋巴水肿患者的初步研究")
+    expect(translation.trials.NCT07012642.design).toContain("所有参加者都知道自己接受了什么治疗")
+    expect(translation.trials.NCT07012642.design).toContain("没有设置对照组")
+    expect(chineseCopy).not.toContain("非劣效性")
+    expect(chineseCopy).not.toContain("前瞻性单组")
+    expect(chineseCopy).not.toContain("伞状综述")
+    expect(chineseCopy).not.toContain("异质性")
+    expect(chineseCopy).not.toContain("开放标签")
+    expect(chineseCopy).not.toContain("单组干预")
+    expect(chineseCopy).not.toContain("证据网络连通性")
+    expect(chineseCopy).not.toContain("伞状")
+    expect(chineseCopy).not.toContain("网状荟萃")
+    expect(chineseCopy).not.toContain("前瞻性监测")
+    expect(chineseCopy).not.toContain("血管通透性")
+    expect(chineseCopy).not.toContain("淋巴信号")
   })
 
   it("keeps the responsibility notice qualified in both languages", () => {
