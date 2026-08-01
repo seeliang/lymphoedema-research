@@ -37,9 +37,15 @@ export function localizeEditionBundle(bundle: EditionBundle, locale: SiteLocale)
   const translatedEvidenceIds = Object.keys(translated.evidence)
   const trialIds = new Set(bundle.edition.data.trials.map((trial) => trial.nctId))
   const translatedTrialIds = Object.keys(translated.trials)
+  const deferredIds = new Set(bundle.edition.data.deferredCandidates?.map((candidate) => candidate.id) ?? [])
+  const translatedDeferredIds = Object.keys(translated.deferredCandidates ?? {})
 
   assertMatchingIds(evidenceIds, translatedEvidenceIds, "evidence", bundle.edition.data.version)
   assertMatchingIds(trialIds, translatedTrialIds, "trial", bundle.edition.data.version)
+  assertMatchingIds(deferredIds, translatedDeferredIds, "deferred candidate", bundle.edition.data.version)
+  if (bundle.edition.data.childrenFocus && !translated.childrenFocus) {
+    throw new Error(`Chinese children-focus copy is missing for ${bundle.edition.data.version}`)
+  }
 
   const evidence = bundle.evidence.map((entry) => {
     const item = translated.evidence[evidenceSlug(entry.id)]
@@ -72,11 +78,21 @@ export function localizeEditionBundle(bundle: EditionBundle, locale: SiteLocale)
         title: translated.title,
         summary: translated.summary,
         changes: translated.changes,
+        childrenFocus: bundle.edition.data.childrenFocus && translated.childrenFocus
+          ? { ...bundle.edition.data.childrenFocus, summary: translated.childrenFocus.summary }
+          : undefined,
+        deferredCandidates: bundle.edition.data.deferredCandidates?.map((candidate) => ({
+          ...candidate,
+          ...translated.deferredCandidates?.[candidate.id],
+        })),
         trials: bundle.edition.data.trials.map((trial) => ({ ...trial, ...translated.trials[trial.nctId] })),
       },
     },
     evidence,
-    notices: bundle.notices,
+    notices: bundle.notices.map((notice) => ({
+      ...notice,
+      data: { ...notice.data, message: notice.data.messageZhCN ?? notice.data.message },
+    })),
     translation: {
       status: translated.translationStatus,
       revision: translated.translationRevision,

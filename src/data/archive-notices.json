@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "version": "2026.08.2",
+    "type": "correction",
+    "publishedOn": "2026-08-01",
+    "message": "Edition 2026.08.2 described children and adolescents as the main report focus but did not render that hierarchy on the public page. Edition 2026.08.3 corrects the visible report structure.",
+    "messageZhCN": "第 2026.08.2 版说明儿童和青少年是报告重点，但公开页面没有按这一层级呈现。第 2026.08.3 版已更正页面结构。",
+    "replacementVersion": "2026.08.3"
+  }
+]

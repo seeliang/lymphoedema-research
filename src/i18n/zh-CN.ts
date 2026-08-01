@@ -27,6 +27,8 @@ export type ZhCNEditionTranslation = {
   title: string
   summary: string
   changes: string[]
+  childrenFocus?: { summary: string }
+  deferredCandidates?: Record<string, { title: string; reason: string; revisitWhen: string }>
   evidence: Record<string, EvidenceTranslation>
   trials: Record<string, TrialTranslation>
 }
@@ -239,6 +241,38 @@ zhCNEditionTranslations["2026.08.2"] = {
     "新增可长期保留的“暂缓处理”栏目，记录每项候选资料暂缓的原因和重新评估条件。",
     "本次没有把尚未完成人工审查的儿童研究候选资料加入面向患者的证据摘要。",
   ],
+}
+
+zhCNEditionTranslations["2026.08.3"] = {
+  ...structuredClone(zhCNEditionTranslations["2026.08.2"]),
+  translationStatus: "ai-assisted",
+  translationRevision: 0,
+  translatedOn: "2026-08-01",
+  changes: [
+    "更正第 2026.08.2 版：现在公开页面会把儿童和青少年明确放在首要位置，而不只是在检索报告中说明。",
+    "将内容未变的已审查摘要归入“其他现有证据”，并把原发性淋巴水肿机制研究排在乳腺癌相关运动研究之前。",
+    "新增公开可见的“暂缓处理的证据”栏目，同时继续把尚未审查的候选资料与已发表研究结论分开。",
+  ],
+  childrenFocus: {
+    summary: "最近一次覆盖 45 天的检索发现 5 篇涉及儿童或青少年的论文候选资料，以及 3 条近期更新的试验注册记录。这些资料尚未完成纳入患者证据摘要所需的原始来源审查。",
+  },
+  deferredCandidates: {
+    "PMID 40081785": {
+      title: "前瞻性监测和运动能否预防高风险患者的乳腺癌相关淋巴水肿：随机试验",
+      reason: "这项试验与现有的力量训练预防证据有较多重叠，因此暂不单独纳入。",
+      revisitWhen: "下次更新运动证据时重新评估；如果它会实质改变当前解读，也应提前复核。",
+    },
+    "PMID 41886031": {
+      title: "采用 LYMPHA 技术预防乳腺癌治疗后上肢淋巴水肿：单中心 15 年随访研究",
+      reason: "长期随访可能有价值，但这是一项非随机、单中心研究，且跨越较长治疗时期，需要详细评估患者选择等问题。",
+      revisitWhen: "完整核对患者选择、对照、随访、伤害、经费和利益冲突后重新评估。",
+    },
+    "PMID 42294341": {
+      title: "乳腺癌相关淋巴水肿的非药物治疗：基于随机对照试验的系统综述与网状荟萃分析",
+      reason: "在面向患者解释治疗排序前，需要先评估偏倚风险、证据网络连通性、异质性和证据确定性。",
+      revisitWhen: "由人工审查者完成网状荟萃分析评估后重新考虑。",
+    },
+  },
 }
 
 export function hasZhCNTranslation(version: string): boolean {

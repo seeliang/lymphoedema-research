@@ -5,7 +5,9 @@ export const enAUUI = {
   tagline: "Source-reviewed evidence snapshots",
   navigation: {
     label: "Primary navigation",
+    children: "Children",
     evidence: "Evidence",
+    deferred: "Deferred",
     trials: "Studies in progress",
     versions: "Versions",
     latest: "Latest edition",
@@ -48,6 +50,15 @@ export const enAUUI = {
     body: "This page cannot diagnose lymphoedema or tell you which treatment is right for you. Discuss changes in symptoms or care with a qualified health professional who knows your circumstances.",
   },
   translationNotice: null,
+  childrenFocus: {
+    eyebrow: "Main research focus",
+    title: "Children and adolescents",
+    publicationCandidates: (count: number) => count === 1 ? "Publication candidate" : "Publication candidates",
+    trialRecords: (count: number) => count === 1 ? "Updated trial record" : "Updated trial records",
+    caution: "These are discovery records, not evidence that a treatment works. Adult-only findings are not treated as evidence for children.",
+    reviewLink: "Open the reviewed discovery report",
+    button: "Read the children focus",
+  },
   takeaways: {
     eyebrow: "The short version",
     title: "Three things to take away",
@@ -60,6 +71,8 @@ export const enAUUI = {
   evidence: {
     eyebrow: "Published findings",
     title: "Evidence selected for this edition",
+    otherTitle: "Other current evidence",
+    otherIntro: "These reviewed summaries remain relevant to the wider lymphoedema evidence landscape. They are not presented as child-specific evidence.",
     intro: "Each summary names the population and design before explaining possible meaning. Important limits stay visible.",
     population: "Who was studied",
     design: "Study design",
@@ -67,6 +80,14 @@ export const enAUUI = {
     meaning: "What it may mean",
     limitation: "Important limitation",
     sources: (count: number) => count === 1 ? "Source" : "Sources",
+  },
+  deferred: {
+    eyebrow: "Waiting for appraisal",
+    title: "Deferred evidence",
+    intro: "These sources may be relevant, but they are not used to support this edition’s findings. Each is waiting for a stated review step.",
+    reason: "Why it is deferred",
+    revisit: "Revisit when",
+    source: "View source record",
   },
   trials: {
     eyebrow: "Being studied now",
@@ -135,7 +156,9 @@ export const zhCNUI = {
   tagline: "为患者和照护者整理的研究摘要",
   navigation: {
     label: "主导航",
+    children: "儿童",
     evidence: "研究摘要",
+    deferred: "暂缓资料",
     trials: "进行中的研究",
     versions: "历史版本",
     latest: "最新一期",
@@ -182,6 +205,15 @@ export const zhCNUI = {
     body: "本页由 AI 协助翻译，尚待独立人工语言审校。所选研究、版本号和来源链接均与全球英文版一致。如中文表述有歧义，请以英文版及所链接的原始研究为准。",
     link: "查看全球英文版",
   },
+  childrenFocus: {
+    eyebrow: "主要研究重点",
+    title: "儿童和青少年",
+    publicationCandidates: () => "论文候选资料",
+    trialRecords: () => "近期更新的试验记录",
+    caution: "这些只是检索发现，不能证明某种治疗有效。仅针对成年人的研究结果不会被当作儿童证据。",
+    reviewLink: "查看已复核的检索报告",
+    button: "查看儿童研究重点",
+  },
   takeaways: {
     eyebrow: "先看重点",
     title: "先记住这三点",
@@ -194,6 +226,8 @@ export const zhCNUI = {
   evidence: {
     eyebrow: "已发表研究",
     title: "本期研究摘要",
+    otherTitle: "其他现有证据",
+    otherIntro: "这些已审查摘要仍有助于了解更广泛的淋巴水肿研究，但不会被当作儿童专属证据。",
     intro: "每则摘要先交代研究对象和方法，再说明研究发现该如何理解，同时把重要局限清楚列出。",
     population: "研究了谁",
     design: "怎么研究",
@@ -201,6 +235,14 @@ export const zhCNUI = {
     meaning: "如何理解",
     limitation: "需要注意",
     sources: () => "来源",
+  },
+  deferred: {
+    eyebrow: "等待进一步评估",
+    title: "暂缓处理的证据",
+    intro: "这些资料可能相关，但本期不会用它们支持研究结论。每项资料都列出了需要等待的审查步骤。",
+    reason: "暂缓原因",
+    revisit: "重新评估条件",
+    source: "查看资料来源",
   },
   trials: {
     eyebrow: "仍在研究",

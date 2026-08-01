@@ -32,6 +32,8 @@ Simplified Chinese should read as natural patient-facing Chinese rather than fol
 
 Repository-aware agents can invoke the bundled `$translate-lymphoedema-zh` skill in `.codex/skills/translate-lymphoedema-zh/` to apply that workflow and run deterministic English-Chinese parity checks.
 
+For an edition release, invoke `$publish-lymphoedema-edition` from `.codex/skills/publish-lymphoedema-edition/`. It treats the requested public hierarchy as a rendered-output contract, preserves old snapshots, and requires the built English and Chinese pages—not only source data or scanner reports—to pass before publication.
+
 ## Local development
 
 ```sh

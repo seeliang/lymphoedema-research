@@ -46,6 +46,21 @@ const trialSchema = z.object({
   caution: z.string().min(20),
 })
 
+const deferredCandidateSchema = z.object({
+  id: z.string().min(3),
+  title: z.string().min(8),
+  url: z.url().refine((value) => value.startsWith("https://"), "Deferred sources must use HTTPS"),
+  reason: z.string().min(20),
+  revisitWhen: z.string().min(20),
+})
+
+const childrenFocusSchema = z.object({
+  publicationCandidates: z.number().int().nonnegative(),
+  trialRecords: z.number().int().nonnegative(),
+  summary: z.string().min(20),
+  reviewUrl: z.url().refine((value) => value.startsWith("https://"), "Review links must use HTTPS"),
+})
+
 const editions = defineCollection({
   loader: file("src/data/editions.json"),
   schema: z.object({
@@ -57,6 +72,8 @@ const editions = defineCollection({
     title: z.string().min(8),
     summary: z.string().min(20),
     changes: z.array(z.string().min(5)).min(1),
+    childrenFocus: childrenFocusSchema.optional(),
+    deferredCandidates: z.array(deferredCandidateSchema).optional(),
     trials: z.array(trialSchema),
   }),
 })

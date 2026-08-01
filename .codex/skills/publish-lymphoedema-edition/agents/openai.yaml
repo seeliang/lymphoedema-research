@@ -1,0 +1,4 @@
+interface:
+  display_name: "Publish Lymphoedema Edition"
+  short_description: "Publish and verify visible research editions"
+  default_prompt: "Use $publish-lymphoedema-edition to publish an immutable bilingual research edition and verify the rendered public hierarchy."

@@ -8,6 +8,7 @@ export type ArchiveNoticeData = {
   type: "correction" | "retraction" | "safety" | "withdrawal"
   publishedOn: string
   message: string
+  messageZhCN?: string
   replacementVersion?: string
   sourceUrl?: string
 }
