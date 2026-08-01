@@ -1,0 +1,23 @@
+---
+import EditionPage from "../../components/EditionPage.astro"
+import BaseLayout from "../../layouts/BaseLayout.astro"
+import { getCurrentEdition, getEditionBundle } from "../../lib/content"
+import { localizeEditionBundle } from "../../lib/i18n"
+
+const current = await getCurrentEdition()
+const bundle = localizeEditionBundle(await getEditionBundle(current.data.version), "zh-CN")
+const title = "淋巴水肿研究简报——全球证据摘要"
+const description = `面向患者与照护者的全球淋巴水肿研究、重要局限及正在进行的试验简体中文摘要。版本 ${current.data.version}。`
+const needsHumanTranslationReview = bundle.translation?.status !== "human-reviewed"
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalPath="/zh-cn/"
+  lang="zh-CN"
+  noindex={needsHumanTranslationReview}
+  alternatePaths={{ enAU: "/", zhCN: "/zh-cn/" }}
+>
+  <EditionPage {...bundle} />
+</BaseLayout>

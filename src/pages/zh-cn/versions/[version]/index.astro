@@ -1,0 +1,33 @@
+---
+import EditionPage from "../../../../components/EditionPage.astro"
+import BaseLayout from "../../../../layouts/BaseLayout.astro"
+import { getAllEditions, getEditionBundle } from "../../../../lib/content"
+import { hasZhCNTranslation, localizeEditionBundle, type LocalizedEditionBundle } from "../../../../lib/i18n"
+
+export async function getStaticPaths() {
+  const editions = (await getAllEditions()).filter((edition) => hasZhCNTranslation(edition.data.version))
+  return Promise.all(editions.map(async (edition) => ({
+    params: { version: edition.data.version },
+    props: { bundle: localizeEditionBundle(await getEditionBundle(edition.data.version), "zh-CN") },
+  })))
+}
+
+interface Props { bundle: LocalizedEditionBundle }
+const { bundle } = Astro.props
+const title = `版本 ${bundle.edition.data.version}——淋巴水肿研究简报`
+const description = `全球英文证据版本 ${bundle.edition.data.version} 的简体中文翻译，包括研究局限与试验状态。`
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalPath={`/zh-cn/versions/${bundle.edition.data.version}/`}
+  lang="zh-CN"
+  noindex
+  alternatePaths={{
+    enAU: `/versions/${bundle.edition.data.version}/`,
+    zhCN: `/zh-cn/versions/${bundle.edition.data.version}/`,
+  }}
+>
+  <EditionPage {...bundle} archive />
+</BaseLayout>

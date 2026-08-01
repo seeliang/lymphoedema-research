@@ -51,10 +51,18 @@ jobs:
           set -euo pipefail
           tag="research-${VERSION}"
           artifact="dist/versions/${VERSION}/edition.json"
+          assets=("${artifact}#edition-${VERSION}.json")
+          chinese_artifact="dist/zh-cn/versions/${VERSION}/edition.json"
+          if [[ -f "${chinese_artifact}" ]]; then
+            chinese_release_artifact="/tmp/edition-${VERSION}.zh-CN.json"
+            cp "${chinese_artifact}" "${chinese_release_artifact}"
+            assets+=("${chinese_release_artifact}#edition-${VERSION}.zh-CN.json")
+          fi
           if gh release view "${tag}" >/dev/null 2>&1; then
-            gh release upload "${tag}" "${artifact}#edition-${VERSION}.json" --clobber
+            gh release edit "${tag}" --notes-file /tmp/release-notes.md
+            gh release upload "${tag}" "${assets[@]}" --clobber
           else
-            gh release create "${tag}" "${artifact}#edition-${VERSION}.json" --title "Lymphoedema Research Brief ${VERSION}" --notes-file /tmp/release-notes.md --verify-tag
+            gh release create "${tag}" "${assets[@]}" --title "Lymphoedema Research Brief ${VERSION}" --notes-file /tmp/release-notes.md --verify-tag
           fi
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

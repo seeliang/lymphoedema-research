@@ -31,3 +31,9 @@ The project does not publish cure claims, individual recommendations, drug doses
 ## Monthly review
 
 A new calendar edition records each completed monthly review, including months in which no evidence item changes. The next-review date is visible and the publication build fails after it becomes overdue.
+
+## Languages and translations
+
+The `en-AU` edition is the primary global evidence record. Translations are secondary presentations of that record, not independent evidence feeds. They must preserve the source edition number, population, study design, meaning, limitation, trial/result distinction, and direct global source links.
+
+Translation status is separate from source-review status. AI-assisted wording must be labelled, must not claim independent human review, and remains excluded from search indexing until a human language reviewer checks it. Translation-only changes increment the locale's translation revision without changing the global evidence edition. If translation review exposes an error in the underlying evidence summary, the global correction policy applies first and every translation must follow it.

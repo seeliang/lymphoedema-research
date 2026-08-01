@@ -18,6 +18,14 @@ Research editions use calendar versioning:
 
 The current edition appears at the site root. Immutable snapshots remain browsable under `/versions/<edition>/`. Later corrections are attached as notices instead of silently rewriting what an old edition said.
 
+## Languages and source hierarchy
+
+The global English edition (`en-AU`) is the primary research record. It selects evidence from international journals, consensus documents, PubMed, and ClinicalTrials.gov without limiting discovery to one country or language.
+
+Simplified Chinese (`zh-CN`) is a secondary translation layer under `/zh-cn/`. It must translate the same edition, evidence items, trial records, limitations, and global source links one-to-one; it cannot maintain a separate research selection or replace a primary source with a Chinese-language commentary. Chinese terminology references may guide wording but are not evidence sources.
+
+Each translation records a translation status, date, and independent revision number. AI-assisted translations remain visibly labelled and `noindex` until an independent human language review is recorded. A translation-only correction increments `translationRevision`; a change to the underlying global evidence creates a new calendar or patch edition.
+
 ## Local development
 
 ```sh

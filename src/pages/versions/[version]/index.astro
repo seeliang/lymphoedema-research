@@ -1,17 +1,18 @@
 ---
 import EditionPage from "../../../components/EditionPage.astro"
 import BaseLayout from "../../../layouts/BaseLayout.astro"
-import { getAllEditions, getEditionBundle, type EditionBundle } from "../../../lib/content"
+import { getAllEditions, getEditionBundle } from "../../../lib/content"
+import { hasZhCNTranslation, localizeEditionBundle, type LocalizedEditionBundle } from "../../../lib/i18n"
 
 export async function getStaticPaths() {
   const editions = await getAllEditions()
   return Promise.all(editions.map(async (edition) => ({
     params: { version: edition.data.version },
-    props: { bundle: await getEditionBundle(edition.data.version) },
+    props: { bundle: localizeEditionBundle(await getEditionBundle(edition.data.version), "en-AU") },
   })))
 }
 
-interface Props { bundle: EditionBundle }
+interface Props { bundle: LocalizedEditionBundle }
 const { bundle } = Astro.props
 const title = `Edition ${bundle.edition.data.version} — Lymphoedema Research Brief`
 const description = `Permanent evidence snapshot reviewed ${bundle.edition.data.reviewedOn}. Source-reviewed summaries with limitations and trial status.`
@@ -22,6 +23,10 @@ const description = `Permanent evidence snapshot reviewed ${bundle.edition.data.
   description={description}
   canonicalPath={`/versions/${bundle.edition.data.version}/`}
   noindex
+  alternatePaths={hasZhCNTranslation(bundle.edition.data.version) ? {
+    enAU: `/versions/${bundle.edition.data.version}/`,
+    zhCN: `/zh-cn/versions/${bundle.edition.data.version}/`,
+  } : undefined}
 >
   <EditionPage {...bundle} archive />
 </BaseLayout>

@@ -32,6 +32,17 @@ try {
   throw new Error(`Build artifact missing or invalid: ${jsonArtifact}. Run pnpm check first.`)
 }
 
+let chineseTranslation
+const chineseArtifact = join(root, "dist", "zh-cn", "versions", version, "edition.json")
+try {
+  chineseTranslation = JSON.parse(await readFile(chineseArtifact, "utf8"))
+  if (chineseTranslation.version !== version || chineseTranslation.locale !== "zh-CN") {
+    throw new Error(`Chinese build artifact does not identify edition ${version}`)
+  }
+} catch (error) {
+  if (error?.code !== "ENOENT") throw error
+}
+
 const notes = [
   `# Lymphoedema Research Brief ${version}`,
   "",
@@ -45,6 +56,9 @@ const notes = [
   "",
   `Evidence entries: ${evidenceFiles.length}`,
   `Tracked trials: ${edition.trials.length}`,
+  ...(chineseTranslation ? [
+    `Simplified Chinese translation: revision ${chineseTranslation.translationRevision} (${chineseTranslation.translationStatus})`,
+  ] : []),
   "",
   "General information only. Not medical advice. Source-reviewed; not clinician-reviewed.",
   "",
