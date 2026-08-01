@@ -1,6 +1,7 @@
 ---
 edition: "2026.08.3"
-order: 3
+order: 2
+section: "understanding-diagnosis"
 area: "Imaging"
 title: "ICG lymphography is promising, but protocols are not yet consistent"
 population: "People investigated for primary lower-limb lymphoedema"

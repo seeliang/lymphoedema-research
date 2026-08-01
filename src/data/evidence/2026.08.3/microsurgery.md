@@ -1,6 +1,7 @@
 ---
 edition: "2026.08.3"
 order: 4
+section: "treatment-management"
 area: "Microsurgery"
 title: "Microsurgery may reduce cellulitis, but outcomes differ"
 population: "People with secondary lower-extremity lymphoedema; broader surgical reviews include varied causes and disease stages"

@@ -1,6 +1,7 @@
 ---
 edition: "2026.08.3"
 order: 5
+section: "treatment-management"
 area: "Prevention and exercise"
 title: "Progressive resistance training may reduce lymphoedema risk after breast-cancer surgery"
 population: "Women after breast-cancer surgery who were at risk of lymphoedema; a broader review also included people already living with breast-cancer-related lymphoedema"

@@ -18,6 +18,7 @@ const evidence = defineCollection({
   schema: z.object({
     edition: editionVersion,
     order: z.number().int().positive(),
+    section: z.enum(["understanding-diagnosis", "treatment-management"]).optional(),
     area: z.enum(["Prevention and exercise", "Compression and self-management", "Microsurgery", "Imaging", "Primary lymphoedema biology"]),
     title: z.string().min(8),
     population: z.string().min(8),

@@ -26,7 +26,7 @@ describe("public edition structure", () => {
     const current = editions.find((edition) => edition.status === "current") as PublicReportEdition | undefined
 
     expect(current?.version).toBe("2026.08.3")
-    expect(current?.schemaVersion).toBe(2)
+    expect(current?.schemaVersion).toBe(3)
     expect(current?.childrenFocus).toMatchObject({ publicationCandidates: 5, trialRecords: 3 })
     expect(current?.childrenFocus?.summary).toContain("None has completed")
     expect(current?.deferredCandidates).toHaveLength(3)

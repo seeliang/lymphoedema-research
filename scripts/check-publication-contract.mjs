@@ -29,28 +29,80 @@ assertEqual(chineseArtifact.locale, "zh-CN", "Chinese artifact locale")
 
 if (edition.childrenFocus) {
   for (const [label, html] of [["English current", englishCurrentHtml], ["English archive", englishHtml]]) {
-    assertOrderedSections(html, ["children", "evidence", "deferred", "trials"], label)
+    assertOrderedSections(html, ["children", "evidence", "understanding-diagnosis", "treatment", "deferred", "trials"], label)
     assertIncludes(html, "Children and adolescents", `${label} children heading`)
     assertIncludes(html, "Other current evidence", `${label} secondary evidence heading`)
+    assertIncludes(html, "Understanding and diagnosis", `${label} understanding heading`)
+    assertIncludes(html, "Treatment and management", `${label} treatment heading`)
     assertIncludes(html, "Deferred evidence", `${label} deferred heading`)
     assertTextOrder(
       html,
+      'id="understanding-diagnosis"',
       "Genetic and tissue studies are refining disease mechanisms—not treatment yet",
+      `${label} understanding section start`,
+    )
+    assertTextOrder(
+      html,
+      "Genetic and tissue studies are refining disease mechanisms—not treatment yet",
+      "ICG lymphography is promising, but protocols are not yet consistent",
+      `${label} understanding evidence order`,
+    )
+    assertTextOrder(
+      html,
+      "ICG lymphography is promising, but protocols are not yet consistent",
+      'id="treatment"',
+      `${label} treatment boundary`,
+    )
+    assertTextOrder(
+      html,
+      'id="treatment"',
+      "New delivery options may make conservative care easier to manage",
+      `${label} treatment section start`,
+    )
+    assertTextOrder(
+      html,
+      "New delivery options may make conservative care easier to manage",
       "Progressive resistance training may reduce lymphoedema risk after breast-cancer surgery",
-      `${label} evidence order`,
+      `${label} treatment evidence order`,
     )
   }
   for (const [label, html] of [["Chinese current", chineseCurrentHtml], ["Chinese archive", chineseHtml]]) {
-    assertOrderedSections(html, ["children", "evidence", "deferred", "trials"], label)
+    assertOrderedSections(html, ["children", "evidence", "understanding-diagnosis", "treatment", "deferred", "trials"], label)
     assertIncludes(html, "儿童和青少年", `${label} children heading`)
     assertIncludes(html, "其他现有证据", `${label} secondary evidence heading`)
+    assertIncludes(html, "了解病因和诊断", `${label} understanding heading`)
+    assertIncludes(html, "治疗与管理", `${label} treatment heading`)
     assertIncludes(html, "暂缓处理的证据", `${label} deferred heading`)
     assertIncludes(html, 'name="robots" content="noindex', `${label} noindex metadata`)
     assertTextOrder(
       html,
+      'id="understanding-diagnosis"',
       "基因和组织研究正在帮助理解病因，但还没有带来新的治疗",
+      `${label} understanding section start`,
+    )
+    assertTextOrder(
+      html,
+      "基因和组织研究正在帮助理解病因，但还没有带来新的治疗",
+      "吲哚菁绿（ICG）淋巴造影值得关注，但检查方法尚未统一",
+      `${label} understanding evidence order`,
+    )
+    assertTextOrder(
+      html,
+      "吲哚菁绿（ICG）淋巴造影值得关注，但检查方法尚未统一",
+      'id="treatment"',
+      `${label} treatment boundary`,
+    )
+    assertTextOrder(
+      html,
+      'id="treatment"',
+      "更灵活的加压和指导方式，可能让日常管理更容易",
+      `${label} treatment section start`,
+    )
+    assertTextOrder(
+      html,
+      "更灵活的加压和指导方式，可能让日常管理更容易",
       "乳腺癌手术后，渐进式力量训练可能有助于降低淋巴水肿风险",
-      `${label} evidence order`,
+      `${label} treatment evidence order`,
     )
   }
 
@@ -60,6 +112,12 @@ if (edition.childrenFocus) {
   assertEqual(chineseArtifact.childrenFocus?.trialRecords, edition.childrenFocus.trialRecords, "Chinese child trial count")
   assertEqual(englishArtifact.deferredCandidates?.length, edition.deferredCandidates?.length, "English deferred candidate count")
   assertEqual(chineseArtifact.deferredCandidates?.length, edition.deferredCandidates?.length, "Chinese deferred candidate count")
+  const expectedEvidenceSections = JSON.stringify({
+    "understanding-diagnosis": ["primary-biology", "icg-imaging"],
+    "treatment-management": ["compression-self-management", "microsurgery", "resistance-training"],
+  })
+  assertEqual(JSON.stringify(groupEvidenceSections(englishArtifact.evidence)), expectedEvidenceSections, "English evidence sections")
+  assertEqual(JSON.stringify(groupEvidenceSections(chineseArtifact.evidence)), expectedEvidenceSections, "Chinese evidence sections")
 
 }
 
@@ -102,4 +160,14 @@ function assertTextOrder(source, first, second, label) {
   if (firstIndex < 0 || secondIndex < 0 || firstIndex >= secondIndex) {
     throw new Error(`${label} mismatch: expected "${first}" before "${second}"`)
   }
+}
+
+function groupEvidenceSections(evidence) {
+  return evidence.reduce((groups, entry) => {
+    if (!entry.section) return groups
+    const id = entry.id.split("/").at(-1)
+    groups[entry.section] ??= []
+    groups[entry.section].push(id)
+    return groups
+  }, {})
 }

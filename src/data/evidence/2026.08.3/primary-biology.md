@@ -1,6 +1,7 @@
 ---
 edition: "2026.08.3"
 order: 1
+section: "understanding-diagnosis"
 area: "Primary lymphoedema biology"
 title: "Genetic and tissue studies are refining disease mechanisms—not treatment yet"
 population: "Small groups of people with primary lymphoedema, including Milroy-disease-like presentations"

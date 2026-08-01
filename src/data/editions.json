@@ -130,7 +130,7 @@
   {
     "id": "2026.08.3",
     "version": "2026.08.3",
-    "schemaVersion": 2,
+    "schemaVersion": 3,
     "status": "current",
     "reviewedOn": "2026-08-01",
     "nextReviewDue": "2026-09-01",

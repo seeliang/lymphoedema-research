@@ -1,6 +1,7 @@
 ---
 edition: "2026.08.3"
-order: 2
+order: 3
+section: "treatment-management"
 area: "Compression and self-management"
 title: "New delivery options may make conservative care easier to manage"
 population: "People with lower-limb lymphoedema receiving intensive decongestive therapy"

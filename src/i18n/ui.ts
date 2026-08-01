@@ -7,6 +7,7 @@ export const enAUUI = {
     label: "Primary navigation",
     children: "Children",
     evidence: "Evidence",
+    treatment: "Treatment",
     deferred: "Deferred",
     trials: "Studies in progress",
     versions: "Versions",
@@ -74,6 +75,16 @@ export const enAUUI = {
     otherTitle: "Other current evidence",
     otherIntro: "These reviewed summaries remain relevant to the wider lymphoedema evidence landscape. They are not presented as child-specific evidence.",
     intro: "Each summary names the population and design before explaining possible meaning. Important limits stay visible.",
+    groups: {
+      understandingDiagnosis: {
+        title: "Understanding and diagnosis",
+        intro: "Research about disease mechanisms and imaging can improve understanding or assessment, but it does not by itself establish a treatment.",
+      },
+      treatmentManagement: {
+        title: "Treatment and management",
+        intro: "These studies examine ways to prevent or manage lymphoedema. The cards describe who was studied and where uncertainty remains.",
+      },
+    },
     population: "Who was studied",
     design: "Study design",
     finding: "What researchers found",
@@ -158,6 +169,7 @@ export const zhCNUI = {
     label: "主导航",
     children: "儿童",
     evidence: "研究摘要",
+    treatment: "治疗与管理",
     deferred: "暂缓资料",
     trials: "进行中的研究",
     versions: "历史版本",
@@ -229,6 +241,16 @@ export const zhCNUI = {
     otherTitle: "其他现有证据",
     otherIntro: "这些已审查摘要仍有助于了解更广泛的淋巴水肿研究，但不会被当作儿童专属证据。",
     intro: "每则摘要先交代研究对象和方法，再说明研究发现该如何理解，同时把重要局限清楚列出。",
+    groups: {
+      understandingDiagnosis: {
+        title: "了解病因和诊断",
+        intro: "疾病机制和影像研究有助于理解或评估淋巴水肿，但这些研究本身不能证明某种治疗有效。",
+      },
+      treatmentManagement: {
+        title: "治疗与管理",
+        intro: "这些研究关注怎样预防或管理淋巴水肿。每则摘要都会说明研究对象，以及目前仍有哪些不确定性。",
+      },
+    },
     population: "研究了谁",
     design: "怎么研究",
     finding: "研究发现",

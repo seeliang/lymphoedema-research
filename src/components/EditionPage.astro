@@ -16,6 +16,24 @@ const isChinese = locale === "zh-CN"
 const copy = isChinese ? zhCNUI : enAUUI
 const childrenFocus = data.childrenFocus
 const deferredCandidates = data.deferredCandidates ?? []
+const hasEvidenceGrouping = evidence.length > 0 && evidence.every((entry) => entry.data.section)
+const evidenceGroups = hasEvidenceGrouping
+  ? [
+      {
+        id: "understanding-diagnosis",
+        title: copy.evidence.groups.understandingDiagnosis.title,
+        intro: copy.evidence.groups.understandingDiagnosis.intro,
+        entries: evidence.filter((entry) => entry.data.section === "understanding-diagnosis"),
+      },
+      {
+        id: "treatment",
+        title: copy.evidence.groups.treatmentManagement.title,
+        intro: copy.evidence.groups.treatmentManagement.intro,
+        entries: evidence.filter((entry) => entry.data.section === "treatment-management"),
+      },
+    ]
+  : [{ id: null, title: null, intro: null, entries: evidence }]
+const hasTreatmentSection = evidenceGroups.some((group) => group.id === "treatment" && group.entries.length > 0)
 const formatDate = (date: string) => new Intl.DateTimeFormat(locale, {
   day: "numeric",
   month: "long",
@@ -42,6 +60,7 @@ const translationAvailable = hasZhCNTranslation(data.version)
       <nav aria-label={copy.navigation.label}>
         {childrenFocus && <a href={archive ? withBase(`${isChinese ? "/zh-cn" : ""}/versions/${data.version}/#children`) : "#children"}>{copy.navigation.children}</a>}
         <a href={archive ? withBase(`${isChinese ? "/zh-cn" : ""}/versions/${data.version}/#evidence`) : "#evidence"}>{copy.navigation.evidence}</a>
+        {hasTreatmentSection && <a href={archive ? withBase(`${isChinese ? "/zh-cn" : ""}/versions/${data.version}/#treatment`) : "#treatment"}>{copy.navigation.treatment}</a>}
         {deferredCandidates.length > 0 && <a href={archive ? withBase(`${isChinese ? "/zh-cn" : ""}/versions/${data.version}/#deferred`) : "#deferred"}>{copy.navigation.deferred}</a>}
         <a href={archive ? withBase(`${isChinese ? "/zh-cn" : ""}/versions/${data.version}/#trials`) : "#trials"}>{copy.navigation.trials}</a>
         <a href={withBase(versionsPath)}>{copy.navigation.versions}</a>
@@ -199,49 +218,61 @@ const translationAvailable = hasZhCNTranslation(data.version)
         <p>{childrenFocus ? copy.evidence.otherIntro : copy.evidence.intro}</p>
       </div>
 
-      <div class="evidence-list">
-        {evidence.map((entry) => (
-          <article class="evidence-card">
-            <div class="evidence-card-topline">
-              <span class="evidence-number">{String(entry.data.order).padStart(2, "0")}</span>
-              <div class="badge-row">
-                <span class="badge">{entry.data.area}</span>
-                <span class="badge badge--level">{entry.data.evidenceLevel}</span>
+      <div class="evidence-groups">
+        {evidenceGroups.map((group) => (
+          <div class="evidence-group" id={group.id ?? undefined} aria-labelledby={group.id ? `${group.id}-title` : undefined}>
+            {group.title && (
+              <div class="evidence-group-heading">
+                <h3 id={`${group.id}-title`}>{group.title}</h3>
+                <p>{group.intro}</p>
               </div>
+            )}
+            <div class="evidence-list">
+              {group.entries.map((entry) => (
+                <article class="evidence-card">
+                  <div class="evidence-card-topline">
+                    <span class="evidence-number">{String(entry.data.order).padStart(2, "0")}</span>
+                    <div class="badge-row">
+                      <span class="badge">{entry.data.area}</span>
+                      <span class="badge badge--level">{entry.data.evidenceLevel}</span>
+                    </div>
+                  </div>
+                  {group.title ? <h4 class="evidence-card-title">{entry.data.title}</h4> : <h3 class="evidence-card-title">{entry.data.title}</h3>}
+                  <dl class="study-context">
+                    <div><dt>{copy.evidence.population}</dt><dd>{entry.data.population}</dd></div>
+                    <div><dt>{copy.evidence.design}</dt><dd>{entry.data.studyDesign}</dd></div>
+                  </dl>
+                  <div class="finding-grid">
+                    <div>
+                      {group.title ? <h5>{copy.evidence.finding}</h5> : <h4>{copy.evidence.finding}</h4>}
+                      <p>{entry.data.takeaway}</p>
+                    </div>
+                    <div>
+                      {group.title ? <h5>{copy.evidence.meaning}</h5> : <h4>{copy.evidence.meaning}</h4>}
+                      <p>{entry.data.meaning}</p>
+                    </div>
+                  </div>
+                  <aside class="limitation">
+                    <strong>{copy.evidence.limitation}</strong>
+                    <p>{entry.data.limitation}</p>
+                  </aside>
+                  <div class="sources" aria-label={copy.evidence.sources(entry.data.sources.length)}>
+                    <strong>{copy.evidence.sources(entry.data.sources.length)}</strong>
+                    <ul>
+                      {entry.data.sources.map((source) => (
+                        <li>
+                          <a href={source.url}>
+                            {source.label}
+                            <ExternalLinkIcon />
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </article>
+              ))}
             </div>
-            <h3>{entry.data.title}</h3>
-            <dl class="study-context">
-              <div><dt>{copy.evidence.population}</dt><dd>{entry.data.population}</dd></div>
-              <div><dt>{copy.evidence.design}</dt><dd>{entry.data.studyDesign}</dd></div>
-            </dl>
-            <div class="finding-grid">
-              <div>
-                <h4>{copy.evidence.finding}</h4>
-                <p>{entry.data.takeaway}</p>
-              </div>
-              <div>
-                <h4>{copy.evidence.meaning}</h4>
-                <p>{entry.data.meaning}</p>
-              </div>
-            </div>
-            <aside class="limitation">
-              <strong>{copy.evidence.limitation}</strong>
-              <p>{entry.data.limitation}</p>
-            </aside>
-            <div class="sources" aria-label={copy.evidence.sources(entry.data.sources.length)}>
-              <strong>{copy.evidence.sources(entry.data.sources.length)}</strong>
-              <ul>
-                {entry.data.sources.map((source) => (
-                  <li>
-                    <a href={source.url}>
-                      {source.label}
-                      <ExternalLinkIcon />
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </article>
+          </div>
         ))}
       </div>
     </div>
